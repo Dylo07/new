@@ -8,11 +8,11 @@
 <div class="video-container h-screen fixed top-0 left-0 w-full">
     <iframe 
         src="https://www.youtube.com/embed/KKjaD5vsRtY?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playlist=KKjaD5vsRtY" 
-        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto"
+        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto scale-125"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
     ></iframe>
-    <div class="absolute inset-0 bg-black bg-opacity-70"></div>
+    <div class="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm"></div>
 </div>
 
 <!-- Main Content -->
@@ -21,12 +21,12 @@
 <div class="relative">
 <!-- Search Section -->
 <section class="min-h-screen flex items-center justify-center relative z-10">
-   <div class="content container mx-auto px-4">
-       <div class="text-center mb-16">
-           <h1 class="text-white text-5xl font-bold mb-4">Soba Lanka Holiday Resort</h1>
-           <h2 class="text-white text-3xl mb-4">Opulence Beyond Imagination</h2>
-           <p class="text-white text-xl">Enjoy your most glorious moments with us</p>
-       </div>
+    <div class="content container mx-auto px-4">
+        <div class="text-center mb-16 animate-fade-in">
+            <h1 class="text-white text-6xl font-light mb-4 tracking-wider">Soba Lanka Holiday Resort</h1>
+            <h2 class="text-white text-3xl mb-4 font-light">Opulence Beyond Imagination</h2>
+            <p class="text-white  text-xl">Enjoy your most glorious moments with us</p>
+        </div>
        
        <!-- Booking Form -->
        <div class="max-w-4xl mx-auto bg-black bg-opacity-50 p-6 rounded-lg">
@@ -74,37 +74,54 @@
         </form>
     </div>
 </div>
+
+<!-- Add Scroll Indicator -->
+<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </div>
 </section>
 <!-- Promotional Section -->
-<section class="relative z-10 bg-black">
-
-
-<div class="container mx-auto px-4 py-24 relative z-10">
-   <div class="flex flex-col md:flex-row items-center gap-12">
-       <!-- Left side - Image -->
-       <div class="w-full md:w-1/2">
-           <img 
-               src="{{ asset('images/pool-night.jpg') }}" 
-               alt="Luxury Pool at Night" 
-               class="rounded-lg shadow-2xl w-full h-auto"
-           >
-       </div>
-       <!-- Right side - Text -->
-       <div class="w-full md:w-1/2 text-white">
-           <h2 class="text-5xl font-bold leading-tight mb-6">
-               Discover a hotel that defines a new dimension of luxury.
-           </h2>
-           <p class="text-3xl mb-8">Emotional luxury.</p>
-           <a href="{{ route('about') }}" 
-               class="inline-block border-2 border-white text-white px-8 py-3 hover:bg-white hover:text-black transition-300">
-               View More
-           </a>
-           
-       </div>
-       
-   </div>
-  
-</div>
+<section class="relative z-10 bg-black animate-on-scroll">
+    <div class="container mx-auto px-4 py-24 relative z-10">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <!-- Left side - Image with overlay -->
+            <div class="w-full md:w-1/2 relative overflow-hidden rounded-2xl group">
+                <img 
+                    src="{{ asset('images/pool-night.jpg') }}" 
+                    alt="Luxury Pool at Night" 
+                    class="rounded-2xl shadow-2xl w-full h-[600px] object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-2xl"></div>
+            </div>
+            
+            <!-- Right side - Text -->
+            <div class="w-full md:w-1/2 text-white space-y-8">
+                <h2 class="text-5xl font-light leading-tight">
+                    Discover a hotel that defines
+                    <span class="text-green-400">a new dimension</span> 
+                    of luxury
+                </h2>
+                <p class="text-3xl text-white/80">Emotional luxury.</p>
+                <div class="space-y-4 text-lg text-white/70">
+                    <p>Experience unparalleled comfort and elegance in our meticulously designed spaces.</p>
+                    <p>Every detail has been carefully curated to ensure your stay exceeds expectations.</p>
+                </div>
+                <a href="{{ route('about') }}" 
+                    class="inline-block border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-black transition-all duration-300 group">
+                    <span class="inline-flex items-center gap-2">
+                        View More
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 
@@ -116,7 +133,7 @@
         <!-- Deluxe Suite -->
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/deluxe-suite.jpg') }}" 
+                src="{{ asset('images/deluxe-suite-min.jpg') }}" 
                 alt="Deluxe Suite" 
                 class="w-full h-96 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
             >
@@ -127,7 +144,7 @@
         <!-- Signature Suite -->
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/signature-suite.jpg') }}" 
+                src="{{ asset('images/signature-suite-min.jpg') }}" 
                 alt="Signature Suite" 
                 class="w-full h-96 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
             >
@@ -138,7 +155,7 @@
         <!-- Luxury Suite -->
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/luxury-suite.jpg') }}" 
+                src="{{ asset('images/luxury-suite-min.jpg') }}" 
                 alt="Luxury Suite" 
                 class="w-full h-96 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
             >
@@ -170,7 +187,7 @@
         <!-- Right Side - Image -->
         <div class="w-full md:w-1/2">
             <img 
-                src="{{ asset('images/restaurant-dish.jpg') }}" 
+                src="{{ asset('images/restaurant-dish-min.jpg') }}" 
                 alt="Gourmet Dish" 
                 class="rounded-full w-[600px] h-[600px] object-cover shadow-2xl"
             >
@@ -194,7 +211,7 @@
         <!-- Restaurant -->
         <div class="relative group overflow-hidden cursor-pointer">
             <img 
-                src="{{ asset('images/facilities/restaurant.jpg') }}" 
+                src="{{ asset('images/facilities/restaurant-min.jpg') }}" 
                 alt="Restaurant" 
                 class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -205,7 +222,7 @@
         <!-- Banquet Hall -->
         <div class="relative group overflow-hidden cursor-pointer">
             <img 
-                src="{{ asset('images/facilities/banquet-hall.jpg') }}" 
+                src="{{ asset('images/facilities/banquet-hall-min.jpg') }}" 
                 alt="Banquet Hall" 
                 class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -216,7 +233,7 @@
         <!-- Swimming Pool -->
         <div class="relative group overflow-hidden cursor-pointer">
             <img 
-                src="{{ asset('images/facilities/swimming-pool.jpg') }}" 
+                src="{{ asset('images/facilities/swimming-pool-min.jpg') }}" 
                 alt="Swimming Pool" 
                 class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -227,7 +244,7 @@
         <!-- Pub & Bar -->
         <div class="relative group overflow-hidden cursor-pointer">
             <img 
-                src="{{ asset('images/pub-bar.jpg') }}" 
+                src="{{ asset('images/pub-bar-min.jpg') }}" 
                 alt="Pub & Bar" 
                 class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -238,7 +255,7 @@
         <!-- Indoor Games -->
         <div class="relative group overflow-hidden cursor-pointer">
             <img 
-                src="{{ asset('images/facilities/indoor-games.jpg') }}" 
+                src="{{ asset('images/facilities/indoor-games-min.jpg') }}" 
                 alt="Indoor Games" 
                 class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -249,7 +266,7 @@
         <!-- Outdoor Games -->
         <div class="relative group overflow-hidden cursor-pointer">
             <img 
-                src="{{ asset('images/facilities/outdoor-games.jpg') }}" 
+                src="{{ asset('images/facilities/outdoor-games-min.jpg') }}" 
                 alt="Outdoor Games" 
                 class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -271,7 +288,7 @@
         <!-- Rooms & Cottages -->
         <div class="relative group overflow-hidden cursor-pointer">
             <img 
-                src="{{ asset('images/facilities/rooms-cottages.jpg') }}" 
+                src="{{ asset('images/facilities/rooms-cottages-min.jpg') }}" 
                 alt="Rooms & Cottages" 
                 class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -305,7 +322,7 @@
         <!-- Row 1 -->
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/gallery/gallery-1.jpg') }}" 
+                src="{{ asset('images/gallery/gallery-1-min.jpg') }}" 
                 alt="Hotel Interior" 
                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -313,7 +330,7 @@
         </div>
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/gallery/gallery-2.jpg') }}" 
+                src="{{ asset('images/gallery/gallery-2-min.jpg') }}" 
                 alt="Hotel Feature" 
                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -321,7 +338,7 @@
         </div>
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/gallery/gallery-3.jpg') }}" 
+                src="{{ asset('images/gallery/gallery-3-min.jpg') }}" 
                 alt="Room Detail" 
                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -329,7 +346,7 @@
         </div>
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/gallery/gallery-4.jpg') }}" 
+                src="{{ asset('images/gallery/gallery-4-min.jpg') }}" 
                 alt="Hotel View" 
                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -339,7 +356,7 @@
         <!-- Row 2 -->
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/gallery/gallery-5.jpg') }}" 
+                src="{{ asset('images/gallery/gallery-5-min.jpg') }}" 
                 alt="Hotel Area" 
                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -347,7 +364,7 @@
         </div>
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/gallery/gallery-6.jpg') }}" 
+                src="{{ asset('images/gallery/gallery-6-min.jpg') }}" 
                 alt="Hotel Feature" 
                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -355,7 +372,7 @@
         </div>
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/gallery/gallery-7.jpg') }}" 
+                src="{{ asset('images/gallery/gallery-7-min.jpg') }}" 
                 alt="Night View" 
                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -363,7 +380,7 @@
         </div>
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/gallery/gallery-8.jpg') }}" 
+                src="{{ asset('images/gallery/gallery-8-min.jpg') }}" 
                 alt="Pool View" 
                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -373,7 +390,7 @@
          <!-- Row 3 -->
          <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/gallery/gallery-9.jpg') }}" 
+                src="{{ asset('images/gallery/gallery-9-min.jpg') }}" 
                 alt="Hotel Area" 
                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -381,7 +398,7 @@
         </div>
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/gallery/gallery-10.jpg') }}" 
+                src="{{ asset('images/gallery/gallery-10-min.jpg') }}" 
                 alt="Hotel Feature" 
                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -389,7 +406,7 @@
         </div>
         <div class="relative group overflow-hidden">
             <img 
-                src="{{ asset('images/gallery/gallery-11.jpg') }}" 
+                src="{{ asset('images/gallery/gallery-11-min.jpg') }}" 
                 alt="Night View" 
                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
             >
@@ -431,13 +448,11 @@
                 <!-- Package Card 1 -->
                 <div class="bg-gray-900 rounded-lg overflow-hidden">
                     <div class="relative">
-                        <img src="{{ asset('images/packages/special-couple.jpg') }}" alt="Special Couple Package" class="w-full h-48 object-cover">
-                        <div class="absolute top-4 right-4">
-                            <img src="{{ asset('images/logo-small.png') }}" alt="Logo" class="w-8 h-8">
-                        </div>
+                        <img src="{{ asset('images/packages/17.jpg') }}" alt="Special Couple Package" class="w-full h-55 object-cover">
+                        
                     </div>
                     <div class="p-6">
-                        <h4 class="text-2xl text-white mb-4">SPECIAL COUPLE PACKAGE</h4>
+                        <h4 class="text-2xl text-white mb-4">SPECIAL COUPLE PACKAGE(HB)</h4>
                         <ul class="text-gray-300 mb-6 space-y-2">
                             <li>• LUXURY COTTAGE</li>
                             <li>• SWIMMING POOL</li>
@@ -465,10 +480,8 @@
                 <!-- Package Card 2 -->
                 <div class="bg-gray-900 rounded-lg overflow-hidden">
                     <div class="relative">
-                        <img src="{{ asset('images/packages/day-out.jpg') }}" alt="Day Out Package" class="w-full h-48 object-cover">
-                        <div class="absolute top-4 right-4">
-                            <img src="{{ asset('images/logo-small.png') }}" alt="Logo" class="w-8 h-8">
-                        </div>
+                        <img src="{{ asset('images/packages/16.jpg') }}" alt="Day Out Package" class="w-full h-55 object-cover">
+                        
                     </div>
                     <div class="p-6">
                         <h4 class="text-2xl text-white mb-4">DAY-OUT COUPLE PACKAGE</h4>
@@ -496,13 +509,11 @@
                 <!-- Package Card 3 -->
                 <div class="bg-gray-900 rounded-lg overflow-hidden">
                     <div class="relative">
-                        <img src="{{ asset('images/packages/special-couple-fb.jpg') }}" alt="Special Couple FB Package" class="w-full h-48 object-cover">
-                        <div class="absolute top-4 right-4">
-                            <img src="{{ asset('images/logo-small.png') }}" alt="Logo" class="w-8 h-8">
-                        </div>
+                        <img src="{{ asset('images/packages/18.jpg') }}" alt="Special Couple FB Package" class="w-full h-55 object-cover">
+                        
                     </div>
                     <div class="p-6">
-                        <h4 class="text-2xl text-white mb-4">SPECIAL COUPLE FB PACKAGE</h4>
+                        <h4 class="text-2xl text-white mb-4">SPECIAL COUPLE PACKAGE(FB)</h4>
                         <ul class="text-gray-300 mb-6 space-y-2">
                             <li>• LUXURY COTTAGE</li>
                             <li>• SWIMMING POOL</li>
@@ -545,13 +556,11 @@
         <!-- Night Stay Package -->
         <div class="bg-gray-900 rounded-lg overflow-hidden">
             <div class="relative">
-                <img src="{{ asset('images/packages/family-night.jpg') }}" alt="Family Night Stay Package" class="w-full h-48 object-cover">
-                <div class="absolute top-4 right-4">
-                    <img src="{{ asset('images/logo-small.png') }}" alt="Logo" class="w-8 h-8">
-                </div>
+                <img src="{{ asset('images/packages/family-night.jpg') }}" alt="Family Night Stay Package" class="w-full h-55 object-cover">
+                
             </div>
             <div class="p-6">
-                <h4 class="text-2xl text-white mb-4">FAMILY NIGHT-STAY</h4>
+                <h4 class="text-2xl text-white mb-4">FAMILY NIGHT-STAY(HB)</h4>
                 <ul class="text-gray-300 mb-6 space-y-2">
                     <li>• FAMILY COTTAGES (A/C)</li>
                     <li>• SWIMMING POOL ACCESS</li>
@@ -581,10 +590,8 @@
         <!-- Day Out Package -->
         <div class="bg-gray-900 rounded-lg overflow-hidden">
             <div class="relative">
-                <img src="{{ asset('images/packages/family-day.jpg') }}" alt="Family Day Out Package" class="w-full h-48 object-cover">
-                <div class="absolute top-4 right-4">
-                    <img src="{{ asset('images/logo-small.png') }}" alt="Logo" class="w-8 h-8">
-                </div>
+                <img src="{{ asset('images/packages/family-day.jpg') }}" alt="Family Day Out Package" class="w-full h-55 object-cover">
+                
             </div>
             <div class="p-6">
                 <h4 class="text-2xl text-white mb-4">FAMILY DAY-OUT</h4>
@@ -614,13 +621,11 @@
         <!-- Night Stay Package 2 -->
         <div class="bg-gray-900 rounded-lg overflow-hidden">
             <div class="relative">
-                <img src="{{ asset('images/packages/family-night-2.jpg') }}" alt="Family Night Stay Package 2" class="w-full h-48 object-cover">
-                <div class="absolute top-4 right-4">
-                    <img src="{{ asset('images/logo-small.png') }}" alt="Logo" class="w-8 h-8">
-                </div>
+                <img src="{{ asset('images/packages/family-night-2.jpg') }}" alt="Family Night Stay Package 2" class="w-full h-55 object-cover">
+                
             </div>
             <div class="p-6">
-                <h4 class="text-2xl text-white mb-4">FAMILY NIGHT-STAY</h4>
+                <h4 class="text-2xl text-white mb-4">FAMILY NIGHT-STAY(FB)</h4>
                 <ul class="text-gray-300 mb-6 space-y-2">
                     <li>• FAMILY COTTAGES (A/C)</li>
                     <li>• SWIMMING POOL ACCESS</li>
@@ -663,13 +668,11 @@
         <!-- Night Stay Package -->
         <div class="bg-gray-900 rounded-lg overflow-hidden">
             <div class="relative">
-                <img src="{{ asset('images/packages/group-night.jpg') }}" alt="Group Night Stay Package" class="w-full h-48 object-cover">
-                <div class="absolute top-4 right-4">
-                    <img src="{{ asset('images/logo-small.png') }}" alt="Logo" class="w-8 h-8">
-                </div>
+                <img src="{{ asset('images/packages/group-night.jpg') }}" alt="Group Night Stay Package" class="w-full h-55 object-cover">
+                
             </div>
             <div class="p-6">
-                <h4 class="text-2xl text-white mb-4">NIGHT-STAY</h4>
+                <h4 class="text-2xl text-white mb-4">NIGHT-STAY(HB)</h4>
                 <ul class="text-gray-300 mb-6 space-y-2">
                     <li>• ACCOMMODATION</li>
                     <li>• WELCOME DRINK</li>
@@ -697,13 +700,11 @@
         <!-- Night Stay FB Package -->
         <div class="bg-gray-900 rounded-lg overflow-hidden">
             <div class="relative">
-                <img src="{{ asset('images/packages/group-night-fb.jpg') }}" alt="Group Night Stay FB Package" class="w-full h-48 object-cover">
-                <div class="absolute top-4 right-4">
-                    <img src="{{ asset('images/logo-small.png') }}" alt="Logo" class="w-8 h-8">
-                </div>
+                <img src="{{ asset('images/packages/group-night-fb.jpg') }}" alt="Group Night Stay FB Package" class="w-full h-55 object-cover">
+                
             </div>
             <div class="p-6">
-                <h4 class="text-2xl text-white mb-4">NIGHT-STAY-FB</h4>
+                <h4 class="text-2xl text-white mb-4">NIGHT-STAY(FB)</h4>
                 <ul class="text-gray-300 mb-6 space-y-2">
                     <li>• ACCOMMODATION</li>
                     <li>• WELCOME DRINK</li>
@@ -732,10 +733,8 @@
         <!-- Day Out Package -->
         <div class="bg-gray-900 rounded-lg overflow-hidden">
             <div class="relative">
-                <img src="{{ asset('images/packages/group-day.jpg') }}" alt="Group Day Out Package" class="w-full h-48 object-cover">
-                <div class="absolute top-4 right-4">
-                    <img src="{{ asset('images/logo-small.png') }}" alt="Logo" class="w-8 h-8">
-                </div>
+                <img src="{{ asset('images/packages/group-day.jpg') }}" alt="Group Day Out Package" class="w-full h-55 object-cover">
+                
             </div>
             <div class="p-6">
                 <h4 class="text-2xl text-white mb-4">DAY-OUT</h4>
@@ -764,80 +763,143 @@
     </div>
 </div>
 
-<!-- Wedding Packages Section -->
-<section class="relative z-10 bg-black">
-<div class="bg-black py-16">
+<!-- Wedding Package Section -->
+<section class="relative z-10 bg-black py-16">
     <div class="container mx-auto px-4">
+        <!-- Header -->
         <div class="mb-16">
             <h3 class="text-purple-500 text-3xl mb-4">Wedding Packages</h3>
             <h4 class="text-white text-xl mb-4">Experience Unmatched Elegance with Our Luxury Wedding Packages</h4>
-            <p class="text-gray-300 mb-6">Celebrate your special day in unparalleled style and sophistication with our exclusive luxury wedding packages. Our meticulously curated offerings include opulent accommodations, gourmet dining experiences, and access to our stunning swimming pool and other premium amenities. Whether you're planning an intimate ceremony or a grand celebration, our dedicated team ensures every detail is perfect, creating memories that will last a lifetime. Indulge in the ultimate wedding experience at our hotel, where luxury meets romance.</p>
+            <p class="text-gray-300 mb-6">Celebrate your special day in unparalleled style and sophistication with our exclusive luxury wedding packages. Our meticulously curated offerings include opulent accommodations, gourmet dining experiences, and access to our stunning swimming pool and other premium amenities.</p>
         </div>
 
         <!-- Wedding Package Images Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+        <div class="grid grid-cols-2 gap-4 mb-8">
             <div class="relative group overflow-hidden rounded-lg">
-                <img src="{{ asset('images/packages/wedding1.jpg') }}" alt="Wedding Venue" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
+                <img src="{{ asset('images/packages/wedding1.jpg') }}" alt="Wedding Venue" 
+                     class="w-[148px] h-[105px] object-cover transition-transform duration-300 group-hover:scale-110">
             </div>
             <div class="relative group overflow-hidden rounded-lg">
-                <img src="{{ asset('images/packages/wedding2.jpg') }}" alt="Wedding Decoration" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
-            </div>
-            <div class="relative group overflow-hidden rounded-lg">
-                <img src="{{ asset('images/packages/wedding3.jpg') }}" alt="Wedding Ceremony" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
-            </div>
-            <div class="relative group overflow-hidden rounded-lg">
-                <img src="{{ asset('images/packages/wedding4.jpg') }}" alt="Wedding Reception" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
+                <img src="{{ asset('images/packages/wedding2.jpg') }}" alt="Wedding Reception" 
+                     class="w-[148px] h-[105px] object-cover transition-transform duration-300 group-hover:scale-110">
             </div>
         </div>
 
         <!-- Wedding Package Card -->
-        <div class="bg-gray-900 rounded-lg overflow-hidden">
+        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-2xl">
             <div class="p-8">
-                <div class="grid md:grid-cols-2 gap-8">
+                <div class="grid md:grid-cols-2 gap-12">
                     <!-- Left Column - Package Details -->
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-start">
-                            <h4 class="text-white text-2xl">WEDDING PACKAGE</h4>
-                            
+                    <div class="space-y-6">
+                        <div class="border-b border-gray-700 pb-4">
+                            <h4 class="text-white text-3xl font-light">WEDDING PACKAGE</h4>
+                            <p class="text-gray-400 mt-2">All-inclusive luxury wedding experience</p>
                         </div>
-                        <ul class="text-gray-300 space-y-2">
-                            <li>• WEDDING MENU (12 ITEMS)</li>
-                            <li>• LUXURY BANQUET HALL</li>
-                            <li>• BED MENU(02)</li>
-                            <li>• JAYA MANGALA GATHA</li>
-                            <li>• TRADITIONAL DANCING GROUP</li>
-                            <li>• ASHTAKA</li>
-                            <li>• DJ MUSIC</li>
-                            <li>• ENTRANCE DECORATIONS</li>
-                            <li>• OIL LAMP, TABLES & CHAIR DECORATIONS</li>
-                            <li>• SETTEE AND PORUWA</li>
-                            <li>• LUXURY HONEYMOON COTTAGE (HB)</li>
-                            <li>• VIP BAR SERVICE</li>
-                            <li>• PHOTOGRAPHY LOCATIONS</li>
-                            <li>• EVENT COORDINATION</li>
+                        
+                        <ul class="text-gray-300 space-y-3">
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>WEDDING MENU (32 ITEMS)</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>LUXURY BANQUET HALL</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>LED DANCE FLOOR </span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>JAYA MANGALA GATHA</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>TRADITIONAL DANCING GROUP</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>ASHTAKA</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>DJ MUSIC</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>ENTRANCE DECORATIONS</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>OIL LAMP, TABLES & CHAIR DECORATIONS</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>SETTEE AND PORUWA</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>LUXURY HONEYMOON COTTAGE (HB)</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>VIP BAR SERVICE</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>PHOTOGRAPHY LOCATIONS</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-purple-400 text-xl">•</span>
+                                <span>EVENT COORDINATION</span>
+                            </li>
                         </ul>
                     </div>
 
                     <!-- Right Column - Pricing -->
-                    <div>
-                        <div class="bg-black bg-opacity-50 p-6 rounded-lg">
-                            <h5 class="text-white mb-4">PRICING</h5>
-                            <ul class="text-gray-300 space-y-2">
-                                <li>50 Pax - 350,000 /-</li>
-                                <li>100 Pax - 560,000 /-</li>
-                                <li>150 Pax - 480,000 /-</li>
-                                <li>200 Pax - 550,000 /-</li>
-                                <li>300 Pax - 795,000 /-</li>
-                                <li>400 Pax - 995,000 /-</li>
+                    <div class="space-y-8">
+                        <!-- Pricing Card -->
+                        <div class="bg-black/40 p-8 rounded-xl border border-gray-800">
+                            <h5 class="text-white text-2xl mb-6 font-light">PRICING</h5>
+                            <ul class="text-gray-300 space-y-4">
+                                <li class="flex justify-between items-center border-b border-gray-700 pb-3">
+                                    <span>50 Pax</span>
+                                    <span class="text-purple-400 font-semibold">350,000 /-</span>
+                                </li>
+                                <li class="flex justify-between items-center border-b border-gray-700 pb-3">
+                                    <span>100 Pax</span>
+                                    <span class="text-purple-400 font-semibold">560,000 /-</span>
+                                </li>
+                                <li class="flex justify-between items-center border-b border-gray-700 pb-3">
+                                    <span>150 Pax</span>
+                                    <span class="text-purple-400 font-semibold">480,000 /-</span>
+                                </li>
+                                <li class="flex justify-between items-center border-b border-gray-700 pb-3">
+                                    <span>200 Pax</span>
+                                    <span class="text-purple-400 font-semibold">550,000 /-</span>
+                                </li>
+                                <li class="flex justify-between items-center border-b border-gray-700 pb-3">
+                                    <span>300 Pax</span>
+                                    <span class="text-purple-400 font-semibold">795,000 /-</span>
+                                </li>
+                                <li class="flex justify-between items-center">
+                                    <span>400 Pax</span>
+                                    <span class="text-purple-400 font-semibold">995,000 /-</span>
+                                </li>
                             </ul>
                         </div>
-                        <div class="mt-6">
-                            <p class="text-purple-400 mb-2">Special Discount</p>
-                            <p class="text-white text-4xl font-bold">25%</p>
-                            <p class="text-gray-400">Valid till May 2023</p>
+
+                        <!-- Special Discount -->
+                        <div class="bg-purple-900/20 p-8 rounded-xl text-center border border-purple-800/30">
+                            <p class="text-purple-400 mb-2 text-lg">Special Discount</p>
+                            <p class="text-white text-6xl font-bold mb-2">25%</p>
+                            <p class="text-gray-400">Valid till May 2025</p>
                         </div>
-                        <div class="mt-6">
-                            <a href="https://wa.me/94717152555" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 inline-block">
+
+                        <!-- Contact Button -->
+                        <div class="text-center">
+                            <a href="https://wa.me/94717152555" 
+                               class="bg-purple-500 text-white px-8 py-3 rounded-lg hover:bg-purple-600 inline-block transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
                                 Contact Us
                             </a>
                         </div>
@@ -846,7 +908,9 @@
             </div>
         </div>
     </div>
-</div>
+</section>
+
+
 <!-- FAQ Section -->
 <section class="relative z-10 bg-black">
 <div class="bg-black py-24">
@@ -951,7 +1015,7 @@ A parking garage where you can park your car safely and conveniently.</p>
             <!-- Image Section -->
             <div class="relative">
                 <img 
-                    src="{{ asset('images/chef-cooking.jpg') }}" 
+                    src="{{ asset('images/chef-cooking-min.jpg') }}" 
                     alt="Chef cooking with fire" 
                     class="rounded-lg w-full h-full object-cover"
                 >
@@ -1055,7 +1119,7 @@ A parking garage where you can park your car safely and conveniently.</p>
     <!-- Background Image -->
     <div class="absolute inset-0">
         <img 
-            src="{{ asset('images/pool-bg.jpg') }}" 
+            src="{{ asset('images/pool-bg-min.jpg') }}" 
             alt="Swimming Pool" 
             class="w-full h-full object-cover"
         >
@@ -1122,21 +1186,92 @@ A parking garage where you can park your car safely and conveniently.</p>
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>
 
-    
-    // Add date validation
+    // Navigation scroll effect
     document.addEventListener('DOMContentLoaded', function() {
+        const nav = document.getElementById('mainNav');
+        const menuButton = document.getElementById('menuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        // Handle navigation background on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-black');
+                nav.classList.add('backdrop-blur-md');
+            } else {
+                nav.classList.remove('bg-black');
+                nav.classList.remove('backdrop-blur-md');
+            }
+        });
+
+    
+    // Mobile menu toggle
+    menuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Date validation for booking form
         const checkIn = document.querySelector('input[name="check_in"]');
         const checkOut = document.querySelector('input[name="check_out"]');
 
-        checkIn.addEventListener('change', function() {
-            const date = new Date(this.value);
-            date.setDate(date.getDate() + 1);
-            checkOut.min = date.toISOString().split('T')[0];
-            
-            if(checkOut.value && checkOut.value <= this.value) {
-                checkOut.value = date.toISOString().split('T')[0];
-            }
+        if (checkIn && checkOut) {
+            checkIn.addEventListener('change', function() {
+                const date = new Date(this.value);
+                date.setDate(date.getDate() + 1);
+                checkOut.min = date.toISOString().split('T')[0];
+                
+                if(checkOut.value && checkOut.value <= this.value) {
+                    checkOut.value = date.toISOString().split('T')[0];
+                }
+            });
+        }
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
+
+
+        // Lazy loading for images
+        const images = document.querySelectorAll('img[data-src]');
+        const imageOptions = {
+            threshold: 0,
+            rootMargin: '0px 0px 50px 0px'
+        };
+
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('fade-in');
+                    observer.unobserve(img);
+                }
+            });
+        }, imageOptions);
+
+        images.forEach(img => imageObserver.observe(img));
+// Animate sections on scroll
+const animateOnScroll = () => {
+            const sections = document.querySelectorAll('.animate-on-scroll');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight * 0.75) {
+                    section.classList.add('fade-in');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Initial check
     });
 </script>
 @endpush
