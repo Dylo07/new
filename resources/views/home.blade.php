@@ -3,85 +3,121 @@
 @section('title', 'Welcome')
 
 @section('content')
-
-<!-- Video Background -->
-<div class="video-container h-screen fixed top-0 left-0 w-full">
-    <iframe 
-        src="https://www.youtube.com/embed/KKjaD5vsRtY?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playlist=KKjaD5vsRtY" 
-        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto scale-125"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-    ></iframe>
-    <div class="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm"></div>
-</div>
-
-<!-- Main Content -->
-<main>
-
-<div class="relative">
-<!-- Search Section -->
-<section class="min-h-screen flex items-center justify-center relative z-10">
-    <div class="content container mx-auto px-4">
-        <div class="text-center mb-16 animate-fade-in">
-            <h1 class="text-white text-6xl font-light mb-4 tracking-wider">Soba Lanka Holiday Resort</h1>
-            <h2 class="text-white text-3xl mb-4 font-light">Opulence Beyond Imagination</h2>
-            <p class="text-white  text-xl">Enjoy your most glorious moments with us</p>
-        </div>
-       
-       <!-- Booking Form -->
-       <div class="max-w-4xl mx-auto bg-black bg-opacity-50 p-6 rounded-lg">
-       
-       <form action="{{ route('search') }}" method="POST" class="grid grid-cols-1 md:grid-cols-5 gap-4">
-            @csrf
-            <div class="md:col-span-1">
-                <label class="block text-white mb-2">Check-in *</label>
-                <input type="date" name="check_in" class="w-full p-2 rounded bg-white" required
-                       min="{{ date('Y-m-d') }}" value="{{ old('check_in') }}">
-                @error('check_in')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="md:col-span-1">
-                <label class="block text-white mb-2">Check-out *</label>
-                <input type="date" name="check_out" class="w-full p-2 rounded bg-white" required
-                       min="{{ date('Y-m-d', strtotime('+1 day')) }}" value="{{ old('check_out') }}">
-                @error('check_out')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="md:col-span-1">
-                <label class="block text-white mb-2">Adults</label>
-                <select name="adults" class="w-full p-2 rounded bg-white">
-                    @for($i = 1; $i <= 4; $i++)
-                        <option value="{{ $i }}" {{ old('adults') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                    @endfor
-                </select>
-            </div>
-            <div class="md:col-span-1">
-                <label class="block text-white mb-2">Children</label>
-                <select name="children" class="w-full p-2 rounded bg-white">
-                    @for($i = 0; $i <= 3; $i++)
-                        <option value="{{ $i }}" {{ old('children') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                    @endfor
-                </select>
-            </div>
-            <div class="md:col-span-1">
-                <label class="block text-white mb-2">&nbsp;</label>
-                <button type="submit" class="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600">
-                    Search
-                </button>
-            </div>
-        </form>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex flex-col justify-center items-center">
+    <!-- Video Background -->
+    <div class="video-container fixed top-0 left-0 w-full h-full -z-10">
+        <iframe 
+            src="https://www.youtube.com/embed/KKjaD5vsRtY?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playlist=KKjaD5vsRtY" 
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+        ></iframe>
+        <div class="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm"></div>
     </div>
-</div>
 
-<!-- Add Scroll Indicator -->
-<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <!-- Main Content -->
+    <main class="w-full max-w-7xl mx-auto px-4 pt-20 pb-32">
+        <div class="relative">
+            <!-- Hero Content -->
+            <div class="text-center mb-12 animate-fade-in">
+                <h1 class="text-5xl md:text-6xl font-light text-white mb-6 tracking-wide">
+                    Soba Lanka<br/>
+                    <span class="text-4xl md:text-5xl">Holiday Resort</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl text-white mb-4 font-light">
+                    Opulence Beyond Imagination
+                </h2>
+                <p class="text-lg md:text-xl text-white">
+                    Enjoy your most glorious moments with us
+                </p>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="max-w-4xl mx-auto bg-black/40 backdrop-blur-md p-6 md:p-8 rounded-xl shadow-2xl">
+                <div class="text-white text-lg mb-6 text-center">NIGHT STAY & DAY OUT PACKAGES</div>
+                <form action="{{ route('search') }}" method="POST" class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                    @csrf
+                    <!-- Check-in Date -->
+                    <div class="md:col-span-1">
+                        <label class="block text-white text-sm mb-2">Check-in *</label>
+                        <input 
+                            type="date" 
+                            name="check_in" 
+                            class="w-full p-3 rounded-lg bg-white text-gray-900"
+                            required
+                            min="{{ date('Y-m-d') }}" 
+                            value="{{ old('check_in') }}"
+                        >
+                        @error('check_in')
+                            <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Check-out Date -->
+                    <div class="md:col-span-1">
+                        <label class="block text-white text-sm mb-2">Check-out *</label>
+                        <input 
+                            type="date" 
+                            name="check_out" 
+                            class="w-full p-3 rounded-lg bg-white text-gray-900"
+                            required
+                            min="{{ date('Y-m-d', strtotime('+1 day')) }}" 
+                            value="{{ old('check_out') }}"
+                        >
+                        @error('check_out')
+                            <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Adults Selection -->
+                    <div class="md:col-span-1">
+                        <label class="block text-white text-sm mb-2">Adults</label>
+                        <select name="adults" class="w-full p-3 rounded-lg bg-white text-gray-900">
+                            @for($i = 1; $i <= 4; $i++)
+                                <option value="{{ $i }}" {{ old('adults') == $i ? 'selected' : '' }}>
+                                    {{ $i }} {{ Str::plural('Adult', $i) }}
+                                </option>
+                            @endfor
+                        </select>
+                    </div>
+
+                    <!-- Children Selection -->
+                    <div class="md:col-span-1">
+                        <label class="block text-white text-sm mb-2">Children</label>
+                        <select name="children" class="w-full p-3 rounded-lg bg-white text-gray-900">
+                            @for($i = 0; $i <= 3; $i++)
+                                <option value="{{ $i }}" {{ old('children') == $i ? 'selected' : '' }}>
+                                    {{ $i }} {{ Str::plural('Child', $i) }}
+                                </option>
+                            @endfor
+                        </select>
+                    </div>
+
+                    <!-- Search Button -->
+                    <div class="md:col-span-1">
+                        <label class="block text-white text-sm mb-2">&nbsp;</label>
+                        <button type="submit" 
+                                class="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition-all duration-300 flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            </svg>
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
     </div>
 </section>
+
 <!-- Promotional Section -->
 <section class="relative z-10 bg-black animate-on-scroll">
     <div class="container mx-auto px-4 py-24 relative z-10">
@@ -1143,10 +1179,13 @@ A parking garage where you can park your car safely and conveniently.</p>
 
 @push('styles')
 <style>
+
+    
     body {
         background-color: #000000;
         min-height: 100vh;
     }
+    
 
     .group:hover img {
         transform: scale(1.05);
@@ -1176,6 +1215,31 @@ A parking garage where you can park your car safely and conveniently.</p>
     
     .video-container iframe {
         opacity: 0.7;
+    }
+
+    /* Improve date input appearance */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        opacity: 0.7;}
+        input[type="date"], select {
+        background-image: none;
+    }
+
+    /* Custom select styling */
+    select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5rem;
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+        input[type="date"], select, button {
+            font-size: 16px; /* Prevent zoom on mobile */
+            padding: 0.75rem;
+        }
     }
 </style>
 @endpush
