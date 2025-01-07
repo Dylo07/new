@@ -1027,20 +1027,19 @@ A parking garage where you can park your car safely and conveniently.</p>
 
 
 <!-- Location Section -->
-<section class="relative z-10 bg-black">
-<div class="bg-black py-24">
+<section class="relative z-10 bg-black py-16">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
             <!-- Map Section -->
             <div class="w-full h-[400px] rounded-lg overflow-hidden">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.1069447446457!2d80.5640347!3d7.3340456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae3185b771428d9%3A0x9b9c8f7d0c8c8f7a!2sSoba%20Lanka%20Holiday%20Resort!5e0!3m2!1sen!2slk!4v1625147458769!5m2!1sen!2slk"
-                    width="100%" 
-                    height="100%" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy"
-                ></iframe>
+            <iframe 
+    src="https://maps.google.com/maps?q=7.625504,80.506160&z=15&output=embed"
+    width="100%" 
+    height="100%" 
+    style="border:0;" 
+    allowfullscreen=""
+    loading="lazy">
+</iframe>
             </div>
 
             <!-- Contact Details -->
@@ -1052,7 +1051,7 @@ A parking garage where you can park your car safely and conveniently.</p>
                     <div>
                         <h3 class="text-green-400 text-xl mb-2">Address</h3>
                         <p class="text-white">
-                            Soba Lanka Holiday Resort PVT (LTD), Balawattala Road, Melsiripura, Kurunegala
+                            Soba Lanka Holiday Resort PVT (LTD), Balawattala Road, Melsiripura 60540
                         </p>
                     </div>
 
@@ -1069,14 +1068,14 @@ A parking garage where you can park your car safely and conveniently.</p>
                     <div>
                         <h3 class="text-green-400 text-xl mb-2">Contact Number</h3>
                         <div class="text-white">
-                            <p>Contact Number - 037 22 50 308 / 071 71 52 955</p>
+                            <p>037 22 50 308 / 071 71 52 955</p>
                         </div>
                     </div>
 
                     <!-- Review Section -->
                     <div class="flex items-center space-x-4">
                         <div class="flex items-center">
-                            <span class="text-white text-xl mr-2">3.7</span>
+                            <span class="text-white text-xl mr-2">4.2</span>
                             <div class="flex text-yellow-400">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
@@ -1090,28 +1089,27 @@ A parking garage where you can park your car safely and conveniently.</p>
                                 <svg class="w-5 h-5 text-yellow-400/50" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                 </svg>
-                                <svg class="w-5 h-5 text-yellow-400/50" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                                </svg>
                             </div>
                         </div>
-                        <a href="#" class="text-blue-400 hover:text-blue-300">364 reviews</a>
+                        <a href="https://maps.app.goo.gl/3UzGke3yVHaBMU7WA" target="_blank" class="text-blue-400 hover:text-blue-300">(365)</a>
                     </div>
 
                     <!-- Directions Button -->
                     <a 
-                        href="https://www.google.com/maps/dir//Soba+Lanka+Holiday+Resort" 
+                        href="https://maps.app.goo.gl/99iFNphobJ9DFyq99"
                         target="_blank"
-                        class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300"
+                        class="inline-block bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-all duration-300 flex items-center gap-2"
                     >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
                         Get Directions
                     </a>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
+</section>
 
 <!-- Contact CTA Section -->
 <section class="relative z-10 bg-black">
