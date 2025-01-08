@@ -3,6 +3,7 @@
 @section('title', 'Welcome')
 
 @section('content')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <!-- Hero Section -->
 <section class="relative min-h-screen flex flex-col justify-center items-center">
     <!-- Video Background -->
@@ -347,9 +348,24 @@
         
         <!-- Social Media Links -->
         <div class="flex justify-center items-center gap-6">
-            <a href="#" class="text-white hover:text-yellow-400 transition-colors duration-300">Facebook</a>
-            <a href="#" class="text-white hover:text-yellow-400 transition-colors duration-300">Instagram</a>
-            <a href="#" class="text-white hover:text-yellow-400 transition-colors duration-300">Twitter</a>
+            <!-- Facebook -->
+    <a href="https://www.facebook.com/Soba.Lanka.Resort/" 
+       class="text-white hover:text-[#00bf63] transition-colors duration-300 flex items-center gap-2" 
+       target="_blank">
+        <i class="fab fa-facebook"></i> Facebook
+    </a>
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/soba.lanka/" 
+       class="text-white hover:text-[#00bf63] transition-colors duration-300 flex items-center gap-2" 
+       target="_blank">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <!-- TikTok -->
+    <a href="https://www.tiktok.com/@sobalanka" 
+       class="text-white hover:text-[#00bf63] transition-colors duration-300 flex items-center gap-2" 
+       target="_blank">
+        <i class="fab fa-tiktok"></i> TikTok
+    </a>
         </div>
     </div>
 
