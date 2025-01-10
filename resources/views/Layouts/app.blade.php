@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }} - @yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+    
     @stack('styles')
     <style>
         body {
@@ -22,6 +28,7 @@
             <div class="flex items-center">
                 <img src="{{ asset('images/logo.png') }}" alt="Soba Lanka Holiday Resort" class="h-24">
             </div>
+            
             <!-- Desktop Navigation Links -->
             <div class="hidden md:flex items-center gap-6">
                 <a href="{{ route('home') }}" class="text-white hover:text-green-400 transition-colors duration-300">Home</a>
@@ -29,6 +36,29 @@
                 <a href="{{ route('rates') }}" class="text-white hover:text-green-400 transition-colors duration-300">Rates & Packages</a>
                 <a href="{{ route('about') }}" class="text-white hover:text-green-400 transition-colors duration-300">About</a>
                 <a href="{{ route('contact') }}" class="text-white hover:text-green-400 transition-colors duration-300">Contact</a>
+                
+                <!-- Authentication Links -->
+                @auth
+                    <div class="flex items-center gap-4">
+                        <span class="text-white">{{ auth()->user()->name }}</span>
+                        @if(auth()->user()->is_admin)
+                            <span class="bg-green-500 px-2 py-1 rounded text-sm text-white">Admin</span>
+                        @endif
+                        <form action="{{ route('logout') }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="text-white hover:text-green-400 transition-colors duration-300">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                @else
+                    <div class="flex items-center gap-4">
+                        <a href="{{ route('login') }}" class="text-white hover:text-green-400 transition-colors duration-300">Login</a>
+                        <a href="{{ route('register') }}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300">Register</a>
+                    </div>
+                @endauth
+
+                <!-- Call Now Button -->
                 <a href="tel:+94717152555" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
@@ -53,6 +83,28 @@
                 <a href="{{ route('rates') }}" class="block text-white hover:text-green-400 transition-colors duration-300">Rates & Packages</a>
                 <a href="{{ route('about') }}" class="block text-white hover:text-green-400 transition-colors duration-300">About</a>
                 <a href="{{ route('contact') }}" class="block text-white hover:text-green-400 transition-colors duration-300">Contact</a>
+                
+                <!-- Mobile Authentication Links -->
+                @auth
+                    <div class="border-t border-gray-700 pt-4 mt-4">
+                        <span class="block text-white mb-2">{{ auth()->user()->name }}</span>
+                        @if(auth()->user()->is_admin)
+                            <span class="inline-block bg-green-500 px-2 py-1 rounded text-sm text-white mb-2">Admin</span>
+                        @endif
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="block w-full text-white hover:text-green-400 transition-colors duration-300 text-left">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                @else
+                    <div class="border-t border-gray-700 pt-4 mt-4 space-y-2">
+                        <a href="{{ route('login') }}" class="block text-white hover:text-green-400 transition-colors duration-300">Login</a>
+                        <a href="{{ route('register') }}" class="block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300 text-center">Register</a>
+                    </div>
+                @endauth
+
                 <a href="tel:+94717152555" class="block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300 text-center">Call Now</a>
             </div>
         </div>
@@ -63,5 +115,24 @@
     @yield('content')
 
     @stack('scripts')
+<script>
+    // Navigation scroll effect
+    const nav = document.getElementById('mainNav');
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            nav.classList.add('bg-black', 'backdrop-blur-md');
+        } else {
+            nav.classList.remove('bg-black', 'backdrop-blur-md');
+        }
+    });
+
+    // Mobile menu toggle
+    menuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>
 </body>
 </html>

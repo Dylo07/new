@@ -9,9 +9,17 @@ class Room extends Model
     protected $fillable = [
         'room_number',
         'type',
+        'category',
+        'price',
         'description',
-        'price_per_night',
-        'is_available'
+        'is_available',
+        'unavailable_dates'
+    ];
+
+    protected $casts = [
+        'is_available' => 'boolean',
+        'unavailable_dates' => 'array',
+        'price' => 'decimal:2'
     ];
 
     public function bookings()
