@@ -1265,27 +1265,17 @@ A parking garage where you can park your car safely and conveniently.</p>
 <script>
 
     // Navigation scroll effect
-    document.addEventListener('DOMContentLoaded', function() {
-        const nav = document.getElementById('mainNav');
-        const menuButton = document.getElementById('menuButton');
-        const mobileMenu = document.getElementById('mobileMenu');
+    document.addEventListener('DOMContentLoaded', function () {
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
 
-        // Handle navigation background on scroll
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 100) {
-                nav.classList.add('bg-black');
-                nav.classList.add('backdrop-blur-md');
-            } else {
-                nav.classList.remove('bg-black');
-                nav.classList.remove('backdrop-blur-md');
-            }
-        });
-
-    
-    // Mobile menu toggle
-    menuButton.addEventListener('click', function() {
+    if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', function () {
             mobileMenu.classList.toggle('hidden');
         });
+    }
+});
+
 
         // Date validation for booking form
         const checkIn = document.querySelector('input[name="check_in"]');
