@@ -785,7 +785,7 @@
         <!-- Day Out Package -->
         <div class="bg-gray-900 rounded-lg overflow-hidden">
             <div class="relative">
-                <img src="{{ asset('images/packages/Group-day.jpg') }}" alt="Group Day Out Package" class="w-full h-55 object-cover">
+                <img src="{{ asset('images/packages/Groupday.jpg') }}" alt="Group Day Out Package" class="w-full h-55 object-cover">
                 
             </div>
             <div class="p-6">
