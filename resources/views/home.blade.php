@@ -785,7 +785,7 @@
         <!-- Day Out Package -->
         <div class="bg-gray-900 rounded-lg overflow-hidden">
             <div class="relative">
-                <img src="{{ asset('images/packages/group-day.jpg') }}" alt="Group Day Out Package" class="w-full h-55 object-cover">
+                <img src="{{ asset('images/packages/Group-day.jpg') }}" alt="Group Day Out Package" class="w-full h-55 object-cover">
                 
             </div>
             <div class="p-6">
@@ -802,7 +802,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-green-500 text-xl">Rs.1,990</p>
+                        <p class="text-green-500 text-xl">Rs.2,490</p>
                     </div>
                     <a href="https://wa.me/94717152555" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
                         BOOK NOW
