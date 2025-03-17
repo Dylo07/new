@@ -222,7 +222,7 @@
                     </div>
                     <div class="flex items-center">
                         <div class="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
-                        <span class="text-white">Booked</span>
+                        <span class="text-white">Fully Booked</span>
                     </div>
                 </div>
                 
