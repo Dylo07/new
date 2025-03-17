@@ -160,8 +160,81 @@
     </div>
 </section>
 
-
-
+<!-- Room Availability Preview -->
+<section class="relative z-10 bg-black">
+    <div class="bg-black py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-white text-4xl font-light text-center mb-4">Room Availability</h2>
+            <p class="text-gray-300 text-center mb-8">Check our room availability before booking your stay</p>
+            
+            <!-- Calendar Preview -->
+            <div class="max-w-lg mx-auto">
+                <h3 class="text-2xl text-white text-center mb-4">{{ $currentMonth->format('F Y') }}</h3>
+                
+                <div class="grid grid-cols-7 gap-1 text-center mb-2">
+                    <div class="text-red-500">S</div>
+                    <div class="text-white">M</div>
+                    <div class="text-white">T</div>
+                    <div class="text-white">W</div>
+                    <div class="text-white">T</div>
+                    <div class="text-white">F</div>
+                    <div class="text-red-500">S</div>
+                </div>
+                
+                <div class="grid grid-cols-7 gap-1">
+                    @php
+                        $startDay = $currentMonth->copy()->startOfMonth()->dayOfWeek;
+                        $daysInMonth = $currentMonth->daysInMonth;
+                    @endphp
+                    
+                    @for ($i = 0; $i < $startDay; $i++)
+                        <div></div>
+                    @endfor
+                    
+                    @for ($day = 1; $day <= $daysInMonth; $day++)
+                        @php
+                            $date = $currentMonth->copy()->startOfMonth()->addDays($day - 1);
+                            $dateString = $date->format('Y-m-d');
+                            $status = $currentMonthAvailability[$dateString] ?? 'available';
+                            
+                            $bgClass = 'bg-green-500'; // Available
+                            if ($status === 'limited') {
+                                $bgClass = 'bg-yellow-500';
+                            } elseif ($status === 'booked') {
+                                $bgClass = 'bg-red-500';
+                            }
+                        @endphp
+                        
+                        <div class="{{ $bgClass }} rounded-lg p-2 text-center text-white">
+                            {{ $day }}
+                        </div>
+                    @endfor
+                </div>
+                
+                <div class="flex justify-center mt-8 gap-8">
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                        <span class="text-white">Available</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-yellow-500 rounded-full mr-2"></div>
+                        <span class="text-white">Limited</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
+                        <span class="text-white">Booked</span>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <a href="{{ route('calendar.index') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-all duration-300">
+                        View Full Availability
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 <!-- Suite Cards Grid -->

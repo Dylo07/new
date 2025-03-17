@@ -10,15 +10,13 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!auth()->check()) {
-            dd('User not logged in'); // Debugging
+            return redirect()->route('login')->with('error', 'Please login to access this page.');
         }
     
         if (!auth()->user()->is_admin) {
-            dd('User is not admin'); // Debugging
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
         }
     
         return $next($request);
     }
-
-    
 }

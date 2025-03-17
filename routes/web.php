@@ -5,6 +5,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\RatesController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
@@ -81,4 +82,20 @@ Route::middleware(['auth'])->group(function () {
 // Error Pages
 Route::fallback(function () {
     return view('errors.404');
+});
+
+
+// Public calendar view
+// Add this public route
+Route::get('/availability', [CalendarController::class, 'index'])->name('calendar.index');
+// Admin routes (protected)
+Route::middleware(['auth', 'admin'])->group(function () {
+    // View availability (no editing)
+    Route::get('/admin/availability', [App\Http\Controllers\CalendarController::class, 'admin'])->name('admin.calendar');
+    
+    // Edit availability page
+    Route::get('/admin/availability/edit', [App\Http\Controllers\CalendarController::class, 'edit'])->name('admin.calendar.edit');
+    
+    // Update availability (AJAX endpoint)
+    Route::post('/admin/availability/update', [App\Http\Controllers\CalendarController::class, 'update'])->name('calendar.update');
 });
