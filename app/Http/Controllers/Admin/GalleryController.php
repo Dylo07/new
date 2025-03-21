@@ -64,35 +64,48 @@ class GalleryController extends Controller
     /**
      * Upload images to gallery.
      */
-    public function upload(Request $request)
-    {
-        $request->validate([
-            'gallery_type' => 'required|in:room,outdoor,wedding',
-            'images' => 'required|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120', // 5MB max
-            'title' => 'nullable|string|max:255',
-        ]);
+    // In your Admin\GalleryController.php upload method
+public function upload(Request $request)
+{
+    $request->validate([
+        'gallery_type' => 'required|in:room,outdoor,wedding',
+        'images' => 'required|array',
+        'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
+        'title' => 'nullable|string|max:255',
+    ]);
 
-        $galleryType = $request->gallery_type;
-        $title = $request->title;
-        $uploadedCount = 0;
+    $galleryType = $request->gallery_type;
+    $title = $request->title;
+    $uploadedCount = 0;
 
-        foreach ($request->file('images') as $image) {
-            $path = $image->store('gallery/' . $galleryType, 'public');
-            
-            GalleryImage::create([
-                'title' => $title ?: $image->getClientOriginalName(),
-                'image_path' => $path,
-                'gallery_type' => $galleryType,
-                'sort_order' => 0, // Default sort order
-            ]);
-
-            $uploadedCount++;
-        }
-
-        return redirect()->back()->with('success', $uploadedCount . ' image(s) uploaded successfully.');
+    // Create directory if it doesn't exist
+    $uploadDir = public_path('storage/gallery/' . $galleryType);
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
     }
 
+    foreach ($request->file('images') as $image) {
+        // Generate a unique filename
+        $filename = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+        
+        // Move the uploaded file to public/storage directly
+        $image->move(public_path('storage/gallery/' . $galleryType), $filename);
+        
+        // Store the relative path in the database
+        $path = 'gallery/' . $galleryType . '/' . $filename;
+        
+        GalleryImage::create([
+            'title' => $title ?: $image->getClientOriginalName(),
+            'image_path' => $path,
+            'gallery_type' => $galleryType,
+            'sort_order' => 0,
+        ]);
+
+        $uploadedCount++;
+    }
+
+    return redirect()->back()->with('success', $uploadedCount . ' image(s) uploaded successfully.');
+}
     /**
      * Delete an image from gallery.
      */
