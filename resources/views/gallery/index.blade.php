@@ -32,6 +32,7 @@
 
 
 
+
     <!-- Gallery Section -->
     <div class="bg-black py-24">
         <div class="container mx-auto px-4">

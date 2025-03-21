@@ -114,6 +114,63 @@
     </div>
 </nav>
 
+
+<!-- This goes in your navigation/dropdown menu for the Gallery section -->
+<div class="relative">
+    <!-- Gallery Dropdown Button -->
+    <button class="flex items-center text-white hover:text-green-500 transition-colors duration-300 group">
+        Gallery
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transition-transform duration-300 group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+    </button>
+    
+    <!-- Dropdown Menu -->
+    <div class="absolute hidden group-hover:block hover:block left-0 mt-2 w-48 bg-black/90 backdrop-blur-sm border border-gray-800 rounded-lg shadow-xl z-50">
+        <a href="{{ route('gallery') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-700/30 rounded-t-lg">
+            All Photos
+        </a>
+        <a href="{{ route('gallery.rooms') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-700/30">
+            Room Gallery
+        </a>
+        <a href="{{ route('gallery.outdoor') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-700/30">
+            Outdoor Gallery
+        </a>
+        <a href="{{ route('gallery.weddings') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-700/30 rounded-b-lg">
+            Weddings Gallery
+        </a>
+    </div>
+</div>
+
+<!-- For Admin Navigation - Add this to your admin dashboard sidebar -->
+@if(Auth::check() && Auth::user()->is_admin)
+<div class="py-2">
+    <h3 class="text-xs uppercase text-gray-500 font-medium px-4 mb-2">Content Management</h3>
+    
+    <!-- Gallery Management -->
+    <a href="{{ route('admin.gallery.index') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Manage Galleries
+    </a>
+    
+    <!-- If you want direct links to each gallery section -->
+    <div class="pl-12">
+        <a href="{{ route('admin.gallery.rooms') }}" class="flex items-center px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg">
+            Room Gallery
+        </a>
+        <a href="{{ route('admin.gallery.outdoor') }}" class="flex items-center px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg">
+            Outdoor Gallery
+        </a>
+        <a href="{{ route('admin.gallery.weddings') }}" class="flex items-center px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg">
+            Weddings Gallery
+        </a>
+    </div>
+</div>
+@endif
+
+
     <!-- Content -->
     @yield('content')
 

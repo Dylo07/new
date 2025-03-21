@@ -99,3 +99,21 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Update availability (AJAX endpoint)
     Route::post('/admin/availability/update', [App\Http\Controllers\CalendarController::class, 'update'])->name('calendar.update');
 });
+
+
+// Public Gallery Routes
+Route::get('/gallery/rooms', [App\Http\Controllers\GalleryController::class, 'rooms'])->name('gallery.rooms');
+Route::get('/gallery/outdoor', [App\Http\Controllers\GalleryController::class, 'outdoor'])->name('gallery.outdoor');
+Route::get('/gallery/weddings', [App\Http\Controllers\GalleryController::class, 'weddings'])->name('gallery.weddings');
+
+// Admin Gallery Routes - Protected with admin middleware
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    // Gallery Management
+    Route::get('/gallery', [App\Http\Controllers\Admin\GalleryController::class, 'index'])->name('gallery.index');
+    Route::get('/gallery/rooms', [App\Http\Controllers\Admin\GalleryController::class, 'rooms'])->name('gallery.rooms');
+    Route::get('/gallery/outdoor', [App\Http\Controllers\Admin\GalleryController::class, 'outdoor'])->name('gallery.outdoor');
+    Route::get('/gallery/weddings', [App\Http\Controllers\Admin\GalleryController::class, 'weddings'])->name('gallery.weddings');
+    Route::post('/gallery/upload', [App\Http\Controllers\Admin\GalleryController::class, 'upload'])->name('gallery.upload');
+    Route::delete('/gallery/{id}', [App\Http\Controllers\Admin\GalleryController::class, 'delete'])->name('gallery.delete');
+    Route::post('/gallery/sort', [App\Http\Controllers\Admin\GalleryController::class, 'updateSortOrder'])->name('gallery.sort');
+});
