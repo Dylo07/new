@@ -29,36 +29,43 @@
     </div>
 </div>
 
-
-
-
-
     <!-- Gallery Section -->
     <div class="bg-black py-24">
         <div class="container mx-auto px-4">
+          <!-- Specialized Gallery Links -->
+          <div class="flex justify-center items-center gap-6 mb-8">
+              <a href="{{ route('gallery.rooms') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                  Room Gallery
+              </a>
+              <a href="{{ route('gallery.outdoor') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                  Outdoor Gallery
+              </a>
+              <a href="{{ route('gallery.weddings') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                  Weddings Gallery
+              </a>
+          </div>
+          
           <!-- Social Media Links -->
-<div class="flex justify-center items-center gap-6 mb-16">
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/Soba.Lanka.Resort/" 
-       class="text-white hover:text-[#00bf63] transition-colors duration-300 flex items-center gap-2" 
-       target="_blank">
-        <i class="fab fa-facebook"></i> Facebook
-    </a>
-    <!-- Instagram -->
-    <a href="https://www.instagram.com/soba.lanka/" 
-       class="text-white hover:text-[#00bf63] transition-colors duration-300 flex items-center gap-2" 
-       target="_blank">
-        <i class="fab fa-instagram"></i> Instagram
-    </a>
-    <!-- TikTok -->
-    <a href="https://www.tiktok.com/@sobalanka" 
-       class="text-white hover:text-[#00bf63] transition-colors duration-300 flex items-center gap-2" 
-       target="_blank">
-        <i class="fab fa-tiktok"></i> TikTok
-    </a>
-</div>
-
-
+          <div class="flex justify-center items-center gap-6 mb-16">
+              <!-- Facebook -->
+              <a href="https://www.facebook.com/Soba.Lanka.Resort/" 
+                 class="text-white hover:text-[#00bf63] transition-colors duration-300 flex items-center gap-2" 
+                 target="_blank">
+                  <i class="fab fa-facebook"></i> Facebook
+              </a>
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/soba.lanka/" 
+                 class="text-white hover:text-[#00bf63] transition-colors duration-300 flex items-center gap-2" 
+                 target="_blank">
+                  <i class="fab fa-instagram"></i> Instagram
+              </a>
+              <!-- TikTok -->
+              <a href="https://www.tiktok.com/@sobalanka" 
+                 class="text-white hover:text-[#00bf63] transition-colors duration-300 flex items-center gap-2" 
+                 target="_blank">
+                  <i class="fab fa-tiktok"></i> TikTok
+              </a>
+          </div>
 
             <!-- Photo Grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">

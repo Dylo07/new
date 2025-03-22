@@ -59,8 +59,8 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         @forelse($galleryImages as $image)
     <div style="color: white;">
-        <p>Image path: {{ $image->image_path }}</p>
-        <p>Full URL: {{ asset('storage/' . $image->image_path) }}</p>
+        
+        
         <img src="{{ asset('storage/' . $image->image_path) }}" style="max-width: 200px;">
     </div>
 @empty

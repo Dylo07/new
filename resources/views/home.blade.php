@@ -211,6 +211,11 @@
                     @endfor
                 </div>
                 
+                <!-- Today's Date -->
+                <div class="text-center mt-4 text-gray-400 text-sm">
+                    Updated: {{ now()->format('F d, Y') }}
+                </div>
+                
                 <div class="flex justify-center mt-8 gap-8">
                     <div class="flex items-center">
                         <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
