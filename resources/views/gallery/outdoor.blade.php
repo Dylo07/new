@@ -56,21 +56,21 @@
         </div>
 
         <!-- Photo Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        @forelse($galleryImages as $image)
-    <div style="color: white;">
-        
-        
-        <img src="{{ asset('storage/' . $image->image_path) }}" style="max-width: 200px;">
-    </div>
-@empty
-    <div class="col-span-4 text-center py-12">
-        <p class="text-white text-xl">No outdoor gallery images available yet.</p>
-        <p class="text-white">Count: {{ App\Models\GalleryImage::where('gallery_type', 'outdoor')->count() }}</p>
-    </div>
-@endforelse
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    @forelse($galleryImages as $image)
+        <div class="relative group overflow-hidden">
+            <img 
+                src="{{ asset('storage/' . $image->image_path) }}" 
+                alt="{{ $image->title }}" 
+                class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+            >
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
         </div>
-    </div>
+    @empty
+        <div class="col-span-4 text-center py-12">
+            <p class="text-white text-xl">No outdoor gallery images available yet.</p>
+        </div>
+    @endforelse
 </div>
 
 <!-- Contact CTA Section -->
