@@ -13,8 +13,23 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        // Keep the existing functionality for the main gallery page
-        return view('gallery.index');
+        // Get images from all three categories
+        $roomImages = GalleryImage::where('gallery_type', 'room')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $outdoorImages = GalleryImage::where('gallery_type', 'outdoor')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $weddingImages = GalleryImage::where('gallery_type', 'wedding')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('gallery.index', compact('roomImages', 'outdoorImages', 'weddingImages'));
     }
 
     /**
