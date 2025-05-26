@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Package;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+
 
 class PackageController extends Controller
 {
@@ -34,32 +34,45 @@ class PackageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'name' => 'required|string|max:255',
-        'type' => 'required|in:couple,family,group,wedding,engagement,birthday,honeymoon', // <-- UPDATE THIS LINE
-        'description' => 'nullable|string',
-        'features' => 'required|array|min:1',
-        'features.*' => 'required|string',
-        'price' => 'required|numeric|min:0',
-        'currency' => 'required|string|max:3',
-        'duration' => 'nullable|string|max:255',
-        'location' => 'nullable|string|max:255',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
-        'min_guests' => 'nullable|integer|min:1',
-        'max_guests' => 'nullable|integer|min:1',
-        'pricing_tiers' => 'nullable|array',
-        'pricing_tiers.*.guests' => 'required_with:pricing_tiers|integer|min:1',
-        'pricing_tiers.*.price' => 'required_with:pricing_tiers|numeric|min:0',
-        'additional_info' => 'nullable|array',
-        'is_active' => 'boolean',
-        'sort_order' => 'nullable|integer',
-    ]);
+            'name' => 'required|string|max:255',
+            'type' => 'required|in:couple,family,group,wedding,engagement,birthday,honeymoon',
+            'description' => 'nullable|string',
+            'features' => 'required|array|min:1',
+            'features.*' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'currency' => 'required|string|max:3',
+            'duration' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'min_guests' => 'nullable|integer|min:1',
+            'max_guests' => 'nullable|integer|min:1',
+            'pricing_tiers' => 'nullable|array',
+            'pricing_tiers.*.guests' => 'required_with:pricing_tiers|integer|min:1',
+            'pricing_tiers.*.price' => 'required_with:pricing_tiers|numeric|min:0',
+            'additional_info' => 'nullable|array',
+            'is_active' => 'boolean',
+            'sort_order' => 'nullable|integer',
+        ]);
 
         $data = $request->except(['image']);
         
-        // Handle image upload
+        // Handle image upload - FIXED VERSION
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('packages', 'public');
-            $data['image_path'] = $imagePath;
+            // Create directory if it doesn't exist
+            $uploadDir = public_path('storage/packages');
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
+            // Generate a unique filename
+            $image = $request->file('image');
+            $filename = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+            
+            // Move the uploaded file to public/storage/packages directly
+            $image->move(public_path('storage/packages'), $filename);
+            
+            // Store the relative path in the database
+            $data['image_path'] = 'packages/' . $filename;
         }
 
         // Filter out empty features
@@ -85,7 +98,6 @@ class PackageController extends Controller
         return redirect()->route('admin.packages.index')
             ->with('success', 'Package created successfully.');
     }
-
     /**
      * Display the specified package
      */
@@ -109,36 +121,53 @@ class PackageController extends Controller
     public function update(Request $request, Package $package)
     {
         $request->validate([
-        'name' => 'required|string|max:255',
-        'type' => 'required|in:couple,family,group,wedding,engagement,birthday,honeymoon', // <-- UPDATE THIS LINE
-        'description' => 'nullable|string',
-        'features' => 'required|array|min:1',
-        'features.*' => 'required|string',
-        'price' => 'required|numeric|min:0',
-        'currency' => 'required|string|max:3',
-        'duration' => 'nullable|string|max:255',
-        'location' => 'nullable|string|max:255',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
-        'min_guests' => 'nullable|integer|min:1',
-        'max_guests' => 'nullable|integer|min:1',
-        'pricing_tiers' => 'nullable|array',
-        'pricing_tiers.*.guests' => 'required_with:pricing_tiers|integer|min:1',
-        'pricing_tiers.*.price' => 'required_with:pricing_tiers|numeric|min:0',
-        'additional_info' => 'nullable|array',
-        'is_active' => 'boolean',
-        'sort_order' => 'nullable|integer',
-    ]);
+            'name' => 'required|string|max:255',
+            'type' => 'required|in:couple,family,group,wedding,engagement,birthday,honeymoon',
+            'description' => 'nullable|string',
+            'features' => 'required|array|min:1',
+            'features.*' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'currency' => 'required|string|max:3',
+            'duration' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'min_guests' => 'nullable|integer|min:1',
+            'max_guests' => 'nullable|integer|min:1',
+            'pricing_tiers' => 'nullable|array',
+            'pricing_tiers.*.guests' => 'required_with:pricing_tiers|integer|min:1',
+            'pricing_tiers.*.price' => 'required_with:pricing_tiers|numeric|min:0',
+            'additional_info' => 'nullable|array',
+            'is_active' => 'boolean',
+            'sort_order' => 'nullable|integer',
+        ]);
+
         $data = $request->except(['image']);
 
-        // Handle image upload
+        // Handle image upload - FIXED VERSION
         if ($request->hasFile('image')) {
-            // Delete old image
+            // Delete old image if it exists
             if ($package->image_path) {
-                Storage::disk('public')->delete($package->image_path);
+                $oldImagePath = public_path('storage/' . $package->image_path);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
             }
             
-            $imagePath = $request->file('image')->store('packages', 'public');
-            $data['image_path'] = $imagePath;
+            // Create directory if it doesn't exist
+            $uploadDir = public_path('storage/packages');
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
+            // Generate a unique filename
+            $image = $request->file('image');
+            $filename = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+            
+            // Move the uploaded file to public/storage/packages directly
+            $image->move(public_path('storage/packages'), $filename);
+            
+            // Store the relative path in the database
+            $data['image_path'] = 'packages/' . $filename;
         }
 
         // Filter out empty features
@@ -164,9 +193,12 @@ class PackageController extends Controller
      */
     public function destroy(Package $package)
     {
-        // Delete associated image
+        // Delete associated image - FIXED VERSION
         if ($package->image_path) {
-            Storage::disk('public')->delete($package->image_path);
+            $imagePath = public_path('storage/' . $package->image_path);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
         }
 
         $package->delete();
