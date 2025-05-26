@@ -16,497 +16,302 @@
 
     <div class="bg-black py-24">
         <div class="container mx-auto px-4">
-            <!-- Couples Section -->
-            <div class="mb-16">
-                <div class="mb-8">
-                    <p class="text-gray-400">For Couples</p>
-                    <h3 class="text-pink-500 text-3xl mb-4">Couple Packages</h3>
-                    <p class="text-gray-300">Indulge in our exclusive couple packages featuring cozy cottage accommodations, delicious meals, swimming pool access, and a variety of games for a perfect getaway</p>
-                </div>
-
-                <!-- Couple Packages Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Special Couple Package (HB) -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden">
-                        <div class="relative">
-                            <img src="{{ asset('images/packages/17.jpg') }}" alt="Special Couple Package" class="w-full h-55 object-cover">
-                        </div>
-                        <div class="p-6">
-                            <h4 class="text-2xl text-white mb-4">SPECIAL COUPLE PACKAGE(HB)</h4>
-                            <ul class="text-gray-300 mb-6 space-y-2">
-                                <li>• LUXURY COTTAGE</li>
-                                <li>• SWIMMING POOL</li>
-                                <li>• EVENING SNACK</li>
-                                <li>• DINNER</li>
-                                <li>• BED TEA</li>
-                                <li>• BREAKFAST</li>
-                                <li>• MORNING SNACK</li>
-                                <li>• LUNCH</li>
-                            </ul>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-gray-400">ONLY FOR</p>
-                                    <p class="text-pink-500 text-xl">Rs.12,000</p>
-                                </div>
-                                <a href="https://wa.me/94717152555" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
-                                    BOOK NOW
+            @if($allPackages->count() > 0)
+                @foreach(['couple', 'family', 'group', 'wedding', 'engagement', 'birthday', 'honeymoon'] as $packageType)
+                    @if($packagesByType[$packageType]->count() > 0)
+                        <!-- {{ ucfirst($packageType) }} Section -->
+                        <div class="mb-16">
+                            <div class="mb-8">
+                                <p class="text-gray-400">{{ $packageTypeInfo[$packageType]['subtitle'] }}</p>
+                                <h3 class="text-{{ $packageTypeInfo[$packageType]['color'] }}-500 text-3xl mb-4">
+                                    {{ $packageTypeInfo[$packageType]['title'] }}
+                                </h3>
+                                <p class="text-gray-300">{{ $packageTypeInfo[$packageType]['description'] }}</p>
+                                <a href="{{ route('packages.' . $packageType) }}" 
+                                   class="inline-block text-white hover:text-{{ $packageTypeInfo[$packageType]['color'] }}-500 transition-colors duration-300 mt-4 border-b-2 border-transparent hover:border-{{ $packageTypeInfo[$packageType]['color'] }}-500 pb-1">
+                                    View All {{ $packageTypeInfo[$packageType]['title'] }} →
                                 </a>
                             </div>
-                            <p class="text-gray-400 text-sm mt-4">Location: Matiriagama, Suriyagoda</p>
-                            <p class="text-gray-400 text-sm">Check In/out: 3:00 PM to 3:00 pm</p>
-                        </div>
-                    </div>
 
-                    <!-- Day Out Couple Package -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden">
-                        <div class="relative">
-                            <img src="{{ asset('images/packages/16.jpg') }}" alt="Day Out Package" class="w-full h-55 object-cover">
-                        </div>
-                        <div class="p-6">
-                            <h4 class="text-2xl text-white mb-4">DAY-OUT COUPLE PACKAGE</h4>
-                            <ul class="text-gray-300 mb-6 space-y-2">
-                                <li>• LUXURY COTTAGE</li>
-                                <li>• SWIMMING POOL</li>
-                                <li>• WELCOME DRINK</li>
-                                <li>• LUNCH</li>
-                                <li>• EVENING SNACK</li>
-                            </ul>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-gray-400">ONLY FOR</p>
-                                    <p class="text-pink-500 text-xl">Rs.7,000</p>
+                            <!-- Package Cards Grid -->
+                            @if($packageType === 'wedding')
+                                <!-- Special Wedding Package Layout -->
+                                @foreach($packagesByType[$packageType] as $package)
+                                    <div class="bg-gray-900 rounded-xl overflow-hidden shadow-2xl mb-8">
+                                        <div class="grid md:grid-cols-2 gap-0">
+                                            <!-- Image Section -->
+                                            <div class="relative">
+                                                @if($package->image_path)
+                                                    <img src="{{ asset('storage/' . $package->image_path) }}" 
+                                                         alt="{{ $package->name }}" 
+                                                         class="w-full h-full object-cover min-h-96">
+                                                @else
+                                                    <div class="w-full h-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center min-h-96">
+                                                        <i class="fas fa-rings-wedding text-white text-8xl"></i>
+                                                    </div>
+                                                @endif
+                                                <div class="absolute top-4 right-4">
+                                                    <span class="bg-purple-500 text-white px-4 py-2 rounded-full text-lg font-bold">
+                                                        Premium Package
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Content Section -->
+                                            <div class="p-8">
+                                                <div class="border-b border-gray-700 pb-4 mb-6">
+                                                    <h2 class="text-white text-4xl font-light mb-2">{{ $package->name }}</h2>
+                                                    @if($package->description)
+                                                        <p class="text-gray-400">{{ $package->description }}</p>
+                                                    @endif
+                                                </div>
+
+                                                @if($package->features)
+                                                    <div class="mb-8">
+                                                        <h3 class="text-white text-xl mb-4">Package Includes:</h3>
+                                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-60 overflow-y-auto">
+                                                            @foreach(array_slice($package->features, 0, 10) as $feature)
+                                                                <div class="flex items-center">
+                                                                    <i class="fas fa-check text-purple-400 mr-3"></i>
+                                                                    <span class="text-gray-300 text-sm">{{ $feature }}</span>
+                                                                </div>
+                                                            @endforeach
+                                                            @if(count($package->features) > 10)
+                                                                <div class="col-span-2 text-center">
+                                                                    <span class="text-purple-400 text-sm">+ {{ count($package->features) - 10 }} more features</span>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                @endif
+
+                                                <!-- Pricing Section -->
+                                                @if($package->pricing_tiers && count($package->pricing_tiers) > 0)
+                                                    <div class="bg-black/40 p-6 rounded-xl border border-gray-800 mb-6">
+                                                        <h3 class="text-white text-xl mb-4">Starting from</h3>
+                                                        <div class="flex justify-between items-center">
+                                                            <span class="text-gray-300">{{ $package->pricing_tiers[0]['guests'] }} Guests</span>
+                                                            <span class="text-purple-400 font-bold text-2xl">Rs.{{ number_format($package->pricing_tiers[0]['price'], 0) }}</span>
+                                                        </div>
+                                                        @if(count($package->pricing_tiers) > 1)
+                                                            <p class="text-gray-400 text-sm mt-2">Multiple pricing options available</p>
+                                                        @endif
+                                                    </div>
+                                                @else
+                                                    <div class="bg-black/40 p-6 rounded-xl border border-gray-800 mb-6">
+                                                        <div class="text-center">
+                                                            <p class="text-gray-400 mb-2">Starting from</p>
+                                                            <p class="text-purple-400 text-3xl font-bold">Rs.{{ number_format($package->price, 0) }}</p>
+                                                        </div>
+                                                    </div>
+                                                @endif
+
+                                                <!-- Contact Buttons -->
+                                                <div class="flex gap-4">
+                                                    <a href="{{ $package->whatsapp_url }}" 
+                                                       target="_blank"
+                                                       class="flex-1 bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-all duration-300 text-center flex items-center justify-center gap-2">
+                                                        <i class="fab fa-whatsapp"></i>
+                                                        Book Now
+                                                    </a>
+                                                    <a href="{{ route('packages.wedding') }}" 
+                                                       class="flex-1 border-2 border-purple-500 text-purple-500 px-6 py-3 rounded-lg hover:bg-purple-500 hover:text-white transition-all duration-300 text-center">
+                                                        View Details
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <!-- Regular Package Cards Grid -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                    @foreach($packagesByType[$packageType] as $package)
+                                        <div class="bg-gray-900 rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300">
+                                            <div class="relative">
+                                                @if($package->image_path)
+                                                    <img src="{{ asset('storage/' . $package->image_path) }}" 
+                                                         alt="{{ $package->name }}" 
+                                                         class="w-full h-64 object-cover">
+                                                @else
+                                                    <div class="w-full h-64 bg-gradient-to-r 
+                                                        @if($packageType === 'couple') from-pink-500 to-purple-600
+                                                        @elseif($packageType === 'family') from-purple-500 to-blue-600
+                                                        @elseif($packageType === 'group') from-green-500 to-teal-600
+                                                        @elseif($packageType === 'engagement') from-rose-500 to-pink-600
+                                                        @elseif($packageType === 'birthday') from-yellow-500 to-orange-600
+                                                        @elseif($packageType === 'honeymoon') from-red-500 to-pink-600
+                                                        @endif flex items-center justify-center">
+                                                        <i class="fas fa-
+                                                            @if($packageType === 'couple') heart
+                                                            @elseif($packageType === 'family') users
+                                                            @elseif($packageType === 'group') user-friends
+                                                            @elseif($packageType === 'engagement') ring
+                                                            @elseif($packageType === 'birthday') birthday-cake
+                                                            @elseif($packageType === 'honeymoon') heart
+                                                            @endif text-white text-6xl"></i>
+                                                    </div>
+                                                @endif
+                                                <div class="absolute top-4 right-4">
+                                                    <span class="bg-{{ $packageTypeInfo[$packageType]['color'] }}-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                                        Rs.{{ number_format($package->price, 0) }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="p-6">
+                                                <h4 class="text-2xl text-white mb-4 font-semibold">{{ $package->name }}</h4>
+                                                
+                                                @if($package->description)
+                                                    <p class="text-gray-300 mb-4">{{ Str::limit($package->description, 100) }}</p>
+                                                @endif
+
+                                                @if($package->features)
+                                                    <ul class="text-gray-300 mb-6 space-y-2 max-h-40 overflow-y-auto">
+                                                        @foreach(array_slice($package->features, 0, 6) as $feature)
+                                                            <li class="flex items-center">
+                                                                <i class="fas fa-check text-{{ $packageTypeInfo[$packageType]['color'] }}-500 mr-2"></i>
+                                                                <span class="text-sm">{{ $feature }}</span>
+                                                            </li>
+                                                        @endforeach
+                                                        @if(count($package->features) > 6)
+                                                            <li class="text-{{ $packageTypeInfo[$packageType]['color'] }}-400 text-sm">
+                                                                + {{ count($package->features) - 6 }} more features
+                                                            </li>
+                                                        @endif
+                                                    </ul>
+                                                @endif
+
+                                                <div class="flex items-center justify-between mb-4">
+                                                    <div>
+                                                        <p class="text-gray-400">Starting from</p>
+                                                        <p class="text-{{ $packageTypeInfo[$packageType]['color'] }}-500 text-2xl font-bold">Rs.{{ number_format($package->price, 0) }}</p>
+                                                        @if($package->min_guests && $package->max_guests)
+                                                            <p class="text-gray-400 text-sm">{{ $package->min_guests }}-{{ $package->max_guests }} guests</p>
+                                                        @elseif($package->min_guests)
+                                                            <p class="text-gray-400 text-sm">Min {{ $package->min_guests }} guests</p>
+                                                        @endif
+                                                    </div>
+                                                    <a href="{{ $package->whatsapp_url }}" 
+                                                       target="_blank"
+                                                       class="bg-{{ $packageTypeInfo[$packageType]['color'] }}-500 text-white px-6 py-3 rounded-lg hover:bg-{{ $packageTypeInfo[$packageType]['color'] }}-600 transition-colors duration-300 flex items-center gap-2">
+                                                        <i class="fab fa-whatsapp"></i>
+                                                        BOOK NOW
+                                                    </a>
+                                                </div>
+
+                                                <div class="space-y-1 text-gray-400 text-sm">
+                                                    @if($package->location)
+                                                        <p>
+                                                            <i class="fas fa-map-marker-alt mr-1"></i>
+                                                            Location: {{ $package->location }}
+                                                        </p>
+                                                    @endif
+                                                    
+                                                    @if($package->duration)
+                                                        <p>
+                                                            <i class="fas fa-clock mr-1"></i>
+                                                            Duration: {{ $package->duration }}
+                                                        </p>
+                                                    @endif
+
+                                                    @if($package->additional_info)
+                                                        @foreach($package->additional_info as $key => $value)
+                                                            @if(in_array($key, ['minimum_requirement', 'special_discount']))
+                                                                <p class="text-{{ $packageTypeInfo[$packageType]['color'] }}-400">
+                                                                    <i class="fas fa-info-circle mr-1"></i>
+                                                                    {{ $value }}
+                                                                </p>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                                <a href="https://wa.me/94717152555" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
-                                    BOOK NOW
-                                </a>
-                            </div>
-                            <p class="text-gray-400 text-sm mt-4">Location: Matiriagama, Suriyagoda</p>
-                            <p class="text-gray-400 text-sm">Check In/out: 8:00 AM to 5:00 pm</p>
+                            @endif
                         </div>
-                    </div>
-
-                    <!-- Special Couple Package (FB) -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden">
-                        <div class="relative">
-                            <img src="{{ asset('images/packages/18.jpg') }}" alt="Special Couple FB Package" class="w-full h-55 object-cover">
-                        </div>
-                        <div class="p-6">
-                            <h4 class="text-2xl text-white mb-4">SPECIAL COUPLE PACKAGE(FB)</h4>
-                            <ul class="text-gray-300 mb-6 space-y-2">
-                                <li>• LUXURY COTTAGE</li>
-                                <li>• SWIMMING POOL</li>
-                                <li>• WELCOME DRINK</li>
-                                <li>• EVENING SNACK</li>
-                                <li>• DINNER</li>
-                                <li>• BED TEA</li>
-                                <li>• BREAKFAST</li>
-                            </ul>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-gray-400">ONLY FOR</p>
-                                    <p class="text-pink-500 text-xl">Rs.10,000</p>
-                                </div>
-                                <a href="https://wa.me/94717152555" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
-                                    BOOK NOW
-                                </a>
-                            </div>
-                            <p class="text-gray-400 text-sm mt-4">Location: Matiriagama, Suriyagoda</p>
-                            <p class="text-gray-400 text-sm">Check In/out: 3:00 PM to 12:00 pm</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Family Packages Section -->
-            <div class="mb-16">
-                <div class="mb-8">
-                    <p class="text-gray-400">For Families (2 to 10 Guests)</p>
-                    <h3 class="text-purple-500 text-3xl mb-4">Family Packages</h3>
-                    <p class="text-gray-300">Enjoy our family packages with cozy cottage accommodations, delicious meals, swimming pool access, and a variety of games, perfect for groups of 2 to 10 guests.</p>
-                </div>
-
-                <!-- Family Packages Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Family Night Stay (HB) -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden">
-                        <div class="relative">
-                            <img src="{{ asset('images/packages/family-night.jpg') }}" alt="Family Night Stay Package" class="w-full h-55 object-cover">
-                        </div>
-                        <div class="p-6">
-                            <h4 class="text-2xl text-white mb-4">FAMILY NIGHT-STAY(HB)</h4>
-                            <ul class="text-gray-300 mb-6 space-y-2">
-                                <li>• FAMILY COTTAGES (A/C)</li>
-                                <li>• SWIMMING POOL ACCESS</li>
-                                <li>• WELCOME DRINK</li>
-                                <li>• EVENING SNACK</li>
-                                <li>• DINNER</li>
-                                <li>• BED TEA</li>
-                                <li>• BREAKFAST</li>
-                                <li>• LUNCH</li>
-                                <li>• INDOOR GAMES ACCESS (ALL)</li>
-                                <li>• OUTDOOR GAMES ACCESS (ALL)</li>
-                            </ul>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-gray-400">ONLY FOR</p>
-                                    <p class="text-purple-500 text-xl">Rs.5,500/-</p>
-                                </div>
-                                <a href="https://wa.me/94717152555" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
-                                    BOOK NOW
-                                </a>
-                            </div>
-                            <p class="text-gray-400 text-sm mt-4">Location: Melsiripura, Kurunegala</p>
-                            <p class="text-gray-400 text-sm">Check In/out: 3:00 PM to 3:00 PM</p>
-                        </div>
-                    </div>
-
-                    <!-- Family Day Out -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden">
-                        <div class="relative">
-                            <img src="{{ asset('images/packages/family-day.jpg') }}" alt="Family Day Out Package" class="w-full h-55 object-cover">
-                        </div>
-                        <div class="p-6">
-                            <h4 class="text-2xl text-white mb-4">FAMILY DAY-OUT</h4>
-                            <ul class="text-gray-300 mb-6 space-y-2">
-                                <li>• CHANGING ROOM (A/C)</li>
-                                <li>• SWIMMING POOL ACCESS</li>
-                                <li>• WELCOME DRINK</li>
-                                <li>• LUNCH</li>
-                                <li>• EVENING SNACK</li>
-                                <li>• INDOOR GAMES ACCESS (ALL)</li>
-                                <li>• OUTDOOR GAMES ACCESS (ALL)</li>
-                            </ul>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-gray-400">ONLY FOR</p>
-                                    <p class="text-purple-500 text-xl">Rs.3,000/-</p>
-                                </div>
-                                <a href="https://wa.me/94717152555" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
-                                    BOOK NOW
-                                </a>
-                            </div>
-                            <p class="text-gray-400 text-sm mt-4">Location: Melsiripura, Kurunegala</p>
-                            <p class="text-gray-400 text-sm">Check In/out: 9:00 AM to 5:00 PM</p>
-                        </div>
-                    </div>
-
-                    <!-- Family Night Stay (FB) -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden">
-                        <div class="relative">
-                            <img src="{{ asset('images/packages/family-night-2.jpg') }}" alt="Family Night Stay Package 2" class="w-full h-55 object-cover">
-                        </div>
-                        <div class="p-6">
-                            <h4 class="text-2xl text-white mb-4">FAMILY NIGHT-STAY(FB)</h4>
-                            <ul class="text-gray-300 mb-6 space-y-2">
-                                <li>• FAMILY COTTAGES (A/C)</li>
-                                <li>• SWIMMING POOL ACCESS</li>
-                                <li>• WELCOME DRINK</li>
-                                <li>• EVENING SNACK</li>
-                                <li>• DINNER</li>
-                                <li>• BED TEA</li>
-                                <li>• BREAKFAST</li>
-                                <li>• INDOOR GAMES ACCESS (ALL)</li>
-                                <li>• OUTDOOR GAMES ACCESS (ALL)</li>
-                            </ul>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-gray-400">ONLY FOR</p>
-                                    <p class="text-purple-500 text-xl">Rs.4,500/-</p>
-                                </div>
-                                <a href="https://wa.me/94717152555" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
-                                    BOOK NOW
-                                </a>
-                            </div>
-                            <p class="text-gray-400 text-sm mt-4">Location: Melsiripura, Kurunegala</p>
-                            <p class="text-gray-400 text-sm">Check In/out: 3:00 PM to 10:00 AM</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Group Packages Section -->
-            <div class="mb-16">
-                <div class="mb-8">
-                    <p class="text-gray-400">Suitable for Offices, Large Families, and Groups (10+ Guests)</p>
-                    <h3 class="text-green-500 text-3xl mb-4">Group Packages</h3>
-                    <p class="text-gray-300">Experience our group packages with cozy cottage accommodations, delicious meals, swimming pool access, and a variety of games, perfect for groups of more than 10 guests.</p>
-                </div>
-
-                <!-- Group Packages Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Night Stay (HB) -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden">
-                        <div class="relative">
-                            <img src="{{ asset('images/packages/group-night.jpg') }}" alt="Group Night Stay Package" class="w-full h-55 object-cover">
-                        </div>
-                        <div class="p-6">
-                            <h4 class="text-2xl text-white mb-4">NIGHT-STAY(HB)</h4>
-                            <ul class="text-gray-300 mb-6 space-y-2">
-                                <li>• ACCOMMODATION</li>
-                                <ul class="text-gray-300 mb-6 space-y-2">
-                                <li>• ACCOMMODATION</li>
-                                <li>• WELCOME DRINK</li>
-                                <li>• EVENING SNACK</li>
-                                <li>• DINNER</li>
-                                <li>• BED TEA</li>
-                                <li>• BREAKFAST</li>
-                                <li>• SWIMMING POOL</li>
-                                <li>• INDOOR GAMES</li>
-                                <li>• OUTDOOR GAMES</li>
-                                <li>• BBQ & MUSIC</li>
-                            </ul>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-gray-400">ONLY FOR</p>
-                                    <p class="text-green-500 text-xl">Rs.3,990</p>
-                                </div>
-                                <a href="https://wa.me/94717152555" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
-                                    BOOK NOW
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Night Stay (FB) -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden">
-                        <div class="relative">
-                            <img src="{{ asset('images/packages/group-night-fb.jpg') }}" alt="Group Night Stay FB Package" class="w-full h-55 object-cover">
-                        </div>
-                        <div class="p-6">
-                            <h4 class="text-2xl text-white mb-4">NIGHT-STAY(FB)</h4>
-                            <ul class="text-gray-300 mb-6 space-y-2">
-                                <li>• ACCOMMODATION</li>
-                                <li>• WELCOME DRINK</li>
-                                <li>• EVENING SNACK</li>
-                                <li>• DINNER</li>
-                                <li>• BED TEA</li>
-                                <li>• BREAKFAST</li>
-                                <li>• LUNCH</li>
-                                <li>• SWIMMING POOL</li>
-                                <li>• INDOOR GAMES</li>
-                                <li>• OUTDOOR GAMES</li>
-                                <li>• BBQ & MUSIC</li>
-                            </ul>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-gray-400">ONLY FOR</p>
-                                    <p class="text-green-500 text-xl">Rs.4,790</p>
-                                </div>
-                                <a href="https://wa.me/94717152555" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
-                                    BOOK NOW
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Day Out Package -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden">
-                        <div class="relative">
-                            <img src="{{ asset('images/packages/group-day.jpg') }}" alt="Group Day Out Package" class="w-full h-55 object-cover">
-                        </div>
-                        <div class="p-6">
-                            <h4 class="text-2xl text-white mb-4">DAY-OUT</h4>
-                            <ul class="text-gray-300 mb-6 space-y-2">
-                                <li>• WELCOME DRINK</li>
-                                <li>• LUNCH</li>
-                                <li>• EVENING SNACK</li>
-                                <li>• SWIMMING POOL</li>
-                                <li>• INDOOR GAMES</li>
-                                <li>• OUTDOOR GAMES</li>
-                                <li>• BBQ & MUSIC</li>
-                            </ul>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-gray-400">ONLY FOR</p>
-                                    <p class="text-green-500 text-xl">Rs.1,990</p>
-                                </div>
-                                <a href="https://wa.me/94717152555" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
-                                    BOOK NOW
-                                </a>
-                            </div>
-                            <p class="text-gray-400 text-sm mt-4">* Minimum of 10 guests required</p>
-                            <p class="text-gray-400 text-sm">Location: Melsiripura, Kurunegala</p>
-                        </div>
+                    @endif
+                @endforeach
+            @else
+                <!-- No Packages Available -->
+                <div class="text-center py-16">
+                    <i class="fas fa-box-open text-gray-500 text-6xl mb-4"></i>
+                    <h3 class="text-white text-2xl mb-4">No Packages Available</h3>
+                    <p class="text-gray-400">We're currently updating our packages. Please check back soon or contact us directly for current rates and availability.</p>
+                    <div class="mt-8">
+                        <a href="{{ route('contact') }}" 
+                           class="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                            Contact Us
+                        </a>
                     </div>
                 </div>
-            </div>
-
-            <!-- Wedding Package Section -->
-            <div class="py-16">
-                <div class="mb-16">
-                    <h3 class="text-purple-500 text-3xl mb-4">Wedding Packages</h3>
-                    <h4 class="text-white text-xl mb-4">Experience Unmatched Elegance with Our Luxury Wedding Packages</h4>
-                    <p class="text-gray-300 mb-6">Celebrate your special day in unparalleled style and sophistication with our exclusive luxury wedding packages. Our meticulously curated offerings include opulent accommodations, gourmet dining experiences, and access to our stunning swimming pool and other premium amenities.</p>
-                </div>
-
-                <!-- Wedding Package Images -->
-                <div class="grid grid-cols-2 gap-4 mb-8">
-                    <div class="relative group overflow-hidden rounded-lg">
-                        <img src="{{ asset('images/packages/wedding1.jpg') }}" alt="Wedding Venue" class="w-[148px] h-[105px] object-cover">
-                    </div>
-                    <div class="relative group overflow-hidden rounded-lg">
-                        <img src="{{ asset('images/packages/wedding2.jpg') }}" alt="Wedding Reception" class="w-[148px] h-[105px] object-cover">
-                    </div>
-                </div>
-
-                <!-- Wedding Package Details -->
-                <div class="bg-gray-900 rounded-xl overflow-hidden">
-                    <div class="p-8">
-                        <div class="grid md:grid-cols-2 gap-12">
-                            <!-- Package Details -->
-                            <div class="space-y-6">
-                                <div class="border-b border-gray-700 pb-4">
-                                    <h4 class="text-white text-3xl font-light">WEDDING PACKAGE</h4>
-                                    <p class="text-gray-400 mt-2">All-inclusive luxury wedding experience</p>
-                                </div>
-                                
-                                <ul class="text-gray-300 space-y-3">
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>WEDDING MENU (32 ITEMS)</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>LUXURY BANQUET HALL</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>LED DANCE FLOOR</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>JAYA MANGALA GATHA</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>TRADITIONAL DANCING GROUP</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>ASHTAKA</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>DJ MUSIC</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>ENTRANCE DECORATIONS</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>OIL LAMP, TABLES & CHAIR DECORATIONS</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>SETTEE AND PORUWA</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>LUXURY HONEYMOON COTTAGE (HB)</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>VIP BAR SERVICE</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>PHOTOGRAPHY LOCATIONS</span>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <span class="text-purple-400 text-xl">•</span>
-                                        <span>EVENT COORDINATION</span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- Pricing -->
-                            <div class="space-y-8">
-                                <div class="bg-black/40 p-8 rounded-xl border border-gray-800">
-                                    <h5 class="text-white text-2xl mb-6 font-light">PRICING</h5>
-                                    <ul class="text-gray-300 space-y-4">
-                                        <li class="flex justify-between items-center border-b border-gray-700 pb-3">
-                                            <span>50 Pax</span>
-                                            <span class="text-purple-400 font-semibold">350,000 /-</span>
-                                        </li>
-                                        <li class="flex justify-between items-center border-b border-gray-700 pb-3">
-                                            <span>100 Pax</span>
-                                            <span class="text-purple-400 font-semibold">560,000 /-</span>
-                                        </li>
-                                        <li class="flex justify-between items-center border-b border-gray-700 pb-3">
-                                            <span>150 Pax</span>
-                                            <span class="text-purple-400 font-semibold">480,000 /-</span>
-                                        </li>
-                                        <li class="flex justify-between items-center border-b border-gray-700 pb-3">
-                                            <span>200 Pax</span>
-                                            <span class="text-purple-400 font-semibold">550,000 /-</span>
-                                        </li>
-                                        <li class="flex justify-between items-center border-b border-gray-700 pb-3">
-                                            <span>300 Pax</span>
-                                            <span class="text-purple-400 font-semibold">795,000 /-</span>
-                                        </li>
-                                        <li class="flex justify-between items-center">
-                                            <span>400 Pax</span>
-                                            <span class="text-purple-400 font-semibold">995,000 /-</span>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <!-- Special Discount -->
-                                <div class="bg-purple-900/20 p-8 rounded-xl text-center border border-purple-800/30">
-                                    <p class="text-purple-400 mb-2 text-lg">Special Discount</p>
-                                    <p class="text-white text-6xl font-bold mb-2">25%</p>
-                                    <p class="text-gray-400">Valid till May 2025</p>
-                                </div>
-
-                                <!-- Contact Button -->
-                                <div class="text-center">
-                                    <a href="https://wa.me/94717152555" 
-                                       class="bg-purple-500 text-white px-8 py-3 rounded-lg hover:bg-purple-600 inline-block transition-all duration-300">
-                                        Contact Us
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
-    <!-- Contact CTA Section -->
-<section class="relative z-10 bg-black">
-<div class="relative bg-black">
-    <!-- Background Image -->
-    <div class="absolute inset-0">
-        <img 
-            src="{{ asset('images/pool-bg-min.jpg') }}" 
-            alt="Swimming Pool" 
-            class="w-full h-full object-cover"
-        >
-        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-    </div>
 
-    <!-- Content -->
-    <div class="relative container mx-auto px-4 py-24 text-center">
-        <h2 class="text-green-400 text-4xl mb-4">TALK TO US</h2>
-        <p class="text-white text-lg mb-8">
-            Questions or feedback? Reach out to us. We're here to assist you promptly and courteously.
-        </p>
-        <a 
-            href="{{ route('contact') }}" 
-            class="inline-block bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300"
-        >
-            GET IN TOUCH
-        </a>
-    </div>
-</div>
-</section>
+    <!-- Contact CTA Section -->
+    <section class="relative z-10 bg-black">
+        <div class="relative bg-black">
+            <!-- Background Image -->
+            <div class="absolute inset-0">
+                <img 
+                    src="{{ asset('images/pool-bg-min.jpg') }}" 
+                    alt="Swimming Pool" 
+                    class="w-full h-full object-cover"
+                >
+                <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="relative container mx-auto px-4 py-24 text-center">
+                <h2 class="text-green-400 text-4xl mb-4">TALK TO US</h2>
+                <p class="text-white text-lg mb-8">
+                    Questions or feedback? Reach out to us. We're here to assist you promptly and courteously.
+                </p>
+                <a 
+                    href="{{ route('contact') }}" 
+                    class="inline-block bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300"
+                >
+                    GET IN TOUCH
+                </a>
+            </div>
+        </div>
+    </section>
 </div>
 
 @push('styles')
 <style>
     body {
         background-color: #000000;
+    }
+    
+    .hover\:transform:hover {
+        transform: translateY(-5px);
+    }
+    
+    .transition-all {
+        transition: all 0.3s ease-in-out;
+    }
+    
+    /* Custom scrollbar for feature lists */
+    .overflow-y-auto::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .overflow-y-auto::-webkit-scrollbar-track {
+        background: #374151;
+        border-radius: 2px;
+    }
+    
+    .overflow-y-auto::-webkit-scrollbar-thumb {
+        background: #6B7280;
+        border-radius: 2px;
+    }
+    
+    .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+        background: #9CA3AF;
     }
 </style>
 @endpush

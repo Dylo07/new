@@ -590,20 +590,19 @@
                             <li>• DINNER</li>
                             <li>• BED TEA</li>
                             <li>• BREAKFAST</li>
-                            <li>• MORNING SNACK</li>
-                            <li>• LUNCH</li>
+                            
                         </ul>
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-400">ONLY FOR</p>
-                                <p class="text-pink-500 text-xl">Rs.12,000</p>
+                                <p class="text-pink-500 text-xl">Rs.10,000</p>
                             </div>
-                            <a href="https://wa.me/94717152555" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
+                            <a href="https://wa.me/94717152955" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
                                 BOOK NOW
                             </a>
                         </div>
-                        <p class="text-gray-400 text-sm mt-4">Location: Matiriagama, Suriyagoda</p>
-                        <p class="text-gray-400 text-sm">Check In/out: 3:00 PM to 3:00 pm</p>
+                        <p class="text-gray-400 text-sm mt-4">Location: Melsiripura, Kurunegala</p>
+                        <p class="text-gray-400 text-sm">Check In/out: 3:00 PM to 10:00 Am</p>
                     </div>
                 </div>
 
@@ -627,12 +626,12 @@
                                 <p class="text-gray-400">ONLY FOR</p>
                                 <p class="text-pink-500 text-xl">Rs.7,000</p>
                             </div>
-                            <a href="https://wa.me/94717152555" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
+                            <a href="https://wa.me/94717152955" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
                                 BOOK NOW
                             </a>
                         </div>
-                        <p class="text-gray-400 text-sm mt-4">Location: Matiriagama, Suriyagoda</p>
-                        <p class="text-gray-400 text-sm">Check In/out: 8:00 AM to 5:00 pm</p>
+                        <p class="text-gray-400 text-sm mt-4">Location: Melsiripura, Kurunegala</p>
+                        <p class="text-gray-400 text-sm">Check In/out: 9:00 AM to 5:00 pm</p>
                     </div>
                 </div>
 
@@ -652,18 +651,20 @@
                             <li>• DINNER</li>
                             <li>• BED TEA</li>
                             <li>• BREAKFAST</li>
+                            <li>• MORNING SNACK</li>
+                            <li>• LUNCH</li>
                         </ul>
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-400">ONLY FOR</p>
-                                <p class="text-pink-500 text-xl">Rs.10,000</p>
+                                <p class="text-pink-500 text-xl">Rs.12,000</p>
                             </div>
-                            <a href="https://wa.me/94717152555" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
+                            <a href="https://wa.me/94717152955" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
                                 BOOK NOW
                             </a>
                         </div>
-                        <p class="text-gray-400 text-sm mt-4">Location: Matiriagama, Suriyagoda</p>
-                        <p class="text-gray-400 text-sm">Check In/out: 3:00 PM to 12:00 pm</p>
+                        <p class="text-gray-400 text-sm mt-4">Location: Melsiripura, Kurunegala</p>
+                        <p class="text-gray-400 text-sm">Check In/out: 3:00 PM to 3:00 pm</p>
                     </div>
                 </div>
             </div>
@@ -698,17 +699,16 @@
                     <li>• EVENING SNACK</li>
                     <li>• DINNER</li>
                     <li>• BED TEA</li>
-                    <li>• BREAKFAST</li>
-                    <li>• LUNCH</li>
+                    <li>• BREAKFAST</li>                    
                     <li>• INDOOR GAMES ACCESS (ALL)</li>
                     <li>• OUTDOOR GAMES ACCESS (ALL)</li>
                 </ul>
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-purple-500 text-xl">Rs.5,500/-</p>
+                        <p class="text-purple-500 text-xl">Rs.4,500/-</p>
                     </div>
-                    <a href="https://wa.me/94717152555" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -739,7 +739,7 @@
                         <p class="text-gray-400">ONLY FOR</p>
                         <p class="text-purple-500 text-xl">Rs.3,000/-</p>
                     </div>
-                    <a href="https://wa.me/94717152555" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -764,15 +764,16 @@
                     <li>• DINNER</li>
                     <li>• BED TEA</li>
                     <li>• BREAKFAST</li>
+                    <li>• LUNCH</li>
                     <li>• INDOOR GAMES ACCESS (ALL)</li>
                     <li>• OUTDOOR GAMES ACCESS (ALL)</li>
                 </ul>
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-purple-500 text-xl">Rs.4,500/-</p>
+                        <p class="text-purple-500 text-xl">Rs.5,500/-</p>
                     </div>
-                    <a href="https://wa.me/94717152555" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -820,7 +821,7 @@
                         <p class="text-gray-400">ONLY FOR</p>
                         <p class="text-green-500 text-xl">Rs.3,990</p>
                     </div>
-                    <a href="https://wa.me/94717152555" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -853,7 +854,7 @@
                         <p class="text-gray-400">ONLY FOR</p>
                         <p class="text-green-500 text-xl">Rs.4,790</p>
                     </div>
-                    <a href="https://wa.me/94717152555" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -882,7 +883,7 @@
                         <p class="text-gray-400">ONLY FOR</p>
                         <p class="text-green-500 text-xl">Rs.2,490</p>
                     </div>
-                    <a href="https://wa.me/94717152555" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -1028,7 +1029,7 @@
 
                         <!-- Contact Button -->
                         <div class="text-center">
-                            <a href="https://wa.me/94717152555" 
+                            <a href="https://wa.me/94717152955" 
                                class="bg-purple-500 text-white px-8 py-3 rounded-lg hover:bg-purple-600 inline-block transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
                                 Contact Us
                             </a>

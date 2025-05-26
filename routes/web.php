@@ -9,6 +9,7 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\RatesController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -34,6 +35,16 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+// Package Routes - Updated with new package types
+Route::get('/packages/couple', [PackageController::class, 'couples'])->name('packages.couple');
+Route::get('/packages/family', [PackageController::class, 'family'])->name('packages.family');
+Route::get('/packages/group', [PackageController::class, 'group'])->name('packages.group');
+Route::get('/packages/wedding', [PackageController::class, 'wedding'])->name('packages.wedding');
+Route::get('/packages/engagement', [PackageController::class, 'engagement'])->name('packages.engagement');
+Route::get('/packages/birthday', [PackageController::class, 'birthday'])->name('packages.birthday');
+Route::get('/packages/honeymoon', [PackageController::class, 'honeymoon'])->name('packages.honeymoon');
+Route::get('/packages/{package}', [PackageController::class, 'show'])->name('packages.show');
+
 // Room Public Routes
 Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
 Route::get('/rooms/{room}', [RoomController::class, 'show'])->name('rooms.show');
@@ -55,6 +66,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/rooms/{room}', [RoomController::class, 'update'])->name('rooms.update');
     Route::delete('/rooms/{room}', [RoomController::class, 'destroy'])->name('rooms.destroy');
     Route::put('/rooms/{room}/availability', [RoomController::class, 'updateAvailability'])->name('rooms.updateAvailability');
+
+    // Package Management
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/packages', [App\Http\Controllers\Admin\PackageController::class, 'index'])->name('packages.index');
+        Route::get('/packages/create', [App\Http\Controllers\Admin\PackageController::class, 'create'])->name('packages.create');
+        Route::post('/packages', [App\Http\Controllers\Admin\PackageController::class, 'store'])->name('packages.store');
+        Route::get('/packages/{package}', [App\Http\Controllers\Admin\PackageController::class, 'show'])->name('packages.show');
+        Route::get('/packages/{package}/edit', [App\Http\Controllers\Admin\PackageController::class, 'edit'])->name('packages.edit');
+        Route::put('/packages/{package}', [App\Http\Controllers\Admin\PackageController::class, 'update'])->name('packages.update');
+        Route::delete('/packages/{package}', [App\Http\Controllers\Admin\PackageController::class, 'destroy'])->name('packages.destroy');
+        Route::patch('/packages/{package}/toggle-status', [App\Http\Controllers\Admin\PackageController::class, 'toggleStatus'])->name('packages.toggle-status');
+        Route::post('/packages/sort', [App\Http\Controllers\Admin\PackageController::class, 'updateSortOrder'])->name('packages.sort');
+    });
 
     // Booking Management
     Route::get('/admin/bookings', [BookingController::class, 'index'])->name('admin.bookings.index');
@@ -84,10 +108,9 @@ Route::fallback(function () {
     return view('errors.404');
 });
 
-
 // Public calendar view
-// Add this public route
 Route::get('/availability', [CalendarController::class, 'index'])->name('calendar.index');
+
 // Admin routes (protected)
 Route::middleware(['auth', 'admin'])->group(function () {
     // View availability (no editing)
@@ -99,7 +122,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Update availability (AJAX endpoint)
     Route::post('/admin/availability/update', [App\Http\Controllers\CalendarController::class, 'update'])->name('calendar.update');
 });
-
 
 // Public Gallery Routes
 Route::get('/gallery/rooms', [App\Http\Controllers\GalleryController::class, 'rooms'])->name('gallery.rooms');
