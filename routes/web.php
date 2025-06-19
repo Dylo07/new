@@ -123,16 +123,22 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/availability/update', [App\Http\Controllers\CalendarController::class, 'update'])->name('calendar.update');
 });
 
-// Public Gallery Routes
+// Public Gallery Routes - Updated with new room categories
 Route::get('/gallery/rooms', [App\Http\Controllers\GalleryController::class, 'rooms'])->name('gallery.rooms');
+Route::get('/gallery/rooms/family-cottages', [App\Http\Controllers\GalleryController::class, 'familyCottages'])->name('gallery.family_cottages');
+Route::get('/gallery/rooms/couple-cottages', [App\Http\Controllers\GalleryController::class, 'coupleCottages'])->name('gallery.couple_cottages');
+Route::get('/gallery/rooms/family-rooms', [App\Http\Controllers\GalleryController::class, 'familyRooms'])->name('gallery.family_rooms');
 Route::get('/gallery/outdoor', [App\Http\Controllers\GalleryController::class, 'outdoor'])->name('gallery.outdoor');
 Route::get('/gallery/weddings', [App\Http\Controllers\GalleryController::class, 'weddings'])->name('gallery.weddings');
 
-// Admin Gallery Routes - Protected with admin middleware
+// Admin Gallery Routes - Protected with admin middleware - CORRECTED ROUTE NAMES
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    // Gallery Management
+    // Gallery Management - Updated with new room categories
     Route::get('/gallery', [App\Http\Controllers\Admin\GalleryController::class, 'index'])->name('gallery.index');
     Route::get('/gallery/rooms', [App\Http\Controllers\Admin\GalleryController::class, 'rooms'])->name('gallery.rooms');
+    Route::get('/gallery/family-cottages', [App\Http\Controllers\Admin\GalleryController::class, 'familyCottages'])->name('gallery.family-cottages');
+    Route::get('/gallery/couple-cottages', [App\Http\Controllers\Admin\GalleryController::class, 'coupleCottages'])->name('gallery.couple-cottages');
+    Route::get('/gallery/family-rooms', [App\Http\Controllers\Admin\GalleryController::class, 'familyRooms'])->name('gallery.family-rooms');
     Route::get('/gallery/outdoor', [App\Http\Controllers\Admin\GalleryController::class, 'outdoor'])->name('gallery.outdoor');
     Route::get('/gallery/weddings', [App\Http\Controllers\Admin\GalleryController::class, 'weddings'])->name('gallery.weddings');
     Route::post('/gallery/upload', [App\Http\Controllers\Admin\GalleryController::class, 'upload'])->name('gallery.upload');

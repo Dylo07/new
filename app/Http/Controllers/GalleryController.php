@@ -13,8 +13,23 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        // Get images from all three categories
+        // Get images from all categories
         $roomImages = GalleryImage::where('gallery_type', 'room')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $familyCottageImages = GalleryImage::where('gallery_type', 'family_cottage')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $coupleCottageImages = GalleryImage::where('gallery_type', 'couple_cottage')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $familyRoomImages = GalleryImage::where('gallery_type', 'family_room')
             ->orderBy('sort_order')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -29,11 +44,18 @@ class GalleryController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('gallery.index', compact('roomImages', 'outdoorImages', 'weddingImages'));
+        return view('gallery.index', compact(
+            'roomImages', 
+            'familyCottageImages', 
+            'coupleCottageImages', 
+            'familyRoomImages', 
+            'outdoorImages', 
+            'weddingImages'
+        ));
     }
 
     /**
-     * Display the room gallery.
+     * Display the general room gallery.
      */
     public function rooms()
     {
@@ -46,29 +68,56 @@ class GalleryController extends Controller
     }
 
     /**
+     * Display the family cottages gallery.
+     */
+    public function familyCottages()
+    {
+        $galleryImages = GalleryImage::where('gallery_type', 'family_cottage')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('gallery.family-cottages', compact('galleryImages'));
+    }
+
+    /**
+     * Display the couple cottages gallery.
+     */
+    public function coupleCottages()
+    {
+        $galleryImages = GalleryImage::where('gallery_type', 'couple_cottage')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('gallery.couple-cottages', compact('galleryImages'));
+    }
+
+    /**
+     * Display the family rooms gallery.
+     */
+    public function familyRooms()
+    {
+        $galleryImages = GalleryImage::where('gallery_type', 'family_room')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('gallery.family-rooms', compact('galleryImages'));
+    }
+
+    /**
      * Display the outdoor gallery.
      */
     public function outdoor()
-{
-    $galleryImages = GalleryImage::where('gallery_type', 'outdoor')
-        ->orderBy('sort_order')
-        ->orderBy('created_at', 'desc')
-        ->get();
-    
-    // Debug info
-    if (count($galleryImages) === 0) {
-        // Check if any images exist at all
-        $allImages = GalleryImage::all();
-        dd([
-            'outdoor_images' => $galleryImages,
-            'all_images' => $allImages,
-            'outdoor_count' => GalleryImage::where('gallery_type', 'outdoor')->count(),
-            'all_count' => GalleryImage::count()
-        ]);
-    }
+    {
+        $galleryImages = GalleryImage::where('gallery_type', 'outdoor')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-    return view('gallery.outdoor', compact('galleryImages'));
-}
+        return view('gallery.outdoor', compact('galleryImages'));
+    }
 
     /**
      * Display the weddings gallery.
