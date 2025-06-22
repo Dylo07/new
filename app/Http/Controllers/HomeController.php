@@ -22,7 +22,7 @@ class HomeController extends Controller
         // Get availability data
         $currentMonthAvailability = $this->getMonthAvailability($currentMonth);
         
-        // Get gallery images with caching and single query optimization
+        // Get gallery images with caching and single query optimization (4 per category)
         $galleryImages = $this->getGalleryImagesOptimized();
         
         return view('home', array_merge([
@@ -33,7 +33,7 @@ class HomeController extends Controller
     }
     
     /**
-     * Optimized gallery images fetching with caching and single query
+     * Optimized gallery images fetching with caching and single query (4 images per category)
      */
     private function getGalleryImagesOptimized()
     {
@@ -48,16 +48,16 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
             
-            // Group by type and limit to 8 per category
+            // Group by type and limit to 4 per category for homepage
             $groupedImages = $allImages->groupBy('gallery_type');
             
             return [
-                'roomImages' => $groupedImages->get('room', collect())->take(8),
-                'familyCottageImages' => $groupedImages->get('family_cottage', collect())->take(8),
-                'coupleCottageImages' => $groupedImages->get('couple_cottage', collect())->take(8),
-                'familyRoomImages' => $groupedImages->get('family_room', collect())->take(8),
-                'outdoorImages' => $groupedImages->get('outdoor', collect())->take(8),
-                'weddingImages' => $groupedImages->get('wedding', collect())->take(8),
+                'roomImages' => $groupedImages->get('room', collect())->take(4),
+                'familyCottageImages' => $groupedImages->get('family_cottage', collect())->take(4),
+                'coupleCottageImages' => $groupedImages->get('couple_cottage', collect())->take(4),
+                'familyRoomImages' => $groupedImages->get('family_room', collect())->take(4),
+                'outdoorImages' => $groupedImages->get('outdoor', collect())->take(4),
+                'weddingImages' => $groupedImages->get('wedding', collect())->take(4),
             ];
         });
     }

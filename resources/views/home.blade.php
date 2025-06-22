@@ -494,12 +494,7 @@
                     @foreach($familyCottageImages as $index => $image)
                         <div class="relative group overflow-hidden">
                             <img 
-                                @if($index < 4)
-                                    src="{{ asset('storage/' . $image->image_path) }}"
-                                @else
-                                    loading="lazy" 
-                                    src="{{ asset('storage/' . $image->image_path) }}"
-                                @endif
+                                src="{{ asset('storage/' . $image->image_path) }}"
                                 alt="{{ $image->title }}" 
                                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
                                 width="300" height="300"
@@ -524,7 +519,6 @@
                     @foreach($coupleCottageImages as $index => $image)
                         <div class="relative group overflow-hidden">
                             <img 
-                                loading="lazy"
                                 src="{{ asset('storage/' . $image->image_path) }}" 
                                 alt="{{ $image->title }}" 
                                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
@@ -550,7 +544,6 @@
                     @foreach($familyRoomImages as $index => $image)
                         <div class="relative group overflow-hidden">
                             <img 
-                                loading="lazy"
                                 src="{{ asset('storage/' . $image->image_path) }}" 
                                 alt="{{ $image->title }}" 
                                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
@@ -576,7 +569,6 @@
                     @foreach($roomImages as $index => $image)
                         <div class="relative group overflow-hidden">
                             <img 
-                                loading="lazy"
                                 src="{{ asset('storage/' . $image->image_path) }}" 
                                 alt="{{ $image->title }}" 
                                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
@@ -602,7 +594,6 @@
                     @foreach($outdoorImages as $index => $image)
                         <div class="relative group overflow-hidden">
                             <img 
-                                loading="lazy"
                                 src="{{ asset('storage/' . $image->image_path) }}" 
                                 alt="{{ $image->title }}" 
                                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
@@ -628,7 +619,6 @@
                     @foreach($weddingImages as $index => $image)
                         <div class="relative group overflow-hidden">
                             <img 
-                                loading="lazy"
                                 src="{{ asset('storage/' . $image->image_path) }}" 
                                 alt="{{ $image->title }}" 
                                 class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
