@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Setting;
 use App\Models\Availability;
+use App\Models\GalleryImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -20,42 +22,84 @@ class HomeController extends Controller
         // Get availability data
         $currentMonthAvailability = $this->getMonthAvailability($currentMonth);
         
-        return view('home', compact('backgroundImage', 'currentMonth', 'currentMonthAvailability'));
+        // Get gallery images with caching and single query optimization
+        $galleryImages = $this->getGalleryImagesOptimized();
+        
+        return view('home', array_merge([
+            'backgroundImage' => $backgroundImage,
+            'currentMonth' => $currentMonth,
+            'currentMonthAvailability' => $currentMonthAvailability,
+        ], $galleryImages));
+    }
+    
+    /**
+     * Optimized gallery images fetching with caching and single query
+     */
+    private function getGalleryImagesOptimized()
+    {
+        // Cache for 30 minutes to reduce database load
+        return Cache::remember('homepage_gallery_images', 30, function () {
+            // Single query to get all needed images
+            $allImages = GalleryImage::whereIn('gallery_type', [
+                'room', 'family_cottage', 'couple_cottage', 
+                'family_room', 'outdoor', 'wedding'
+            ])
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
+            // Group by type and limit to 8 per category
+            $groupedImages = $allImages->groupBy('gallery_type');
+            
+            return [
+                'roomImages' => $groupedImages->get('room', collect())->take(8),
+                'familyCottageImages' => $groupedImages->get('family_cottage', collect())->take(8),
+                'coupleCottageImages' => $groupedImages->get('couple_cottage', collect())->take(8),
+                'familyRoomImages' => $groupedImages->get('family_room', collect())->take(8),
+                'outdoorImages' => $groupedImages->get('outdoor', collect())->take(8),
+                'weddingImages' => $groupedImages->get('wedding', collect())->take(8),
+            ];
+        });
     }
     
     // Add the getMonthAvailability method from CalendarController
     private function getMonthAvailability(Carbon $month)
     {
-        $startOfMonth = $month->copy()->startOfMonth();
-        $endOfMonth = $month->copy()->endOfMonth();
+        // Cache availability for 1 hour
+        $cacheKey = 'availability_' . $month->format('Y-m');
         
-        // Get all availability records for this month
-        $availabilityRecords = Availability::whereBetween('date', [
-            $startOfMonth->format('Y-m-d'), 
-            $endOfMonth->format('Y-m-d')
-        ])->get();
-        
-        // Create a map with date string as key (for easier lookup)
-        $dateStatusMap = [];
-        foreach ($availabilityRecords as $record) {
-            // Format the date as a string to ensure consistent comparison
-            $dateKey = $record->date instanceof \Carbon\Carbon 
-                ? $record->date->format('Y-m-d') 
-                : date('Y-m-d', strtotime($record->date));
-            $dateStatusMap[$dateKey] = $record->status;
-        }
-        
-        // Build availability array
-        $availability = [];
-        $currentDate = $startOfMonth->copy();
-        
-        while ($currentDate <= $endOfMonth) {
-            $dateString = $currentDate->format('Y-m-d');
-            $availability[$dateString] = $dateStatusMap[$dateString] ?? 'available';
-            $currentDate->addDay();
-        }
-        
-        return $availability;
+        return Cache::remember($cacheKey, 60, function () use ($month) {
+            $startOfMonth = $month->copy()->startOfMonth();
+            $endOfMonth = $month->copy()->endOfMonth();
+            
+            // Get all availability records for this month
+            $availabilityRecords = Availability::whereBetween('date', [
+                $startOfMonth->format('Y-m-d'), 
+                $endOfMonth->format('Y-m-d')
+            ])->get();
+            
+            // Create a map with date string as key (for easier lookup)
+            $dateStatusMap = [];
+            foreach ($availabilityRecords as $record) {
+                // Format the date as a string to ensure consistent comparison
+                $dateKey = $record->date instanceof \Carbon\Carbon 
+                    ? $record->date->format('Y-m-d') 
+                    : date('Y-m-d', strtotime($record->date));
+                $dateStatusMap[$dateKey] = $record->status;
+            }
+            
+            // Build availability array
+            $availability = [];
+            $currentDate = $startOfMonth->copy();
+            
+            while ($currentDate <= $endOfMonth) {
+                $dateString = $currentDate->format('Y-m-d');
+                $availability[$dateString] = $dateStatusMap[$dateString] ?? 'available';
+                $currentDate->addDay();
+            }
+            
+            return $availability;
+        });
     }
     
     public function search(Request $request)
