@@ -42,7 +42,8 @@ class CustomPackageController extends Controller
         $images = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('custom-packages', 'public');
+                // Store in the same path structure as gallery images
+                $path = $image->store('gallery-images/custom-packages', 'public');
                 $images[] = $path;
             }
         }
@@ -94,7 +95,8 @@ class CustomPackageController extends Controller
         
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('custom-packages', 'public');
+                // Store in the same path structure as gallery images
+                $path = $image->store('gallery-images/custom-packages', 'public');
                 $images[] = $path;
             }
         }
