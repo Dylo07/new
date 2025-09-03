@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\CustomPackage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class CustomPackageController extends Controller
 {
@@ -36,14 +35,26 @@ class CustomPackageController extends Controller
             'adult_price' => 'required|numeric|min:0',
             'child_price' => 'required|numeric|min:0',
             'min_adults' => 'required|integer|min:1',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120'
         ]);
 
         $images = [];
         if ($request->hasFile('images')) {
+            // Create directory if it doesn't exist (matching your existing pattern)
+            $uploadDir = public_path('storage/custom-packages');
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
             foreach ($request->file('images') as $image) {
-                // Store in the same path structure as gallery images
-                $path = $image->store('gallery-images/custom-packages', 'public');
+                // Generate a unique filename (matching your existing pattern)
+                $filename = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+                
+                // Move the uploaded file to public/storage/custom-packages directly
+                $image->move(public_path('storage/custom-packages'), $filename);
+                
+                // Store the relative path in the database (matching your existing pattern)
+                $path = 'custom-packages/' . $filename;
                 $images[] = $path;
             }
         }
@@ -88,15 +99,27 @@ class CustomPackageController extends Controller
             'adult_price' => 'required|numeric|min:0',
             'child_price' => 'required|numeric|min:0',
             'min_adults' => 'required|integer|min:1',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120'
         ]);
 
         $images = $customPackage->images ?? [];
         
         if ($request->hasFile('images')) {
+            // Create directory if it doesn't exist
+            $uploadDir = public_path('storage/custom-packages');
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
             foreach ($request->file('images') as $image) {
-                // Store in the same path structure as gallery images
-                $path = $image->store('gallery-images/custom-packages', 'public');
+                // Generate a unique filename
+                $filename = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+                
+                // Move the uploaded file to public/storage/custom-packages directly
+                $image->move(public_path('storage/custom-packages'), $filename);
+                
+                // Store the relative path in the database
+                $path = 'custom-packages/' . $filename;
                 $images[] = $path;
             }
         }
@@ -121,10 +144,13 @@ class CustomPackageController extends Controller
 
     public function destroy(CustomPackage $customPackage)
     {
-        // Delete associated images
+        // Delete associated images (matching your existing pattern)
         if ($customPackage->images) {
-            foreach ($customPackage->images as $image) {
-                Storage::disk('public')->delete($image);
+            foreach ($customPackage->images as $imagePath) {
+                $fullPath = public_path('storage/' . $imagePath);
+                if (file_exists($fullPath)) {
+                    unlink($fullPath);
+                }
             }
         }
 
@@ -140,7 +166,12 @@ class CustomPackageController extends Controller
         $images = $customPackage->images ?? [];
 
         if (isset($images[$imageIndex])) {
-            Storage::disk('public')->delete($images[$imageIndex]);
+            // Delete the file (matching your existing pattern)
+            $imagePath = public_path('storage/' . $images[$imageIndex]);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+            
             unset($images[$imageIndex]);
             $images = array_values($images); // Re-index array
 
