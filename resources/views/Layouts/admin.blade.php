@@ -38,6 +38,11 @@
                            {{ request()->routeIs('admin.packages.*') ? 'border-green-500 text-green-600' : '' }}">
                             <i class="fas fa-box mr-2"></i>Packages
                         </a>
+                        <a href="{{ route('admin.custom-packages.index') }}" 
+       class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm
+       {{ request()->routeIs('admin.custom-packages.*') ? 'border-green-500 text-green-600' : '' }}">
+        <i class="fas fa-puzzle-piece mr-2"></i>Custom Packages
+    </a>
                         <a href="{{ route('admin.gallery.index') }}" 
                            class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm
                            {{ request()->routeIs('admin.gallery.*') ? 'border-green-500 text-green-600' : '' }}">
@@ -93,6 +98,11 @@
                    {{ request()->routeIs('admin.packages.*') ? 'bg-green-50 border-green-500 text-green-700' : '' }}">
                     <i class="fas fa-box mr-2"></i>Packages
                 </a>
+                <a href="{{ route('admin.custom-packages.index') }}" 
+       class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm
+       {{ request()->routeIs('admin.custom-packages.*') ? 'border-green-500 text-green-600' : '' }}">
+        <i class="fas fa-puzzle-piece mr-2"></i>Custom Packages
+    </a>
                 <a href="{{ route('admin.gallery.index') }}" 
                    class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50
                    {{ request()->routeIs('admin.gallery.*') ? 'bg-green-50 border-green-500 text-green-700' : '' }}">

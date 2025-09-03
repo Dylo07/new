@@ -80,6 +80,10 @@
             <a href="{{ route('rates') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">
                 All Packages
             </a>
+            <a href="{{ route('package-builder') }}" class="block px-4 py-2 text-sm text-white hover:bg-blue-600 transition-colors duration-200">
+                <i class="fas fa-magic mr-2"></i>Create Custom Package
+            </a>
+            <div class="border-t border-gray-700"></div>
             <a href="{{ route('packages.couple') }}" class="block px-4 py-2 text-sm text-white hover:bg-pink-600 transition-colors duration-200">
                 Couple Packages
             </a>
@@ -116,6 +120,7 @@
                                 <span class="bg-green-500 px-2 py-1 rounded text-sm text-white">Admin</span>
                                 <a href="{{ route('admin.packages.index') }}" class="text-white hover:text-green-400 transition-colors duration-300">Manage Packages</a>
                                 <a href="{{ route('admin.gallery.index') }}" class="text-white hover:text-green-400 transition-colors duration-300">Manage Galleries</a>
+                                <a href="{{ route('admin.custom-packages.index') }}" class="text-white hover:text-green-400 transition-colors duration-300">Custom Packages</a>
                             @endif
                             <form action="{{ route('logout') }}" method="POST" class="inline">
                                 @csrf
@@ -190,6 +195,10 @@
                             <a href="{{ route('rates') }}" class="block text-white hover:text-green-400 transition-colors duration-300">
                                 All Packages
                             </a>
+                            <a href="{{ route('package-builder') }}" class="block text-white hover:text-blue-400 transition-colors duration-300">
+                                <i class="fas fa-magic mr-2"></i>Create Custom Package
+                            </a>
+                            <div class="border-t border-gray-700 my-2"></div>
                             <a href="{{ route('packages.couple') }}" class="block text-white hover:text-pink-400 transition-colors duration-300">
                                 Couple Packages
                             </a>
@@ -225,6 +234,7 @@
                                 <span class="inline-block bg-green-500 px-2 py-1 rounded text-sm text-white mb-2">Admin</span>
                                 <a href="{{ route('admin.packages.index') }}" class="block text-white hover:text-green-400 transition-colors duration-300 mb-2">Manage Packages</a>
                                 <a href="{{ route('admin.gallery.index') }}" class="block text-white hover:text-green-400 transition-colors duration-300 mb-2">Manage Galleries</a>
+                                <a href="{{ route('admin.custom-packages.index') }}" class="block text-white hover:text-green-400 transition-colors duration-300 mb-2">Custom Packages</a>
                             @endif
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf

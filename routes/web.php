@@ -145,3 +145,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/gallery/{id}', [App\Http\Controllers\Admin\GalleryController::class, 'delete'])->name('gallery.delete');
     Route::post('/gallery/sort', [App\Http\Controllers\Admin\GalleryController::class, 'updateSortOrder'])->name('gallery.sort');
 });
+
+
+// Package Builder Routes (Public)
+Route::get('/package-builder', [App\Http\Controllers\PackageBuilderController::class, 'index'])->name('package-builder');
+Route::post('/package-builder/get-packages', [App\Http\Controllers\PackageBuilderController::class, 'getPackages'])->name('package-builder.get-packages');
+Route::post('/package-builder/calculate-price', [App\Http\Controllers\PackageBuilderController::class, 'calculatePrice'])->name('package-builder.calculate-price');
+
+// Admin Custom Package Routes (Protected)
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('custom-packages', App\Http\Controllers\Admin\CustomPackageController::class);
+    Route::post('/custom-packages/{customPackage}/remove-image', [App\Http\Controllers\Admin\CustomPackageController::class, 'removeImage'])->name('custom-packages.remove-image');
+});
