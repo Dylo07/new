@@ -42,8 +42,71 @@
             
             <div class="text-center mt-8">
                 <button 
-                    id="findPackages" 
+                    id="nextToRooms" 
                     class="bg-green-500 text-white px-8 py-4 rounded-lg text-xl hover:bg-green-600 transition-all duration-300"
+                >
+                    Next: Select Rooms
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 1.5: Room Selection -->
+        <div class="max-w-2xl mx-auto bg-gray-900 rounded-xl p-8 mb-8 hidden" id="step1_5">
+            <h2 class="text-2xl text-white mb-6 text-center">How many rooms do you need?</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-white text-lg mb-2">Double Rooms (Two person)</label>
+                    <input 
+                        type="number" 
+                        id="doubleRooms" 
+                        min="0" 
+                        max="20" 
+                        value="0" 
+                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:outline-none text-xl text-center"
+                    >
+                </div>
+                <div>
+                    <label class="block text-white text-lg mb-2">Triple Rooms (Three person)</label>
+                    <input 
+                        type="number" 
+                        id="tripleRooms" 
+                        min="0" 
+                        max="20" 
+                        value="0" 
+                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:outline-none text-xl text-center"
+                    >
+                </div>
+                <div>
+                    <label class="block text-white text-lg mb-2">Family Cottage (Four to Six person)</label>
+                    <input 
+                        type="number" 
+                        id="familyCottages" 
+                        min="0" 
+                        max="10" 
+                        value="0" 
+                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:outline-none text-xl text-center"
+                    >
+                </div>
+            </div>
+
+            <!-- Room Summary -->
+            <div class="bg-gray-800 rounded-lg p-4 mt-6" id="roomSummary">
+                <h3 class="text-white text-lg mb-2">Room Summary</h3>
+                <div id="roomSummaryContent" class="text-gray-300"></div>
+                <div id="additionalRoomCharges" class="text-yellow-400 mt-2 hidden"></div>
+            </div>
+            
+            <div class="flex gap-4 mt-8">
+                <button 
+                    id="backToGuests" 
+                    class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-all duration-300 flex-1"
+                >
+                    Back
+                </button>
+                <button 
+                    id="findPackages" 
+                    class="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-all duration-300 flex-1"
                 >
                     Find My Perfect Packages
                 </button>
@@ -123,6 +186,10 @@
                                 <span>Children (<span id="childCount">0</span> × <span id="childPrice">Rs 0</span>)</span>
                                 <span id="childSubtotal">Rs 0</span>
                             </div>
+                            <div class="flex justify-between text-yellow-300 hidden" id="roomChargesRow">
+                                <span>Additional Room Charges</span>
+                                <span id="roomCharges">Rs 0</span>
+                            </div>
                             <hr class="border-gray-700">
                             <div class="flex justify-between text-xl text-green-400 font-bold">
                                 <span>Total</span>
@@ -156,13 +223,26 @@
 let selectedPackage = null;
 let currentAdults = 2;
 let currentChildren = 0;
+let currentRooms = {
+    double: 0,
+    triple: 0,
+    family: 0
+};
+let additionalRoomCharge = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
     // Handle input changes
     document.getElementById('adults').addEventListener('input', updateGuestCount);
     document.getElementById('children').addEventListener('input', updateGuestCount);
     
-    // Handle find packages button
+    // Handle room inputs
+    document.getElementById('doubleRooms').addEventListener('input', updateRoomSummary);
+    document.getElementById('tripleRooms').addEventListener('input', updateRoomSummary);
+    document.getElementById('familyCottages').addEventListener('input', updateRoomSummary);
+    
+    // Handle navigation buttons
+    document.getElementById('nextToRooms').addEventListener('click', proceedToRooms);
+    document.getElementById('backToGuests').addEventListener('click', backToGuestSelection);
     document.getElementById('findPackages').addEventListener('click', findPackages);
 });
 
@@ -171,7 +251,7 @@ function updateGuestCount() {
     currentChildren = parseInt(document.getElementById('children').value) || 0;
 }
 
-function findPackages() {
+function proceedToRooms() {
     updateGuestCount();
     
     if (currentAdults < 1) {
@@ -179,9 +259,133 @@ function findPackages() {
         return;
     }
     
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('step1_5').classList.remove('hidden');
+    
+    // Auto-suggest room configuration
+    autoSuggestRooms();
+    updateRoomSummary();
+}
+
+function backToGuestSelection() {
+    document.getElementById('step1_5').classList.add('hidden');
+    document.getElementById('step1').classList.remove('hidden');
+}
+
+function autoSuggestRooms() {
+    const totalGuests = currentAdults + currentChildren;
+    
+    // Simple auto-suggestion logic
+    if (totalGuests <= 2) {
+        document.getElementById('doubleRooms').value = 1;
+    } else if (totalGuests <= 6) {
+        document.getElementById('familyCottages').value = 1;
+    } else {
+        // For larger groups, suggest a mix
+        const familyCottages = Math.floor(totalGuests / 6);
+        const remaining = totalGuests % 6;
+        
+        document.getElementById('familyCottages').value = familyCottages;
+        
+        if (remaining > 0) {
+            if (remaining <= 2) {
+                document.getElementById('doubleRooms').value = 1;
+            } else if (remaining <= 3) {
+                document.getElementById('tripleRooms').value = 1;
+            } else {
+                document.getElementById('familyCottages').value = familyCottages + 1;
+            }
+        }
+    }
+}
+
+function updateRoomSummary() {
+    const doubleRooms = parseInt(document.getElementById('doubleRooms').value) || 0;
+    const tripleRooms = parseInt(document.getElementById('tripleRooms').value) || 0;
+    const familyCottages = parseInt(document.getElementById('familyCottages').value) || 0;
+    
+    currentRooms = {
+        double: doubleRooms,
+        triple: tripleRooms,
+        family: familyCottages
+    };
+    
+    // Calculate total room capacity
+    const totalRoomCapacity = (doubleRooms * 2) + (tripleRooms * 3) + (familyCottages * 6);
+    const totalGuests = currentAdults + currentChildren;
+    const totalRoomsRequested = doubleRooms + tripleRooms + familyCottages;
+    
+    // Calculate additional room charges for group packages (>=10 guests)
+    additionalRoomCharge = 0;
+    let additionalChargeText = '';
+    
+    if (totalGuests >= 10) {
+        const maxFreeRooms = Math.ceil(totalGuests / 3);
+        if (totalRoomsRequested > maxFreeRooms) {
+            const additionalRooms = totalRoomsRequested - maxFreeRooms;
+            additionalRoomCharge = additionalRooms * 4000;
+            additionalChargeText = `Additional ${additionalRooms} room(s): Rs ${additionalRoomCharge.toLocaleString()}`;
+        }
+    }
+    
+    // Update room summary
+    let summaryHTML = '';
+    if (doubleRooms > 0) summaryHTML += `${doubleRooms} Double Room(s) (${doubleRooms * 2} capacity)<br>`;
+    if (tripleRooms > 0) summaryHTML += `${tripleRooms} Triple Room(s) (${tripleRooms * 3} capacity)<br>`;
+    if (familyCottages > 0) summaryHTML += `${familyCottages} Family Cottage(s) (${familyCottages * 6} capacity)<br>`;
+    
+    summaryHTML += `<div class="mt-2 pt-2 border-t border-gray-600">`;
+    summaryHTML += `Total Room Capacity: ${totalRoomCapacity} guests<br>`;
+    summaryHTML += `Your Guest Count: ${totalGuests} guests`;
+    summaryHTML += `</div>`;
+    
+    document.getElementById('roomSummaryContent').innerHTML = summaryHTML;
+    
+    // Show additional charges if applicable
+    const additionalChargesDiv = document.getElementById('additionalRoomCharges');
+    if (additionalChargeText) {
+        additionalChargesDiv.innerHTML = `<strong>Additional Charges:</strong><br>${additionalChargeText}`;
+        additionalChargesDiv.classList.remove('hidden');
+    } else {
+        additionalChargesDiv.classList.add('hidden');
+    }
+    
+    // Validate room capacity
+    const findButton = document.getElementById('findPackages');
+    if (totalRoomCapacity < totalGuests) {
+        findButton.disabled = true;
+        findButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+        findButton.classList.add('bg-red-500', 'cursor-not-allowed');
+        findButton.textContent = 'Insufficient Room Capacity';
+    } else {
+        findButton.disabled = false;
+        findButton.classList.remove('bg-red-500', 'cursor-not-allowed');
+        findButton.classList.add('bg-green-500', 'hover:bg-green-600');
+        findButton.textContent = 'Find My Perfect Packages';
+    }
+}
+
+function findPackages() {
+    updateGuestCount();
+    updateRoomSummary();
+    
+    if (currentAdults < 1) {
+        alert('Please enter at least 1 adult.');
+        return;
+    }
+    
+    const totalRoomCapacity = (currentRooms.double * 2) + (currentRooms.triple * 3) + (currentRooms.family * 6);
+    const totalGuests = currentAdults + currentChildren;
+    
+    if (totalRoomCapacity < totalGuests) {
+        alert('Room capacity is insufficient for your guest count. Please adjust your room selection.');
+        return;
+    }
+    
     // Show loading state
-    document.getElementById('findPackages').textContent = 'Loading...';
-    document.getElementById('findPackages').disabled = true;
+    const button = document.getElementById('findPackages');
+    button.textContent = 'Loading...';
+    button.disabled = true;
     
     // Fetch packages
     fetch('/package-builder/get-packages', {
@@ -192,13 +396,15 @@ function findPackages() {
         },
         body: JSON.stringify({
             adults: currentAdults,
-            children: currentChildren
+            children: currentChildren,
+            rooms: currentRooms,
+            additional_room_charge: additionalRoomCharge
         })
     })
     .then(response => response.json())
     .then(data => {
         displayPackages(data);
-        document.getElementById('step1').style.display = 'none';
+        document.getElementById('step1_5').style.display = 'none';
         document.getElementById('step2').classList.remove('hidden');
     })
     .catch(error => {
@@ -206,8 +412,8 @@ function findPackages() {
         alert('Error loading packages. Please try again.');
     })
     .finally(() => {
-        document.getElementById('findPackages').textContent = 'Find My Perfect Packages';
-        document.getElementById('findPackages').disabled = false;
+        button.textContent = 'Find My Perfect Packages';
+        button.disabled = false;
     });
 }
 
@@ -249,7 +455,8 @@ function displayPackages(data) {
 }
 
 function createPackageCard(package, adults, children) {
-    const total = (package.adult_price * adults) + (package.child_price * children);
+    const packageTotal = (package.adult_price * adults) + (package.child_price * children);
+    const totalWithRooms = packageTotal + additionalRoomCharge;
     const isAvailable = package.available;
     
     const card = document.createElement('div');
@@ -266,10 +473,13 @@ function createPackageCard(package, adults, children) {
         </div>
         
         <div class="mb-4">
-            <div class="text-green-400 text-2xl font-bold">Rs ${total.toLocaleString()}</div>
+            <div class="text-green-400 text-2xl font-bold">Rs ${totalWithRooms.toLocaleString()}</div>
             <div class="text-gray-400 text-sm">
                 Adults: Rs ${package.adult_price} × ${adults} = Rs ${(package.adult_price * adults).toLocaleString()}<br>
-                ${children > 0 ? `Children: Rs ${package.child_price} × ${children} = Rs ${(package.child_price * children).toLocaleString()}` : ''}
+                ${children > 0 ? `Children: Rs ${package.child_price} × ${children} = Rs ${(package.child_price * children).toLocaleString()}<br>` : ''}
+                ${additionalRoomCharge > 0 ? `Additional Rooms: Rs ${additionalRoomCharge.toLocaleString()}<br>` : ''}
+                <strong>Package Total: Rs ${packageTotal.toLocaleString()}</strong>
+                ${additionalRoomCharge > 0 ? `<br><strong>Grand Total: Rs ${totalWithRooms.toLocaleString()}</strong>` : ''}
             </div>
         </div>
         
@@ -304,7 +514,9 @@ function selectPackage(packageId) {
         body: JSON.stringify({
             package_id: packageId,
             adults: currentAdults,
-            children: currentChildren
+            children: currentChildren,
+            rooms: currentRooms,
+            additional_room_charge: additionalRoomCharge
         })
     })
     .then(response => response.json())
@@ -354,7 +566,17 @@ function displayPackageDetails(data) {
     document.getElementById('childPrice').textContent = `Rs ${data.child_price.toLocaleString()}`;
     document.getElementById('childSubtotal').textContent = `Rs ${data.subtotal_children.toLocaleString()}`;
     
-    document.getElementById('totalPrice').textContent = `Rs ${data.total.toLocaleString()}`;
+    // Show/hide room charges
+    const roomChargesRow = document.getElementById('roomChargesRow');
+    if (additionalRoomCharge > 0) {
+        document.getElementById('roomCharges').textContent = `Rs ${additionalRoomCharge.toLocaleString()}`;
+        roomChargesRow.classList.remove('hidden');
+    } else {
+        roomChargesRow.classList.add('hidden');
+    }
+    
+    const finalTotal = data.total + additionalRoomCharge;
+    document.getElementById('totalPrice').textContent = `Rs ${finalTotal.toLocaleString()}`;
     
     // Hide children row if no children
     document.getElementById('childPriceRow').style.display = data.children > 0 ? 'flex' : 'none';
@@ -367,8 +589,17 @@ function goBack() {
 
 function proceedToBooking() {
     // Here you can redirect to booking page or open booking form
-    // For now, we'll show an alert
-    alert('Booking functionality would be implemented here. Package: ' + selectedPackage.package.name + ', Total: Rs ' + selectedPackage.total.toLocaleString());
+    // For now, we'll show an alert with all details
+    const finalTotal = selectedPackage.total + additionalRoomCharge;
+    let bookingDetails = `Package: ${selectedPackage.package.name}\n`;
+    bookingDetails += `Adults: ${selectedPackage.adults}, Children: ${selectedPackage.children}\n`;
+    bookingDetails += `Rooms: ${currentRooms.double} Double, ${currentRooms.triple} Triple, ${currentRooms.family} Family Cottages\n`;
+    if (additionalRoomCharge > 0) {
+        bookingDetails += `Additional Room Charges: Rs ${additionalRoomCharge.toLocaleString()}\n`;
+    }
+    bookingDetails += `Total: Rs ${finalTotal.toLocaleString()}`;
+    
+    alert('Booking functionality would be implemented here.\n\n' + bookingDetails);
 }
 </script>
 
