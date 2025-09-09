@@ -17,6 +17,7 @@ class PackageBuilderController extends Controller
         $adults = (int) $request->adults;
         $children = (int) $request->children;
         $totalGuests = $adults + $children;
+        $packageType = $request->package_type; // day_out, half_board, full_board
 
         // Determine category based on guest count
         if ($totalGuests <= 2) {
@@ -27,10 +28,10 @@ class PackageBuilderController extends Controller
             $category = 'group';
         }
 
-        // Get packages for the category
+        // Get packages for the category and specific type only
         $packages = CustomPackage::active()
             ->category($category)
-            ->orderBy('type')
+            ->type($packageType)
             ->orderBy('sub_type')
             ->get()
             ->groupBy(['type', 'sub_type']);
@@ -49,7 +50,8 @@ class PackageBuilderController extends Controller
             'category' => $category,
             'packages' => $availablePackages,
             'adults' => $adults,
-            'children' => $children
+            'children' => $children,
+            'package_type' => $packageType
         ]);
     }
 
@@ -58,6 +60,7 @@ class PackageBuilderController extends Controller
         $packageId = $request->package_id;
         $adults = (int) $request->adults;
         $children = (int) $request->children;
+        $additionalRoomCharge = (float) $request->additional_room_charge ?? 0;
 
         $package = CustomPackage::find($packageId);
 
@@ -69,7 +72,8 @@ class PackageBuilderController extends Controller
             return response()->json(['error' => 'Package not available for this number of adults'], 400);
         }
 
-        $total = $package->calculateTotal($adults, $children);
+        $packageTotal = $package->calculateTotal($adults, $children);
+        $finalTotal = $packageTotal + $additionalRoomCharge;
 
         return response()->json([
             'package' => $package,
@@ -79,8 +83,10 @@ class PackageBuilderController extends Controller
             'child_price' => $package->child_price,
             'subtotal_adults' => $package->adult_price * $adults,
             'subtotal_children' => $package->child_price * $children,
-            'total' => $total,
-            'formatted_total' => 'Rs ' . number_format($total, 0)
+            'package_total' => $packageTotal,
+            'additional_room_charge' => $additionalRoomCharge,
+            'total' => $finalTotal,
+            'formatted_total' => 'Rs ' . number_format($finalTotal, 0)
         ]);
     }
 }

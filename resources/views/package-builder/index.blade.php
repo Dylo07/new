@@ -105,10 +105,107 @@
                     Back
                 </button>
                 <button 
-                    id="findPackages" 
+                    id="nextToPackageType" 
                     class="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-all duration-300 flex-1"
                 >
-                    Find My Perfect Packages
+                    Next: Select Package Type
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 1.75: Package Type Selection -->
+        <div class="max-w-2xl mx-auto bg-gray-900 rounded-xl p-8 mb-8 hidden" id="step1_75">
+            <h2 class="text-2xl text-white mb-6 text-center">What kind of package are you looking for?</h2>
+            
+            <div class="space-y-6">
+                <!-- Day Out Option -->
+                <div class="bg-gray-800 rounded-lg p-6 cursor-pointer hover:bg-gray-700 transition-all duration-300 package-type-option" data-type="day_out">
+                    <div class="flex items-start">
+                        <input type="radio" name="packageType" value="day_out" id="dayOut" class="mt-1 mr-4 text-green-500">
+                        <div class="flex-1">
+                            <label for="dayOut" class="text-white text-xl font-semibold cursor-pointer">Day Out</label>
+                            <div class="text-gray-300 mt-2">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-clock mr-2 text-green-400"></i>
+                                    <span>Check in: 9:00 AM | Check out: 5:00 PM</span>
+                                </div>
+                                <ul class="list-disc list-inside text-sm space-y-1 ml-6">
+                                    <li>Welcome drink</li>
+                                    <li>Lunch</li>
+                                    <li>Evening snack</li>
+                                    <li>Swimming pool access</li>
+                                    <li>Indoor & outdoor games</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Night Stay Half Board Option -->
+                <div class="bg-gray-800 rounded-lg p-6 cursor-pointer hover:bg-gray-700 transition-all duration-300 package-type-option" data-type="half_board">
+                    <div class="flex items-start">
+                        <input type="radio" name="packageType" value="half_board" id="halfBoard" class="mt-1 mr-4 text-green-500">
+                        <div class="flex-1">
+                            <label for="halfBoard" class="text-white text-xl font-semibold cursor-pointer">Night Stay (Half Board)</label>
+                            <div class="text-gray-300 mt-2">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-clock mr-2 text-green-400"></i>
+                                    <span>Check in: 3:00 PM | Check out: 10:00 AM (next day)</span>
+                                </div>
+                                <ul class="list-disc list-inside text-sm space-y-1 ml-6">
+                                    <li>Evening snack</li>
+                                    <li>Dinner</li>
+                                    <li>Bed tea</li>
+                                    <li>Breakfast</li>
+                                    <li>Swimming pool access</li>
+                                    <li>Indoor & outdoor games</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Night Stay Full Board Option -->
+                <div class="bg-gray-800 rounded-lg p-6 cursor-pointer hover:bg-gray-700 transition-all duration-300 package-type-option" data-type="full_board">
+                    <div class="flex items-start">
+                        <input type="radio" name="packageType" value="full_board" id="fullBoard" class="mt-1 mr-4 text-green-500">
+                        <div class="flex-1">
+                            <label for="fullBoard" class="text-white text-xl font-semibold cursor-pointer">Night Stay (Full Board)</label>
+                            <div class="text-gray-300 mt-2">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-clock mr-2 text-green-400"></i>
+                                    <span>Check in: 3:00 PM | Check out: 3:00 PM (next day)</span>
+                                </div>
+                                <ul class="list-disc list-inside text-sm space-y-1 ml-6">
+                                    <li>Welcome drink</li>
+                                    <li>Evening snack</li>
+                                    <li>Dinner</li>
+                                    <li>Bed tea</li>
+                                    <li>Breakfast</li>
+                                    <li>Morning snack</li>
+                                    <li>Lunch</li>
+                                    <li>Swimming pool access</li>
+                                    <li>Indoor & outdoor games</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex gap-4 mt-8">
+                <button 
+                    id="backToRooms" 
+                    class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-all duration-300 flex-1"
+                >
+                    Back to Rooms
+                </button>
+                <button 
+                    id="proceedWithPackageType" 
+                    class="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-all duration-300 flex-1 disabled:bg-gray-500 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    Find Packages
                 </button>
             </div>
         </div>
@@ -229,6 +326,7 @@ let currentRooms = {
     family: 0
 };
 let additionalRoomCharge = 0;
+let selectedPackageType = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     // Handle input changes
@@ -240,10 +338,30 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('tripleRooms').addEventListener('input', updateRoomSummary);
     document.getElementById('familyCottages').addEventListener('input', updateRoomSummary);
     
+    // Handle package type selection
+    document.querySelectorAll('.package-type-option').forEach(option => {
+        option.addEventListener('click', function() {
+            const radio = this.querySelector('input[type="radio"]');
+            radio.checked = true;
+            selectedPackageType = radio.value;
+            
+            // Enable the proceed button
+            document.getElementById('proceedWithPackageType').disabled = false;
+            
+            // Update visual selection
+            document.querySelectorAll('.package-type-option').forEach(opt => {
+                opt.classList.remove('ring-2', 'ring-green-500');
+            });
+            this.classList.add('ring-2', 'ring-green-500');
+        });
+    });
+    
     // Handle navigation buttons
     document.getElementById('nextToRooms').addEventListener('click', proceedToRooms);
     document.getElementById('backToGuests').addEventListener('click', backToGuestSelection);
-    document.getElementById('findPackages').addEventListener('click', findPackages);
+    document.getElementById('nextToPackageType').addEventListener('click', proceedToPackageType);
+    document.getElementById('backToRooms').addEventListener('click', backToRoomSelection);
+    document.getElementById('proceedWithPackageType').addEventListener('click', findPackages);
 });
 
 function updateGuestCount() {
@@ -272,8 +390,39 @@ function backToGuestSelection() {
     document.getElementById('step1').classList.remove('hidden');
 }
 
+function proceedToPackageType() {
+    updateGuestCount();
+    updateRoomSummary();
+    
+    if (currentAdults < 1) {
+        alert('Please enter at least 1 adult.');
+        return;
+    }
+    
+    const totalRoomCapacity = (currentRooms.double * 2) + (currentRooms.triple * 3) + (currentRooms.family * 6);
+    const totalGuests = currentAdults + currentChildren;
+    
+    if (totalRoomCapacity < totalGuests) {
+        alert('Room capacity is insufficient for your guest count. Please adjust your room selection.');
+        return;
+    }
+    
+    document.getElementById('step1_5').classList.add('hidden');
+    document.getElementById('step1_75').classList.remove('hidden');
+}
+
+function backToRoomSelection() {
+    document.getElementById('step1_75').classList.add('hidden');
+    document.getElementById('step1_5').classList.remove('hidden');
+}
+
 function autoSuggestRooms() {
     const totalGuests = currentAdults + currentChildren;
+    
+    // Clear previous values
+    document.getElementById('doubleRooms').value = 0;
+    document.getElementById('tripleRooms').value = 0;
+    document.getElementById('familyCottages').value = 0;
     
     // Simple auto-suggestion logic
     if (totalGuests <= 2) {
@@ -351,39 +500,28 @@ function updateRoomSummary() {
     }
     
     // Validate room capacity
-    const findButton = document.getElementById('findPackages');
+    const nextButton = document.getElementById('nextToPackageType');
     if (totalRoomCapacity < totalGuests) {
-        findButton.disabled = true;
-        findButton.classList.remove('bg-green-500', 'hover:bg-green-600');
-        findButton.classList.add('bg-red-500', 'cursor-not-allowed');
-        findButton.textContent = 'Insufficient Room Capacity';
+        nextButton.disabled = true;
+        nextButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+        nextButton.classList.add('bg-red-500', 'cursor-not-allowed');
+        nextButton.textContent = 'Insufficient Room Capacity';
     } else {
-        findButton.disabled = false;
-        findButton.classList.remove('bg-red-500', 'cursor-not-allowed');
-        findButton.classList.add('bg-green-500', 'hover:bg-green-600');
-        findButton.textContent = 'Find My Perfect Packages';
+        nextButton.disabled = false;
+        nextButton.classList.remove('bg-red-500', 'cursor-not-allowed');
+        nextButton.classList.add('bg-green-500', 'hover:bg-green-600');
+        nextButton.textContent = 'Next: Select Package Type';
     }
 }
 
 function findPackages() {
-    updateGuestCount();
-    updateRoomSummary();
-    
-    if (currentAdults < 1) {
-        alert('Please enter at least 1 adult.');
-        return;
-    }
-    
-    const totalRoomCapacity = (currentRooms.double * 2) + (currentRooms.triple * 3) + (currentRooms.family * 6);
-    const totalGuests = currentAdults + currentChildren;
-    
-    if (totalRoomCapacity < totalGuests) {
-        alert('Room capacity is insufficient for your guest count. Please adjust your room selection.');
+    if (!selectedPackageType) {
+        alert('Please select a package type.');
         return;
     }
     
     // Show loading state
-    const button = document.getElementById('findPackages');
+    const button = document.getElementById('proceedWithPackageType');
     button.textContent = 'Loading...';
     button.disabled = true;
     
@@ -398,13 +536,14 @@ function findPackages() {
             adults: currentAdults,
             children: currentChildren,
             rooms: currentRooms,
-            additional_room_charge: additionalRoomCharge
+            additional_room_charge: additionalRoomCharge,
+            package_type: selectedPackageType
         })
     })
     .then(response => response.json())
     .then(data => {
         displayPackages(data);
-        document.getElementById('step1_5').style.display = 'none';
+        document.getElementById('step1_75').style.display = 'none';
         document.getElementById('step2').classList.remove('hidden');
     })
     .catch(error => {
@@ -412,7 +551,7 @@ function findPackages() {
         alert('Error loading packages. Please try again.');
     })
     .finally(() => {
-        button.textContent = 'Find My Perfect Packages';
+        button.textContent = 'Find Packages';
         button.disabled = false;
     });
 }
@@ -424,7 +563,13 @@ function displayPackages(data) {
         'group': 'Group Packages'
     };
     
-    document.getElementById('categoryTitle').textContent = categoryTitles[data.category];
+    const typeTitles = {
+        'day_out': 'Day Out',
+        'half_board': 'Half Board (Night Stay)',
+        'full_board': 'Full Board (Night Stay)'
+    };
+    
+    document.getElementById('categoryTitle').textContent = `${categoryTitles[data.category]} - ${typeTitles[selectedPackageType]}`;
     document.getElementById('guestSummary').textContent = `${data.adults} Adult${data.adults > 1 ? 's' : ''}${data.children > 0 ? ` and ${data.children} Child${data.children > 1 ? 'ren' : ''}` : ''}`;
     
     // Clear previous packages
@@ -432,16 +577,26 @@ function displayPackages(data) {
     document.getElementById('halfBoardPackages').innerHTML = '';
     document.getElementById('fullBoardPackages').innerHTML = '';
     
-    // Display packages by type
-    Object.keys(data.packages).forEach(type => {
-        const containerId = type === 'day_out' ? 'dayOutPackages' : 
-                           type === 'half_board' ? 'halfBoardPackages' : 
+    // Hide all package type sections first
+    document.querySelectorAll('.package-type-section').forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Only show and populate the selected package type
+    if (data.packages[selectedPackageType]) {
+        const containerId = selectedPackageType === 'day_out' ? 'dayOutPackages' : 
+                           selectedPackageType === 'half_board' ? 'halfBoardPackages' : 
                            'fullBoardPackages';
         
         const container = document.getElementById(containerId);
+        const section = container.parentElement;
         
-        Object.keys(data.packages[type]).forEach(subType => {
-            data.packages[type][subType].forEach(package => {
+        // Show the section
+        section.style.display = 'block';
+        
+        // Populate packages
+        Object.keys(data.packages[selectedPackageType]).forEach(subType => {
+            data.packages[selectedPackageType][subType].forEach(package => {
                 const packageCard = createPackageCard(package, data.adults, data.children);
                 container.appendChild(packageCard);
             });
@@ -449,11 +604,10 @@ function displayPackages(data) {
         
         // Hide section if no packages
         if (container.children.length === 0) {
-            container.parentElement.style.display = 'none';
+            section.style.display = 'none';
         }
-    });
+    }
 }
-
 function createPackageCard(package, adults, children) {
     const packageTotal = (package.adult_price * adults) + (package.child_price * children);
     const totalWithRooms = packageTotal + additionalRoomCharge;
