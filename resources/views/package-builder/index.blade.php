@@ -222,7 +222,7 @@
                 <!-- Day Out Packages -->
                 <div class="package-type-section" data-type="day_out">
                     <h3 class="text-2xl text-green-400 mb-6 text-center">Day Out Packages</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="dayOutPackages">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="dayOutPackages">
                         <!-- Packages will be loaded here -->
                     </div>
                 </div>
@@ -230,7 +230,7 @@
                 <!-- Half Board Packages -->
                 <div class="package-type-section" data-type="half_board">
                     <h3 class="text-2xl text-green-400 mb-6 text-center">Half Board Packages</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="halfBoardPackages">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="halfBoardPackages">
                         <!-- Packages will be loaded here -->
                     </div>
                 </div>
@@ -238,7 +238,7 @@
                 <!-- Full Board Packages -->
                 <div class="package-type-section" data-type="full_board">
                     <h3 class="text-2xl text-green-400 mb-6 text-center">Full Board Packages</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="fullBoardPackages">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="fullBoardPackages">
                         <!-- Packages will be loaded here -->
                     </div>
                 </div>
@@ -247,10 +247,10 @@
 
         <!-- Step 3: Package Details & Booking -->
         <div id="step3" class="hidden">
-            <div class="max-w-4xl mx-auto bg-gray-900 rounded-xl p-8">
+            <div class="max-w-6xl mx-auto bg-gray-900 rounded-xl p-8">
                 <h2 class="text-3xl text-white mb-6 text-center">Package Details</h2>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <!-- Package Info -->
                     <div>
                         <div id="selectedPackageImages" class="mb-6">
@@ -608,6 +608,7 @@ function displayPackages(data) {
         }
     }
 }
+
 function createPackageCard(package, adults, children) {
     const packageTotal = (package.adult_price * adults) + (package.child_price * children);
     const totalWithRooms = packageTotal + additionalRoomCharge;
@@ -619,8 +620,12 @@ function createPackageCard(package, adults, children) {
     card.innerHTML = `
         <div class="mb-4">
             ${package.images && package.images.length > 0 ? 
-                `<img src="/storage/${package.images[0]}" alt="${package.name}" class="w-full h-48 object-cover rounded-lg mb-4">` : 
-                '<div class="w-full h-48 bg-gray-700 rounded-lg mb-4 flex items-center justify-center"><span class="text-gray-500">No Image</span></div>'
+                `<div class="relative w-full aspect-[940/788] mb-4 overflow-hidden rounded-lg bg-gray-700">
+                    <img src="/storage/${package.images[0]}" alt="${package.name}" class="w-full h-full object-cover">
+                </div>` : 
+                `<div class="w-full aspect-[940/788] bg-gray-700 rounded-lg mb-4 flex items-center justify-center">
+                    <span class="text-gray-500">No Image</span>
+                </div>`
             }
             <h4 class="text-xl text-white font-bold mb-2">${package.name}</h4>
             ${package.description ? `<p class="text-gray-300 text-sm mb-3">${package.description.substring(0, 100)}...</p>` : ''}
@@ -695,20 +700,28 @@ function displayPackageDetails(data) {
     document.getElementById('selectedPackageDescription').textContent = data.package.description || 'No description available';
     document.getElementById('selectedPackageMenu').textContent = data.package.menu || 'Menu details not available';
     
-    // Display images
+    // Display images with 940x788 aspect ratio
     const imagesContainer = document.getElementById('selectedPackageImages');
     imagesContainer.innerHTML = '';
     
     if (data.package.images && data.package.images.length > 0) {
         data.package.images.forEach((image, index) => {
+            const imageWrapper = document.createElement('div');
+            imageWrapper.className = 'relative w-full aspect-[940/788] mb-4 overflow-hidden rounded-lg bg-gray-700';
+            
             const img = document.createElement('img');
             img.src = `/storage/${image}`;
             img.alt = data.package.name;
-            img.className = 'w-full h-48 object-cover rounded-lg mb-2';
-            imagesContainer.appendChild(img);
+            img.className = 'w-full h-full object-cover';
+            
+            imageWrapper.appendChild(img);
+            imagesContainer.appendChild(imageWrapper);
         });
     } else {
-        imagesContainer.innerHTML = '<div class="w-full h-48 bg-gray-700 rounded-lg mb-4 flex items-center justify-center"><span class="text-gray-500">No Images Available</span></div>';
+        const placeholderWrapper = document.createElement('div');
+        placeholderWrapper.className = 'w-full aspect-[940/788] bg-gray-700 rounded-lg mb-4 flex items-center justify-center';
+        placeholderWrapper.innerHTML = '<span class="text-gray-500">No Images Available</span>';
+        imagesContainer.appendChild(placeholderWrapper);
     }
     
     // Update price breakdown
@@ -765,6 +778,11 @@ body {
 
 .package-type-section:empty {
     display: none;
+}
+
+/* Custom aspect ratio for 940x788 images */
+.aspect-\[940\/788\] {
+    aspect-ratio: 940 / 788;
 }
 </style>
 @endpush
