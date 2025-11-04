@@ -21,6 +21,14 @@ class GalleryController extends Controller
         $familyRoomImagesCount = GalleryImage::where('gallery_type', 'family_room')->count();
         $outdoorImagesCount = GalleryImage::where('gallery_type', 'outdoor')->count();
         $weddingImagesCount = GalleryImage::where('gallery_type', 'wedding')->count();
+        
+        // New categories
+        $conferenceHallImagesCount = GalleryImage::where('gallery_type', 'conference_hall')->count();
+        $eventImagesCount = GalleryImage::where('gallery_type', 'event')->count();
+        $indoorGameImagesCount = GalleryImage::where('gallery_type', 'indoor_game')->count();
+        $outdoorGameImagesCount = GalleryImage::where('gallery_type', 'outdoor_game')->count();
+        $swimmingPoolImagesCount = GalleryImage::where('gallery_type', 'swimming_pool')->count();
+        $diningAreaImagesCount = GalleryImage::where('gallery_type', 'dining_area')->count();
 
         return view('admin.gallery.index', compact(
             'roomImagesCount', 
@@ -28,7 +36,13 @@ class GalleryController extends Controller
             'coupleCottageImagesCount', 
             'familyRoomImagesCount', 
             'outdoorImagesCount', 
-            'weddingImagesCount'
+            'weddingImagesCount',
+            'conferenceHallImagesCount',
+            'eventImagesCount',
+            'indoorGameImagesCount',
+            'outdoorGameImagesCount',
+            'swimmingPoolImagesCount',
+            'diningAreaImagesCount'
         ));
     }
 
@@ -111,12 +125,90 @@ class GalleryController extends Controller
     }
 
     /**
+     * Display conference hall gallery images.
+     */
+    public function conferenceHall()
+    {
+        $galleryImages = GalleryImage::where('gallery_type', 'conference_hall')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('admin.gallery.conference-hall', compact('galleryImages'));
+    }
+
+    /**
+     * Display event gallery images.
+     */
+    public function events()
+    {
+        $galleryImages = GalleryImage::where('gallery_type', 'event')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('admin.gallery.events', compact('galleryImages'));
+    }
+
+    /**
+     * Display indoor game area gallery images.
+     */
+    public function indoorGames()
+    {
+        $galleryImages = GalleryImage::where('gallery_type', 'indoor_game')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('admin.gallery.indoor-games', compact('galleryImages'));
+    }
+
+    /**
+     * Display outdoor game area gallery images.
+     */
+    public function outdoorGames()
+    {
+        $galleryImages = GalleryImage::where('gallery_type', 'outdoor_game')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('admin.gallery.outdoor-games', compact('galleryImages'));
+    }
+
+    /**
+     * Display swimming pool gallery images.
+     */
+    public function swimmingPool()
+    {
+        $galleryImages = GalleryImage::where('gallery_type', 'swimming_pool')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('admin.gallery.swimming-pool', compact('galleryImages'));
+    }
+
+    /**
+     * Display dining area gallery images.
+     */
+    public function diningArea()
+    {
+        $galleryImages = GalleryImage::where('gallery_type', 'dining_area')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('admin.gallery.dining-area', compact('galleryImages'));
+    }
+
+    /**
      * Upload images to gallery.
      */
     public function upload(Request $request)
     {
         $request->validate([
-            'gallery_type' => 'required|in:room,family_cottage,couple_cottage,family_room,outdoor,wedding',
+            'gallery_type' => 'required|in:room,family_cottage,couple_cottage,family_room,outdoor,wedding,conference_hall,event,indoor_game,outdoor_game,swimming_pool,dining_area',
             'images' => 'required|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
             'title' => 'nullable|string|max:255',
@@ -133,7 +225,13 @@ class GalleryController extends Controller
             'couple_cottage' => 'rooms/couplecottage',
             'family_room' => 'rooms/familyroom',
             'outdoor' => 'outdoor',
-            'wedding' => 'wedding'
+            'wedding' => 'wedding',
+            'conference_hall' => 'conference-hall',
+            'event' => 'events',
+            'indoor_game' => 'indoor-games',
+            'outdoor_game' => 'outdoor-games',
+            'swimming_pool' => 'swimming-pool',
+            'dining_area' => 'dining-area'
         ];
 
         $directory = $directoryMap[$galleryType];

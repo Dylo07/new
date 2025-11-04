@@ -123,7 +123,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/availability/update', [App\Http\Controllers\CalendarController::class, 'update'])->name('calendar.update');
 });
 
-// Public Gallery Routes - Updated with new room categories
+// ============================================================================
+// PUBLIC GALLERY ROUTES - All 12 Categories
+// ============================================================================
+
+// Original 6 Categories
 Route::get('/gallery/rooms', [App\Http\Controllers\GalleryController::class, 'rooms'])->name('gallery.rooms');
 Route::get('/gallery/rooms/family-cottages', [App\Http\Controllers\GalleryController::class, 'familyCottages'])->name('gallery.family_cottages');
 Route::get('/gallery/rooms/couple-cottages', [App\Http\Controllers\GalleryController::class, 'coupleCottages'])->name('gallery.couple_cottages');
@@ -131,28 +135,56 @@ Route::get('/gallery/rooms/family-rooms', [App\Http\Controllers\GalleryControlle
 Route::get('/gallery/outdoor', [App\Http\Controllers\GalleryController::class, 'outdoor'])->name('gallery.outdoor');
 Route::get('/gallery/weddings', [App\Http\Controllers\GalleryController::class, 'weddings'])->name('gallery.weddings');
 
-// Admin Gallery Routes - Protected with admin middleware - CORRECTED ROUTE NAMES
+// New 6 Categories
+Route::get('/gallery/conference-hall', [App\Http\Controllers\GalleryController::class, 'conferenceHall'])->name('gallery.conference_hall');
+Route::get('/gallery/events', [App\Http\Controllers\GalleryController::class, 'events'])->name('gallery.events');
+Route::get('/gallery/indoor-games', [App\Http\Controllers\GalleryController::class, 'indoorGames'])->name('gallery.indoor_games');
+Route::get('/gallery/outdoor-games', [App\Http\Controllers\GalleryController::class, 'outdoorGames'])->name('gallery.outdoor_games');
+Route::get('/gallery/swimming-pool', [App\Http\Controllers\GalleryController::class, 'swimmingPool'])->name('gallery.swimming_pool');
+Route::get('/gallery/dining-area', [App\Http\Controllers\GalleryController::class, 'diningArea'])->name('gallery.dining_area');
+
+// ============================================================================
+// ADMIN GALLERY ROUTES - All 12 Categories (Protected with admin middleware)
+// ============================================================================
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    // Gallery Management - Updated with new room categories
+    // Gallery Management Dashboard
     Route::get('/gallery', [App\Http\Controllers\Admin\GalleryController::class, 'index'])->name('gallery.index');
+    
+    // Original 6 Categories
     Route::get('/gallery/rooms', [App\Http\Controllers\Admin\GalleryController::class, 'rooms'])->name('gallery.rooms');
     Route::get('/gallery/family-cottages', [App\Http\Controllers\Admin\GalleryController::class, 'familyCottages'])->name('gallery.family-cottages');
     Route::get('/gallery/couple-cottages', [App\Http\Controllers\Admin\GalleryController::class, 'coupleCottages'])->name('gallery.couple-cottages');
     Route::get('/gallery/family-rooms', [App\Http\Controllers\Admin\GalleryController::class, 'familyRooms'])->name('gallery.family-rooms');
     Route::get('/gallery/outdoor', [App\Http\Controllers\Admin\GalleryController::class, 'outdoor'])->name('gallery.outdoor');
     Route::get('/gallery/weddings', [App\Http\Controllers\Admin\GalleryController::class, 'weddings'])->name('gallery.weddings');
+    
+    // New 6 Categories
+    Route::get('/gallery/conference-hall', [App\Http\Controllers\Admin\GalleryController::class, 'conferenceHall'])->name('gallery.conference-hall');
+    Route::get('/gallery/events', [App\Http\Controllers\Admin\GalleryController::class, 'events'])->name('gallery.events');
+    Route::get('/gallery/indoor-games', [App\Http\Controllers\Admin\GalleryController::class, 'indoorGames'])->name('gallery.indoor-games');
+    Route::get('/gallery/outdoor-games', [App\Http\Controllers\Admin\GalleryController::class, 'outdoorGames'])->name('gallery.outdoor-games');
+    Route::get('/gallery/swimming-pool', [App\Http\Controllers\Admin\GalleryController::class, 'swimmingPool'])->name('gallery.swimming-pool');
+    Route::get('/gallery/dining-area', [App\Http\Controllers\Admin\GalleryController::class, 'diningArea'])->name('gallery.dining-area');
+    
+    // Gallery Actions (Upload, Delete, Sort)
     Route::post('/gallery/upload', [App\Http\Controllers\Admin\GalleryController::class, 'upload'])->name('gallery.upload');
     Route::delete('/gallery/{id}', [App\Http\Controllers\Admin\GalleryController::class, 'delete'])->name('gallery.delete');
     Route::post('/gallery/sort', [App\Http\Controllers\Admin\GalleryController::class, 'updateSortOrder'])->name('gallery.sort');
 });
 
+// ============================================================================
+// PACKAGE BUILDER ROUTES (Public)
+// ============================================================================
 
-// Package Builder Routes (Public)
 Route::get('/package-builder', [App\Http\Controllers\PackageBuilderController::class, 'index'])->name('package-builder');
 Route::post('/package-builder/get-packages', [App\Http\Controllers\PackageBuilderController::class, 'getPackages'])->name('package-builder.get-packages');
 Route::post('/package-builder/calculate-price', [App\Http\Controllers\PackageBuilderController::class, 'calculatePrice'])->name('package-builder.calculate-price');
 
-// Admin Custom Package Routes (Protected)
+// ============================================================================
+// ADMIN CUSTOM PACKAGE ROUTES (Protected)
+// ============================================================================
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('custom-packages', App\Http\Controllers\Admin\CustomPackageController::class);
     Route::post('/custom-packages/{customPackage}/remove-image', [App\Http\Controllers\Admin\CustomPackageController::class, 'removeImage'])->name('custom-packages.remove-image');

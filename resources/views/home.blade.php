@@ -444,31 +444,48 @@
             </a>
         </div>
 
-        <!-- Gallery Category Navigation -->
-        <div class="flex justify-center items-center gap-4 mb-12 flex-wrap">
-            <a href="{{ route('gallery') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
-                View All Gallery
-            </a>
-            <a href="{{ route('gallery.rooms') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
-                Rooms
-            </a>
-            <a href="{{ route('gallery.family_cottages') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
-                Family Cottages
-            </a>
-            <a href="{{ route('gallery.couple_cottages') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
-                Couple Cottages
-            </a>
-            <a href="{{ route('gallery.family_rooms') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
-                Family Rooms
-            </a>
-            <a href="{{ route('gallery.outdoor') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
-                Outdoor
-            </a>
-            <a href="{{ route('gallery.weddings') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
-                Weddings
-            </a>
-        </div>
-    </div>
+        <!-- Gallery Category Navigation - Updated with All 12 Categories -->
+<div class="flex justify-center items-center gap-4 mb-12 flex-wrap">
+    <a href="{{ route('gallery') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+        View All Gallery
+    </a>
+    <a href="{{ route('gallery.rooms') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Rooms
+    </a>
+    <a href="{{ route('gallery.family_cottages') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Family Cottages
+    </a>
+    <a href="{{ route('gallery.couple_cottages') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Couple Cottages
+    </a>
+    <a href="{{ route('gallery.family_rooms') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Family Rooms
+    </a>
+    <a href="{{ route('gallery.outdoor') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Outdoor
+    </a>
+    <a href="{{ route('gallery.weddings') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Weddings
+    </a>
+    <a href="{{ route('gallery.conference_hall') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Conference Hall
+    </a>
+    <a href="{{ route('gallery.events') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Events
+    </a>
+    <a href="{{ route('gallery.indoor_games') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Indoor Games
+    </a>
+    <a href="{{ route('gallery.outdoor_games') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Outdoor Games
+    </a>
+    <a href="{{ route('gallery.swimming_pool') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Swimming Pool
+    </a>
+    <a href="{{ route('gallery.dining_area') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+        Dining Area
+    </a>
+</div>
 
     <!-- Dynamic Photo Sections with Lazy Loading -->
     @php
