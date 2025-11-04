@@ -487,184 +487,340 @@
     </a>
 </div>
 
-    <!-- Dynamic Photo Sections with Lazy Loading -->
-    @php
-        $hasAnyImages = ($roomImages ?? collect())->count() > 0 || 
-                       ($familyCottageImages ?? collect())->count() > 0 || 
-                       ($coupleCottageImages ?? collect())->count() > 0 || 
-                       ($familyRoomImages ?? collect())->count() > 0 || 
-                       ($outdoorImages ?? collect())->count() > 0 || 
-                       ($weddingImages ?? collect())->count() > 0;
-    @endphp
+   <!-- Dynamic Photo Sections with Lazy Loading - UPDATED with All 12 Categories -->
+@php
+    $hasAnyImages = ($roomImages ?? collect())->count() > 0 || 
+                   ($familyCottageImages ?? collect())->count() > 0 || 
+                   ($coupleCottageImages ?? collect())->count() > 0 || 
+                   ($familyRoomImages ?? collect())->count() > 0 || 
+                   ($outdoorImages ?? collect())->count() > 0 || 
+                   ($weddingImages ?? collect())->count() > 0 ||
+                   ($conferenceHallImages ?? collect())->count() > 0 ||
+                   ($eventImages ?? collect())->count() > 0 ||
+                   ($indoorGameImages ?? collect())->count() > 0 ||
+                   ($outdoorGameImages ?? collect())->count() > 0 ||
+                   ($swimmingPoolImages ?? collect())->count() > 0 ||
+                   ($diningAreaImages ?? collect())->count() > 0;
+@endphp
 
-    @if($hasAnyImages)
-        <!-- Family Cottages Preview -->
-        @if(isset($familyCottageImages) && $familyCottageImages->count() > 0)
-            <div class="mb-16">
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="text-green-400 text-2xl font-bold">Family Cottages</h3>
-                    <a href="{{ route('gallery.family_cottages') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
-                        View All <i class="fas fa-arrow-right ml-1"></i>
-                    </a>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    @foreach($familyCottageImages as $index => $image)
-                        <div class="relative group overflow-hidden">
-                            <img 
-                                src="{{ asset('storage/' . $image->image_path) }}"
-                                alt="{{ $image->title }}" 
-                                class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
-                                width="300" height="300"
-                            >
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        @endif
-
-        <!-- Couple Cottages Preview -->
-        @if(isset($coupleCottageImages) && $coupleCottageImages->count() > 0)
-            <div class="mb-16">
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="text-green-400 text-2xl font-bold">Couple Cottages</h3>
-                    <a href="{{ route('gallery.couple_cottages') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
-                        View All <i class="fas fa-arrow-right ml-1"></i>
-                    </a>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    @foreach($coupleCottageImages as $index => $image)
-                        <div class="relative group overflow-hidden">
-                            <img 
-                                src="{{ asset('storage/' . $image->image_path) }}" 
-                                alt="{{ $image->title }}" 
-                                class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
-                                width="300" height="300"
-                            >
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        @endif
-
-        <!-- Family Rooms Preview -->
-        @if(isset($familyRoomImages) && $familyRoomImages->count() > 0)
-            <div class="mb-16">
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="text-green-400 text-2xl font-bold">Family Rooms</h3>
-                    <a href="{{ route('gallery.family_rooms') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
-                        View All <i class="fas fa-arrow-right ml-1"></i>
-                    </a>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    @foreach($familyRoomImages as $index => $image)
-                        <div class="relative group overflow-hidden">
-                            <img 
-                                src="{{ asset('storage/' . $image->image_path) }}" 
-                                alt="{{ $image->title }}" 
-                                class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
-                                width="300" height="300"
-                            >
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        @endif
-
-        <!-- General Rooms Preview -->
-        @if(isset($roomImages) && $roomImages->count() > 0)
-            <div class="mb-16">
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="text-green-400 text-2xl font-bold">Hotel Rooms</h3>
-                    <a href="{{ route('gallery.rooms') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
-                        View All <i class="fas fa-arrow-right ml-1"></i>
-                    </a>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    @foreach($roomImages as $index => $image)
-                        <div class="relative group overflow-hidden">
-                            <img 
-                                src="{{ asset('storage/' . $image->image_path) }}" 
-                                alt="{{ $image->title }}" 
-                                class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
-                                width="300" height="300"
-                            >
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        @endif
-
-        <!-- Outdoor Gallery Preview -->
-        @if(isset($outdoorImages) && $outdoorImages->count() > 0)
-            <div class="mb-16">
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="text-green-400 text-2xl font-bold">Outdoor Spaces</h3>
-                    <a href="{{ route('gallery.outdoor') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
-                        View All <i class="fas fa-arrow-right ml-1"></i>
-                    </a>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    @foreach($outdoorImages as $index => $image)
-                        <div class="relative group overflow-hidden">
-                            <img 
-                                src="{{ asset('storage/' . $image->image_path) }}" 
-                                alt="{{ $image->title }}" 
-                                class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
-                                width="300" height="300"
-                            >
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        @endif
-
-        <!-- Wedding Gallery Preview -->
-        @if(isset($weddingImages) && $weddingImages->count() > 0)
-            <div class="mb-16">
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="text-green-400 text-2xl font-bold">Weddings & Events</h3>
-                    <a href="{{ route('gallery.weddings') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
-                        View All <i class="fas fa-arrow-right ml-1"></i>
-                    </a>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    @foreach($weddingImages as $index => $image)
-                        <div class="relative group overflow-hidden">
-                            <img 
-                                src="{{ asset('storage/' . $image->image_path) }}" 
-                                alt="{{ $image->title }}" 
-                                class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
-                                width="300" height="300"
-                            >
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        @endif
-    @else
-        <!-- Fallback when no images are uploaded yet -->
-        <div class="text-center py-16">
-            <div class="bg-gray-900 rounded-lg p-12 mx-auto max-w-2xl">
-                <div class="text-gray-400 mb-4">
-                    <i class="fas fa-images text-6xl"></i>
-                </div>
-                <h3 class="text-white text-2xl mb-4">Gallery Coming Soon</h3>
-                <p class="text-gray-300 mb-6">
-                    We're preparing an amazing collection of photos showcasing our beautiful accommodations and facilities. 
-                    Check back soon to see our stunning gallery!
-                </p>
-                <a href="{{ route('contact') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
-                    Contact Us for More Info
+@if($hasAnyImages)
+    <!-- Family Cottages Preview -->
+    @if(isset($familyCottageImages) && $familyCottageImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Family Cottages</h3>
+                <a href="{{ route('gallery.family_cottages') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($familyCottageImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}"
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
             </div>
         </div>
     @endif
+
+    <!-- Couple Cottages Preview -->
+    @if(isset($coupleCottageImages) && $coupleCottageImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Couple Cottages</h3>
+                <a href="{{ route('gallery.couple_cottages') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($coupleCottageImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}" 
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <!-- Family Rooms Preview -->
+    @if(isset($familyRoomImages) && $familyRoomImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Family Rooms</h3>
+                <a href="{{ route('gallery.family_rooms') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($familyRoomImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}" 
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <!-- General Rooms Preview -->
+    @if(isset($roomImages) && $roomImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Hotel Rooms</h3>
+                <a href="{{ route('gallery.rooms') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($roomImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}" 
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <!-- Outdoor Gallery Preview -->
+    @if(isset($outdoorImages) && $outdoorImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Outdoor Spaces</h3>
+                <a href="{{ route('gallery.outdoor') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($outdoorImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}" 
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <!-- Wedding Gallery Preview -->
+    @if(isset($weddingImages) && $weddingImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Weddings & Events</h3>
+                <a href="{{ route('gallery.weddings') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($weddingImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}" 
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <!-- Conference Hall Preview - NEW -->
+    @if(isset($conferenceHallImages) && $conferenceHallImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Conference Hall</h3>
+                <a href="{{ route('gallery.conference_hall') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($conferenceHallImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}" 
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <!-- Events Preview - NEW -->
+    @if(isset($eventImages) && $eventImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Events & Celebrations</h3>
+                <a href="{{ route('gallery.events') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($eventImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}" 
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <!-- Indoor Games Preview - NEW -->
+    @if(isset($indoorGameImages) && $indoorGameImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Indoor Game Area</h3>
+                <a href="{{ route('gallery.indoor_games') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($indoorGameImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}" 
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <!-- Outdoor Games Preview - NEW -->
+    @if(isset($outdoorGameImages) && $outdoorGameImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Outdoor Game Area</h3>
+                <a href="{{ route('gallery.outdoor_games') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($outdoorGameImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}" 
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <!-- Swimming Pool Preview - NEW -->
+    @if(isset($swimmingPoolImages) && $swimmingPoolImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Swimming Pool</h3>
+                <a href="{{ route('gallery.swimming_pool') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($swimmingPoolImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}" 
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <!-- Dining Area Preview - NEW -->
+    @if(isset($diningAreaImages) && $diningAreaImages->count() > 0)
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-green-400 text-2xl font-bold">Dining Area</h3>
+                <a href="{{ route('gallery.dining_area') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($diningAreaImages->take(8) as $index => $image)
+                    <div class="relative group overflow-hidden">
+                        <img 
+                            src="{{ asset('storage/' . $image->image_path) }}" 
+                            alt="{{ $image->title }}" 
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+                            width="300" height="300"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+@else
+    <!-- Fallback when no images are uploaded yet -->
+    <div class="text-center py-16">
+        <div class="bg-gray-900 rounded-lg p-12 mx-auto max-w-2xl">
+            <div class="text-gray-400 mb-4">
+                <i class="fas fa-images text-6xl"></i>
+            </div>
+            <h3 class="text-white text-2xl mb-4">Gallery Coming Soon</h3>
+            <p class="text-gray-300 mb-6">
+                We're preparing an amazing collection of photos showcasing our beautiful accommodations and facilities. 
+                Check back soon to see our stunning gallery!
+            </p>
+            <a href="{{ route('contact') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                Contact Us for More Info
+            </a>
+        </div>
+    </div>
+@endif
 </div>
 </section>
 

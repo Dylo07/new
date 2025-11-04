@@ -41,9 +41,11 @@ class HomeController extends Controller
         return Cache::remember('homepage_gallery_images', 30, function () {
             // Single query to get all needed images
             $allImages = GalleryImage::whereIn('gallery_type', [
-                'room', 'family_cottage', 'couple_cottage', 
-                'family_room', 'outdoor', 'wedding'
-            ])
+    'room', 'family_cottage', 'couple_cottage', 
+    'family_room', 'outdoor', 'wedding',
+    'conference_hall', 'event', 'indoor_game',
+    'outdoor_game', 'swimming_pool', 'dining_area'
+])
             ->orderBy('sort_order')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -58,6 +60,13 @@ class HomeController extends Controller
                 'familyRoomImages' => $groupedImages->get('family_room', collect())->take(4),
                 'outdoorImages' => $groupedImages->get('outdoor', collect())->take(4),
                 'weddingImages' => $groupedImages->get('wedding', collect())->take(4),
+            // NEW 6 categories
+                'conferenceHallImages' => $groupedImages->get('conference_hall', collect())->take(4),
+                'eventImages' => $groupedImages->get('event', collect())->take(4),
+                'indoorGameImages' => $groupedImages->get('indoor_game', collect())->take(4),
+                'outdoorGameImages' => $groupedImages->get('outdoor_game', collect())->take(4),
+                'swimmingPoolImages' => $groupedImages->get('swimming_pool', collect())->take(4),
+                'diningAreaImages' => $groupedImages->get('dining_area', collect())->take(4),
             ];
         });
     }
