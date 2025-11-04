@@ -125,83 +125,86 @@ class GalleryController extends Controller
         return view('admin.gallery.weddings', compact('galleryImages'));
     }
 
-    /**
-     * Display conference hall gallery images.
-     */
-    public function conferenceHall()
-    {
-        $galleryImages = GalleryImage::where('gallery_type', 'conference_hall')
-            ->orderBy('sort_order')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
 
-        return view('admin.gallery.conference-hall', compact('galleryImages'));
-    }
+/**
+ * Display conference hall gallery images.
+ */
+public function conferenceHall()
+{
+    $galleryImages = GalleryImage::where('gallery_type', 'conference_hall')
+        ->orderBy('sort_order')
+        ->orderBy('created_at', 'desc')
+        ->paginate(20);
 
-    /**
-     * Display event gallery images.
-     */
-    public function events()
-    {
-        $galleryImages = GalleryImage::where('gallery_type', 'event')
-            ->orderBy('sort_order')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
+    return view('admin.gallery.conference-hall', compact('galleryImages'));  // ✅ Matches file name
+}
 
-        return view('admin.gallery.events', compact('galleryImages'));
-    }
+/**
+ * Display event gallery images.
+ */
+public function events()
+{
+    $galleryImages = GalleryImage::where('gallery_type', 'event')
+        ->orderBy('sort_order')
+        ->orderBy('created_at', 'desc')
+        ->paginate(20);
 
-    /**
-     * Display indoor game area gallery images.
-     */
-    public function indoorGames()
-    {
-        $galleryImages = GalleryImage::where('gallery_type', 'indoor_game')
-            ->orderBy('sort_order')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
+    return view('admin.gallery.event', compact('galleryImages'));  // ✅ Changed from 'events' to 'event'
+}
 
-        return view('admin.gallery.indoor-games', compact('galleryImages'));
-    }
+/**
+ * Display indoor game area gallery images.
+ */
+public function indoorGames()
+{
+    $galleryImages = GalleryImage::where('gallery_type', 'indoor_game')
+        ->orderBy('sort_order')
+        ->orderBy('created_at', 'desc')
+        ->paginate(20);
 
-    /**
-     * Display outdoor game area gallery images.
-     */
-    public function outdoorGames()
-    {
-        $galleryImages = GalleryImage::where('gallery_type', 'outdoor_game')
-            ->orderBy('sort_order')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
+    return view('admin.gallery.indoor-game', compact('galleryImages'));  // ✅ Changed from 'indoor-games' to 'indoor-game'
+}
 
-        return view('admin.gallery.outdoor-games', compact('galleryImages'));
-    }
+/**
+ * Display outdoor game area gallery images.
+ */
+public function outdoorGames()
+{
+    $galleryImages = GalleryImage::where('gallery_type', 'outdoor_game')
+        ->orderBy('sort_order')
+        ->orderBy('created_at', 'desc')
+        ->paginate(20);
 
-    /**
-     * Display swimming pool gallery images.
-     */
-    public function swimmingPool()
-    {
-        $galleryImages = GalleryImage::where('gallery_type', 'swimming_pool')
-            ->orderBy('sort_order')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
+    return view('admin.gallery.outdoor-game', compact('galleryImages'));  // ✅ Changed from 'outdoor-games' to 'outdoor-game'
+}
 
-        return view('admin.gallery.swimming-pool', compact('galleryImages'));
-    }
+/**
+ * Display swimming pool gallery images.
+ */
+public function swimmingPool()
+{
+    $galleryImages = GalleryImage::where('gallery_type', 'swimming_pool')
+        ->orderBy('sort_order')
+        ->orderBy('created_at', 'desc')
+        ->paginate(20);
 
-    /**
-     * Display dining area gallery images.
-     */
-    public function diningArea()
-    {
-        $galleryImages = GalleryImage::where('gallery_type', 'dining_area')
-            ->orderBy('sort_order')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
+    return view('admin.gallery.swimming-pool', compact('galleryImages'));  // ✅ Matches file name
+}
 
-        return view('admin.gallery.dining-area', compact('galleryImages'));
-    }
+/**
+ * Display dining area gallery images.
+ */
+public function diningArea()
+{
+    $galleryImages = GalleryImage::where('gallery_type', 'dining_area')
+        ->orderBy('sort_order')
+        ->orderBy('created_at', 'desc')
+        ->paginate(20);
+
+    return view('admin.gallery.dining-area', compact('galleryImages'));  // ✅ Matches file name
+}
+
+
 
     /**
      * Upload images to gallery.
