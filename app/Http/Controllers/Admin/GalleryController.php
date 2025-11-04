@@ -208,74 +208,70 @@ class GalleryController extends Controller
      * FIXED VERSION - Uses proper directory structure
      */
     public function upload(Request $request)
-    {
-        $request->validate([
-            'gallery_type' => 'required|in:room,family_cottage,couple_cottage,family_room,outdoor,wedding,conference_hall,event,indoor_game,outdoor_game,swimming_pool,dining_area',
-            'images' => 'required|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
-            'title' => 'nullable|string|max:255',
+{
+    $request->validate([
+        'gallery_type' => 'required|in:room,family_cottage,couple_cottage,family_room,outdoor,wedding,conference_hall,event,indoor_game,outdoor_game,swimming_pool,dining_area',
+        'images' => 'required|array',
+        'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
+        'title' => 'nullable|string|max:255',
+    ]);
+
+    $galleryType = $request->gallery_type;
+    $title = $request->title;
+    $uploadedCount = 0;
+
+    // Map gallery types to directory names - SAME STRUCTURE AS WORKING CATEGORIES
+    $directoryMap = [
+        'room' => 'rooms',
+        'family_cottage' => 'rooms/familycottage',
+        'couple_cottage' => 'rooms/couplecottage',
+        'family_room' => 'rooms/familyroom',
+        'outdoor' => 'outdoor',                    // ✅ Working structure
+        'wedding' => 'wedding',                    // ✅ Working structure
+        // New categories - SAME pattern as outdoor/wedding
+        'conference_hall' => 'conference-hall',    // ✅ Fixed
+        'event' => 'event',                        // ✅ Fixed
+        'indoor_game' => 'indoor-games',           // ✅ Fixed
+        'outdoor_game' => 'outdoor-games',         // ✅ Fixed
+        'swimming_pool' => 'swimming-pool',        // ✅ Fixed
+        'dining_area' => 'dining-area'             // ✅ Fixed
+    ];
+
+    $directory = $directoryMap[$galleryType];
+
+    // Create directory if it doesn't exist - SAME as working categories
+    $uploadDir = public_path('storage/gallery/' . $directory);
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+
+    foreach ($request->file('images') as $image) {
+        // Generate a unique filename
+        $filename = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+        
+        // Move the uploaded file to public/storage directly
+        $image->move(public_path('storage/gallery/' . $directory), $filename);
+        
+        // Store the relative path in the database
+        $path = 'gallery/' . $directory . '/' . $filename;
+        
+        GalleryImage::create([
+            'title' => $title ?: $image->getClientOriginalName(),
+            'image_path' => $path,
+            'gallery_type' => $galleryType,
+            'sort_order' => 0,
         ]);
 
-        $galleryType = $request->gallery_type;
-        $title = $request->title;
-        $uploadedCount = 0;
-
-        // Map gallery types to directory names
-        // KEEP THE SAME STRUCTURE AS WORKING CATEGORIES
-        $directoryMap = [
-            'room' => 'gallery/rooms',
-            'family_cottage' => 'gallery/rooms/familycottage',
-            'couple_cottage' => 'gallery/rooms/couplecottage',
-            'family_room' => 'gallery/rooms/familyroom',
-            'outdoor' => 'gallery/outdoor',
-            'wedding' => 'gallery/wedding',
-            // New categories - using same pattern as outdoor/wedding (flat structure)
-            'conference_hall' => 'gallery/conference-hall',
-            'event' => 'gallery/events',
-            'indoor_game' => 'gallery/indoor-games',
-            'outdoor_game' => 'gallery/outdoor-games',
-            'swimming_pool' => 'gallery/swimming-pool',
-            'dining_area' => 'gallery/dining-area'
-        ];
-
-        $directory = $directoryMap[$galleryType];
-
-        // IMPORTANT: Use storage_path instead of public_path for proper Laravel storage
-        $uploadDir = storage_path('app/public/' . $directory);
-        
-        // Create directory if it doesn't exist with recursive flag
-        if (!File::exists($uploadDir)) {
-            File::makeDirectory($uploadDir, 0755, true);
-        }
-
-        // Verify directory is writable
-        if (!is_writable($uploadDir)) {
-            return redirect()->back()->with('error', 'Upload directory is not writable. Please check permissions.');
-        }
-
-        foreach ($request->file('images') as $image) {
-            // Generate a unique filename
-            $filename = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
-            
-            // Store using Laravel's Storage facade for consistency
-            $path = $directory . '/' . $filename;
-            
-            // Move file to storage
-            $image->move($uploadDir, $filename);
-            
-            // Save to database with path relative to storage/app/public
-            GalleryImage::create([
-                'title' => $title ?: $image->getClientOriginalName(),
-                'image_path' => $path,
-                'gallery_type' => $galleryType,
-                'sort_order' => 0,
-            ]);
-
-            $uploadedCount++;
-        }
-
-        return redirect()->back()->with('success', $uploadedCount . ' image(s) uploaded successfully.');
+        $uploadedCount++;
     }
+
+    return redirect()->back()->with('success', $uploadedCount . ' image(s) uploaded successfully.');
+}
+
+
+
+
+
 
     /**
      * Delete an image from gallery.
