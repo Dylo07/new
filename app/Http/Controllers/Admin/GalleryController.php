@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\GalleryImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class GalleryController extends Controller
 {
@@ -204,6 +205,7 @@ class GalleryController extends Controller
 
     /**
      * Upload images to gallery.
+     * FIXED VERSION - Uses proper directory structure
      */
     public function upload(Request $request)
     {
@@ -219,39 +221,49 @@ class GalleryController extends Controller
         $uploadedCount = 0;
 
         // Map gallery types to directory names
+        // KEEP THE SAME STRUCTURE AS WORKING CATEGORIES
         $directoryMap = [
-            'room' => 'rooms',
-            'family_cottage' => 'rooms/familycottage',
-            'couple_cottage' => 'rooms/couplecottage',
-            'family_room' => 'rooms/familyroom',
-            'outdoor' => 'outdoor',
-            'wedding' => 'wedding',
-            'conference_hall' => 'conference-hall',
-            'event' => 'events',
-            'indoor_game' => 'indoor-games',
-            'outdoor_game' => 'outdoor-games',
-            'swimming_pool' => 'swimming-pool',
-            'dining_area' => 'dining-area'
+            'room' => 'gallery/rooms',
+            'family_cottage' => 'gallery/rooms/familycottage',
+            'couple_cottage' => 'gallery/rooms/couplecottage',
+            'family_room' => 'gallery/rooms/familyroom',
+            'outdoor' => 'gallery/outdoor',
+            'wedding' => 'gallery/wedding',
+            // New categories - using same pattern as outdoor/wedding (flat structure)
+            'conference_hall' => 'gallery/conference-hall',
+            'event' => 'gallery/events',
+            'indoor_game' => 'gallery/indoor-games',
+            'outdoor_game' => 'gallery/outdoor-games',
+            'swimming_pool' => 'gallery/swimming-pool',
+            'dining_area' => 'gallery/dining-area'
         ];
 
         $directory = $directoryMap[$galleryType];
 
-        // Create directory if it doesn't exist
-        $uploadDir = public_path('storage/gallery/' . $directory);
-        if (!file_exists($uploadDir)) {
-            mkdir($uploadDir, 0755, true);
+        // IMPORTANT: Use storage_path instead of public_path for proper Laravel storage
+        $uploadDir = storage_path('app/public/' . $directory);
+        
+        // Create directory if it doesn't exist with recursive flag
+        if (!File::exists($uploadDir)) {
+            File::makeDirectory($uploadDir, 0755, true);
+        }
+
+        // Verify directory is writable
+        if (!is_writable($uploadDir)) {
+            return redirect()->back()->with('error', 'Upload directory is not writable. Please check permissions.');
         }
 
         foreach ($request->file('images') as $image) {
             // Generate a unique filename
             $filename = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
             
-            // Move the uploaded file to public/storage directly
-            $image->move(public_path('storage/gallery/' . $directory), $filename);
+            // Store using Laravel's Storage facade for consistency
+            $path = $directory . '/' . $filename;
             
-            // Store the relative path in the database
-            $path = 'gallery/' . $directory . '/' . $filename;
+            // Move file to storage
+            $image->move($uploadDir, $filename);
             
+            // Save to database with path relative to storage/app/public
             GalleryImage::create([
                 'title' => $title ?: $image->getClientOriginalName(),
                 'image_path' => $path,
