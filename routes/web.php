@@ -108,6 +108,22 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile/password', [UserController::class, 'updatePassword'])->name('profile.password.update');
 });
 
+// --- Package Builder Processing (Public) ---
+Route::post('/package-builder/proceed', [App\Http\Controllers\PackageBuilderController::class, 'proceedToBooking'])
+    ->name('package-builder.proceed');
+
+// --- Booking Confirmation (Protected - Requires Login) ---
+Route::middleware(['auth'])->group(function () {
+    // 1. Review the package booking (The page they land on after login)
+    Route::get('/bookings/package/review', [BookingController::class, 'reviewPackage'])
+        ->name('bookings.package.review');
+
+    // 2. Finalize/Store the booking (When they click "Confirm Booking")
+    Route::post('/bookings/package/store', [BookingController::class, 'storePackage'])
+        ->name('bookings.package.store');
+});
+
+
 // Error Pages
 Route::fallback(function () {
     return view('errors.404');

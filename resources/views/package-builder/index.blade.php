@@ -754,19 +754,66 @@ function goBack() {
     document.getElementById('step2').classList.remove('hidden');
 }
 
+// Function to run when "Proceed to Booking" is clicked
 function proceedToBooking() {
-    // Here you can redirect to booking page or open booking form
-    // For now, we'll show an alert with all details
-    const finalTotal = selectedPackage.total + additionalRoomCharge;
-    let bookingDetails = `Package: ${selectedPackage.package.name}\n`;
-    bookingDetails += `Adults: ${selectedPackage.adults}, Children: ${selectedPackage.children}\n`;
-    bookingDetails += `Rooms: ${currentRooms.double} Double, ${currentRooms.triple} Triple, ${currentRooms.family} Family Cottages\n`;
-    if (additionalRoomCharge > 0) {
-        bookingDetails += `Additional Room Charges: Rs ${additionalRoomCharge.toLocaleString()}\n`;
+    // 1. Get dates from the URL (since they aren't inputs on this page)
+    const urlParams = new URLSearchParams(window.location.search);
+    const checkIn = urlParams.get('check_in');
+    const checkOut = urlParams.get('check_out');
+
+    // Validation: Ensure dates exist
+    if (!checkIn || !checkOut) {
+        alert("Please go back to the Home page and select your Check-in and Check-out dates.");
+        return;
     }
-    bookingDetails += `Total: Rs ${finalTotal.toLocaleString()}`;
-    
-    alert('Booking functionality would be implemented here.\n\n' + bookingDetails);
+
+    // Validation: Ensure a package is selected
+    if (!selectedPackage || !selectedPackage.package) {
+        alert("An error occurred. Please select a package again.");
+        return;
+    }
+
+    // 2. Prepare the data
+    const payload = {
+        package_id: selectedPackage.package.id, // Fixed: accessing ID from the stored object
+        check_in: checkIn,                      // Fixed: getting from URL
+        check_out: checkOut,                    // Fixed: getting from URL
+        adults: currentAdults,
+        children: currentChildren,
+        total_price: selectedPackage.total      // Fixed: getting price from stored object
+    };
+
+    // 3. Send to Laravel
+    const button = document.querySelector('button[onclick="proceedToBooking()"]');
+    const originalText = button.textContent;
+    button.textContent = "Processing...";
+    button.disabled = true;
+
+    fetch("{{ route('package-builder.proceed') }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.redirect_url) {
+            window.location.href = data.redirect_url;
+        } else {
+            alert('Something went wrong. No redirect URL provided.');
+            button.textContent = originalText;
+            button.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Something went wrong. Please try again.');
+        button.textContent = originalText;
+        button.disabled = false;
+    });
+
 }
 </script>
 

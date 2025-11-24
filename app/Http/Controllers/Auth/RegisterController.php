@@ -22,6 +22,9 @@ class RegisterController extends Controller
     /**
      * Handle user registration
      */
+    /**
+     * Handle user registration
+     */
     public function register(Request $request)
     {
         // Validate the request
@@ -42,7 +45,7 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'phone' => $request->phone, // <--- Correct way to access it
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'is_admin' => false,
         ]);
@@ -50,7 +53,18 @@ class RegisterController extends Controller
         // Log the user in
         Auth::login($user);
 
-        // Redirect to home with success message
+        // --- NEW LOGIC STARTS HERE ---
+        
+        // Check if there is a pending booking waiting in the session
+        if (session()->has('pending_booking')) {
+            return redirect()->route('bookings.package.review');
+        }
+
+        // --- NEW LOGIC ENDS HERE ---
+
+        // Default redirect if just registering normally
         return redirect()->route('home')->with('success', 'Registration successful! Welcome to Soba Lanka.');
     }
+
+
 }

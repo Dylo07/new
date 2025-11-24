@@ -34,12 +34,15 @@
                 </p>
             </div>
 
+
+
+
             <!-- Booking Form -->
             <div class="max-w-4xl mx-auto bg-black/40 backdrop-blur-md p-6 md:p-8 rounded-xl shadow-2xl">
                 <div class="text-white text-lg mb-6 text-center">NIGHT STAY & DAY OUT PACKAGES</div>
-                <form action="{{ route('search') }}" method="POST" class="grid grid-cols-1 md:grid-cols-5 gap-6">
-                    @csrf
-                    <!-- Check-in Date -->
+                
+                <form action="{{ route('package-builder') }}" method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
                     <div class="md:col-span-1">
                         <label class="block text-white text-sm mb-2">Check-in *</label>
                         <input 
@@ -50,66 +53,41 @@
                             min="{{ date('Y-m-d') }}" 
                             value="{{ old('check_in') }}"
                         >
-                        @error('check_in')
-                            <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
-                        @enderror
                     </div>
 
-                    <!-- Check-out Date -->
                     <div class="md:col-span-1">
-                        <label class="block text-white text-sm mb-2">Check-out *</label>
-                        <input 
-                            type="date" 
-                            name="check_out" 
-                            class="w-full p-3 rounded-lg bg-white text-gray-900"
-                            required
-                            min="{{ date('Y-m-d', strtotime('+1 day')) }}" 
-                            value="{{ old('check_out') }}"
-                        >
-                        @error('check_out')
-                            <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
-                        @enderror
-                    </div>
+    <label class="block text-white text-sm mb-2">Check-out *</label>
+    <input 
+        type="date" 
+        name="check_out" 
+        id="check_out" 
+        class="w-full p-3 rounded-lg bg-white text-gray-900"
+        required
+        min="{{ date('Y-m-d') }}"  value="{{ old('check_out') }}"
+    >
+</div>
 
-                    <!-- Adults Selection -->
                     <div class="md:col-span-1">
-                        <label class="block text-white text-sm mb-2">Adults</label>
-                        <select name="adults" class="w-full p-3 rounded-lg bg-white text-gray-900">
-                            @for($i = 1; $i <= 4; $i++)
-                                <option value="{{ $i }}" {{ old('adults') == $i ? 'selected' : '' }}>
-                                    {{ $i }} {{ Str::plural('Adult', $i) }}
-                                </option>
-                            @endfor
-                        </select>
-                    </div>
-
-                    <!-- Children Selection -->
-                    <div class="md:col-span-1">
-                        <label class="block text-white text-sm mb-2">Children</label>
-                        <select name="children" class="w-full p-3 rounded-lg bg-white text-gray-900">
-                            @for($i = 0; $i <= 3; $i++)
-                                <option value="{{ $i }}" {{ old('children') == $i ? 'selected' : '' }}>
-                                    {{ $i }} {{ Str::plural('Child', $i) }}
-                                </option>
-                            @endfor
-                        </select>
-                    </div>
-
-                    <!-- Search Button -->
-                    <div class="md:col-span-1">
-                        <label class="block text-white text-sm mb-2">&nbsp;</label>
+                        <label class="block text-white text-sm mb-2"> </label>
                         <button type="submit" 
                                 class="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition-all duration-300 flex items-center justify-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                             </svg>
-                            Search
+                            Search Packages
                         </button>
                     </div>
                 </form>
             </div>
+
+
         </div>
     </main>
+
+
+
+
+
 
     <!-- Scroll Indicator -->
     <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
@@ -1627,21 +1605,21 @@ A parking garage where you can park your car safely and conveniently.</p>
 });
 
 
-        // Date validation for booking form
-        const checkIn = document.querySelector('input[name="check_in"]');
-        const checkOut = document.querySelector('input[name="check_out"]');
+       // Date validation for booking form
+const checkIn = document.querySelector('input[name="check_in"]');
+const checkOut = document.querySelector('input[name="check_out"]');
 
-        if (checkIn && checkOut) {
-            checkIn.addEventListener('change', function() {
-                const date = new Date(this.value);
-                date.setDate(date.getDate() + 1);
-                checkOut.min = date.toISOString().split('T')[0];
-                
-                if(checkOut.value && checkOut.value <= this.value) {
-                    checkOut.value = date.toISOString().split('T')[0];
-                }
-            });
+if (checkIn && checkOut) {
+    checkIn.addEventListener('change', function() {
+        // Set the minimum check-out date to be the SAME as check-in date
+        checkOut.min = this.value;
+        
+        // Only reset the value if the current check-out is BEFORE the new check-in
+        if(checkOut.value && checkOut.value < this.value) {
+            checkOut.value = this.value;
         }
+    });
+}
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {

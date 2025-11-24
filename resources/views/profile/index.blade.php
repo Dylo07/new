@@ -93,30 +93,90 @@
                 <div class="bg-gray-900 rounded-lg p-6 border border-gray-800 min-h-[300px]">
                     <div class="flex justify-between items-center mb-6 border-b border-gray-800 pb-2">
                         <h2 class="text-xl text-white font-light">My Bookings</h2>
-                        <span class="bg-green-500/10 text-green-500 text-xs px-2 py-1 rounded">Upcoming: 0</span>
+                        <span class="bg-green-500/10 text-green-500 text-xs px-2 py-1 rounded">
+                            Active: {{ $user->bookings->where('status', '!=', 'completed')->where('status', '!=', 'cancelled')->count() }}
+                        </span>
                     </div>
 
-                    <div class="flex flex-col items-center justify-center h-48 text-gray-500 space-y-3">
-                        <svg class="w-12 h-12 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        <p>You have no active bookings.</p>
-                        <a href="{{ route('rooms.index') }}" class="text-green-500 hover:underline text-sm">Book a stay now &rarr;</a>
-                    </div>
+                    @if($user->bookings && $user->bookings->count() > 0)
+                        <div class="space-y-4">
+                            @foreach($user->bookings->sortByDesc('created_at') as $booking)
+                                <div class="bg-gray-800/40 rounded-lg p-4 border border-gray-700 hover:border-green-500/50 transition">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <div>
+                                            <h3 class="text-green-400 font-bold text-lg">
+                                                @if($booking->customPackage)
+                                                    {{ $booking->customPackage->name }}
+                                                @elseif($booking->room)
+                                                    {{ $booking->room->name }}
+                                                @else
+                                                    Custom Booking
+                                                @endif
+                                            </h3>
+                                            <p class="text-xs text-gray-500">Order ID: #{{ $booking->id }}</p>
+                                        </div>
+                                        
+                                        <span class="px-3 py-1 rounded-full text-xs font-bold capitalize
+                                            {{ $booking->status === 'confirmed' ? 'bg-green-500/20 text-green-500' : '' }}
+                                            {{ $booking->status === 'pending' ? 'bg-yellow-500/20 text-yellow-500' : '' }}
+                                            {{ $booking->status === 'cancelled' ? 'bg-red-500/20 text-red-500' : '' }}
+                                            {{ $booking->status === 'completed' ? 'bg-blue-500/20 text-blue-500' : '' }}">
+                                            {{ ucfirst($booking->status) }}
+                                        </span>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-300 mb-3 bg-black/20 p-3 rounded">
+                                        <div>
+                                            <span class="text-gray-500 block text-xs uppercase tracking-wider">Check-in</span>
+                                            <span class="font-medium">{{ $booking->check_in->format('M d, Y') }}</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-gray-500 block text-xs uppercase tracking-wider">Check-out</span>
+                                            <span class="font-medium">{{ $booking->check_out->format('M d, Y') }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-between items-center pt-2">
+                                        <div class="text-xs text-gray-400">
+                                            {{ $booking->guests }} Guests 
+                                            @if(isset($booking->package_details['children']) && $booking->package_details['children'] > 0)
+                                                (+{{ $booking->package_details['children'] }} Kids)
+                                            @endif
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-white font-bold text-lg">Rs {{ number_format($booking->total_price, 0) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="flex flex-col items-center justify-center h-48 text-gray-500 space-y-3">
+                            <svg class="w-12 h-12 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <p>You have no active bookings.</p>
+                            <a href="{{ route('package-builder') }}" class="text-green-500 hover:underline text-sm">Book a stay now &rarr;</a>
+                        </div>
+                    @endif
                 </div>
 
-                <div class="bg-gray-900 rounded-lg p-6 border border-gray-800 min-h-[300px]">
+                <div class="bg-gray-900 rounded-lg p-6 border border-gray-800 min-h-[200px]">
                     <h2 class="text-xl text-white font-light mb-6 border-b border-gray-800 pb-2">Spendings & History</h2>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-gray-800/50 p-4 rounded border border-gray-800">
                             <p class="text-gray-400 text-sm">Total Spent</p>
-                            <p class="text-2xl text-white font-bold mt-1">LKR 0.00</p>
+                            <p class="text-2xl text-white font-bold mt-1">
+                                Rs {{ number_format($user->bookings->where('status', '!=', 'cancelled')->sum('total_price'), 0) }}
+                            </p>
                         </div>
 
                         <div class="bg-gray-800/50 p-4 rounded border border-gray-800">
-                            <p class="text-gray-400 text-sm">Total Nights</p>
-                            <p class="text-2xl text-white font-bold mt-1">0</p>
+                            <p class="text-gray-400 text-sm">Total Bookings</p>
+                            <p class="text-2xl text-white font-bold mt-1">
+                                {{ $user->bookings->count() }}
+                            </p>
                         </div>
                     </div>
                     

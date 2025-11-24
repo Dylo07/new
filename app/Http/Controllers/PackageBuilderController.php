@@ -55,6 +55,33 @@ class PackageBuilderController extends Controller
         ]);
     }
 
+
+
+    public function proceedToBooking(Request $request)
+    {
+        // 1. Validate the incoming data
+        $validated = $request->validate([
+            'package_id' => 'required|exists:custom_packages,id',
+            'check_in'   => 'required|date',
+            'check_out'  => 'required|date',
+            'adults'     => 'required|integer|min:1',
+            'children'   => 'integer|min:0',
+            'total_price'=> 'required|numeric'
+        ]);
+
+        // 2. Save this data into the Session (Temporary Memory)
+        // We call it 'pending_booking'
+        session(['pending_booking' => $validated]);
+
+        // 3. Return the URL where the user should go next
+        // We send them to the 'Review' page. 
+        // If they are not logged in, Laravel will automatically intercept this 
+        // and send them to Login first, then bring them back here!
+        return response()->json([
+            'redirect_url' => route('bookings.package.review')
+        ]);
+    }
+
     public function calculatePrice(Request $request)
     {
         $packageId = $request->package_id;
