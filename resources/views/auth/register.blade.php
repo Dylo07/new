@@ -37,7 +37,14 @@
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
+<div class="mt-4">
+    <label for="phone" class="block text-gray-300 mb-2" >Phone Number</label>
+    <input id="phone"  class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500"
+           type="text" 
+           name="phone" 
+           value="{{ old('phone') }}" 
+           required />
+</div>
                 <div>
                     <label class="block text-gray-300 mb-2" for="password">Password</label>
                     <input 

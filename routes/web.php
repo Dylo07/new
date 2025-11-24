@@ -12,6 +12,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+// Added these two missing controllers
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +94,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users/{user}', [UserController::class, 'show'])->name('admin.users.show');
     Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    // --- ADD THIS LINE BELOW ---
+    Route::patch('/admin/users/{user}/toggle-admin', [UserController::class, 'toggleAdmin'])->name('admin.users.toggle-admin');
 
     // Dashboard
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -124,7 +129,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // ============================================================================
-// PUBLIC GALLERY ROUTES - All 12 Categories
+// PUBLIC GALLERY ROUTES
 // ============================================================================
 
 // Original 6 Categories

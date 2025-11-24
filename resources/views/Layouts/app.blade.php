@@ -20,104 +20,72 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="mainNav">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
                 <div class="flex items-center">
                     <img src="{{ asset('images/logo.png') }}" alt="Soba Lanka Holiday Resort" class="h-24">
                 </div>
                 
-                <!-- Desktop Navigation Links -->
                 <div class="hidden md:flex items-center gap-6">
                     <a href="{{ route('home') }}" class="text-white hover:text-green-400 transition-colors duration-300">Home</a>
                     
-                   <!-- Gallery Dropdown - Updated -->
-<div class="relative gallery-dropdown-container">
-    <button class="gallery-dropdown flex items-center text-white hover:text-green-500 transition-colors duration-300">
-        Gallery
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-        </svg>
-    </button>
-    
-    <div class="gallery-dropdown-menu absolute hidden left-0 mt-0 pt-2 w-48 z-50">
-        <!-- This empty div fills the gap between button and menu -->
-        <div class="h-2"></div>
-        
-        <div class="bg-black border border-gray-700 rounded-lg shadow-xl overflow-hidden">
-            <a href="{{ route('gallery') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">
-                All Photos
-            </a>
-            <a href="{{ route('gallery.rooms') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">
-                Room Gallery
-            </a>
-            <a href="{{ route('gallery.outdoor') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">
-                Outdoor Gallery
-            </a>
-            <a href="{{ route('gallery.weddings') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">
-                Weddings Gallery
-            </a>
-        </div>
-    </div>
-</div>
-<!-- Packages Dropdown - Updated -->
-<div class="relative packages-dropdown-container">
-    <button class="packages-dropdown flex items-center text-white hover:text-green-500 transition-colors duration-300">
-        Packages
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-        </svg>
-    </button>
-    
-    <div class="packages-dropdown-menu absolute hidden left-0 mt-0 pt-2 w-48 z-50">
-        <!-- This empty div fills the gap between button and menu -->
-        <div class="h-2"></div>
-        
-        <!-- Desktop Packages Dropdown -->
-        <div class="bg-black border border-gray-700 rounded-lg shadow-xl overflow-hidden">
-            <a href="{{ route('rates') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">
-                All Packages
-            </a>
-            <a href="{{ route('package-builder') }}" class="block px-4 py-2 text-sm text-white hover:bg-blue-600 transition-colors duration-200">
-                <i class="fas fa-magic mr-2"></i>Create Custom Package
-            </a>
-            <div class="border-t border-gray-700"></div>
-            <a href="{{ route('packages.couple') }}" class="block px-4 py-2 text-sm text-white hover:bg-pink-600 transition-colors duration-200">
-                Couple Packages
-            </a>
-            <a href="{{ route('packages.family') }}" class="block px-4 py-2 text-sm text-white hover:bg-purple-600 transition-colors duration-200">
-                Family Packages
-            </a>
-            <a href="{{ route('packages.group') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">
-                Group Packages
-            </a>
-            <a href="{{ route('packages.wedding') }}" class="block px-4 py-2 text-sm text-white hover:bg-purple-600 transition-colors duration-200">
-                Wedding Packages
-            </a>
-            <a href="{{ route('packages.engagement') }}" class="block px-4 py-2 text-sm text-white hover:bg-pink-600 transition-colors duration-200">
-                Engagement Packages
-            </a>
-            <a href="{{ route('packages.birthday') }}" class="block px-4 py-2 text-sm text-white hover:bg-yellow-600 transition-colors duration-200">
-                Birthday Packages
-            </a>
-            <a href="{{ route('packages.honeymoon') }}" class="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors duration-200">
-                Honeymoon Packages
-            </a>
-        </div>
-    </div>
-</div>
+                   <div class="relative gallery-dropdown-container">
+                        <button class="gallery-dropdown flex items-center text-white hover:text-green-500 transition-colors duration-300">
+                            Gallery
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        
+                        <div class="gallery-dropdown-menu absolute hidden left-0 mt-0 pt-2 w-48 z-50">
+                            <div class="h-2"></div>
+                            <div class="bg-black border border-gray-700 rounded-lg shadow-xl overflow-hidden">
+                                <a href="{{ route('gallery') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">All Photos</a>
+                                <a href="{{ route('gallery.rooms') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">Room Gallery</a>
+                                <a href="{{ route('gallery.outdoor') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">Outdoor Gallery</a>
+                                <a href="{{ route('gallery.weddings') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">Weddings Gallery</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative packages-dropdown-container">
+                        <button class="packages-dropdown flex items-center text-white hover:text-green-500 transition-colors duration-300">
+                            Packages
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        
+                        <div class="packages-dropdown-menu absolute hidden left-0 mt-0 pt-2 w-48 z-50">
+                            <div class="h-2"></div>
+                            <div class="bg-black border border-gray-700 rounded-lg shadow-xl overflow-hidden">
+                                <a href="{{ route('rates') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">All Packages</a>
+                                <a href="{{ route('package-builder') }}" class="block px-4 py-2 text-sm text-white hover:bg-blue-600 transition-colors duration-200"><i class="fas fa-magic mr-2"></i>Create Custom Package</a>
+                                <div class="border-t border-gray-700"></div>
+                                <a href="{{ route('packages.couple') }}" class="block px-4 py-2 text-sm text-white hover:bg-pink-600 transition-colors duration-200">Couple Packages</a>
+                                <a href="{{ route('packages.family') }}" class="block px-4 py-2 text-sm text-white hover:bg-purple-600 transition-colors duration-200">Family Packages</a>
+                                <a href="{{ route('packages.group') }}" class="block px-4 py-2 text-sm text-white hover:bg-green-600 transition-colors duration-200">Group Packages</a>
+                                <a href="{{ route('packages.wedding') }}" class="block px-4 py-2 text-sm text-white hover:bg-purple-600 transition-colors duration-200">Wedding Packages</a>
+                                <a href="{{ route('packages.engagement') }}" class="block px-4 py-2 text-sm text-white hover:bg-pink-600 transition-colors duration-200">Engagement Packages</a>
+                                <a href="{{ route('packages.birthday') }}" class="block px-4 py-2 text-sm text-white hover:bg-yellow-600 transition-colors duration-200">Birthday Packages</a>
+                                <a href="{{ route('packages.honeymoon') }}" class="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors duration-200">Honeymoon Packages</a>
+                            </div>
+                        </div>
+                    </div>
                     
                     <a href="{{ route('about') }}" class="text-white hover:text-green-400 transition-colors duration-300">About</a>
                     <a href="{{ route('contact') }}" class="text-white hover:text-green-400 transition-colors duration-300">Contact</a>
                     
-                    <!-- Authentication Links -->
                     @auth
                         <div class="flex items-center gap-4">
                             <span class="text-white">{{ auth()->user()->name }}</span>
+                            
+                            <a href="{{ route('profile') }}" class="text-white hover:text-green-400 transition-colors duration-300 font-medium">My Profile</a>
+                            
                             @if(auth()->user()->is_admin)
                                 <span class="bg-green-500 px-2 py-1 rounded text-sm text-white">Admin</span>
+                                <a href="{{ route('admin.users.index') }}" class="text-white hover:text-green-400 transition-colors duration-300">Manage Users</a>
                                 <a href="{{ route('admin.packages.index') }}" class="text-white hover:text-green-400 transition-colors duration-300">Manage Packages</a>
                                 <a href="{{ route('admin.gallery.index') }}" class="text-white hover:text-green-400 transition-colors duration-300">Manage Galleries</a>
                                 <a href="{{ route('admin.custom-packages.index') }}" class="text-white hover:text-green-400 transition-colors duration-300">Custom Packages</a>
@@ -136,7 +104,6 @@
                         </div>
                     @endauth
 
-                    <!-- Call Now Button -->
                     <a href="tel:+94717152955" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300 flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
@@ -145,7 +112,6 @@
                     </a>
                 </div>
 
-                <!-- Mobile Menu Button -->
                 <button class="md:hidden text-white" id="menuButton">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -153,12 +119,10 @@
                 </button>
             </div>
 
-            <!-- Mobile Menu -->
             <div class="md:hidden hidden" id="mobileMenu">
                 <div class="py-4 space-y-4">
                     <a href="{{ route('home') }}" class="block text-white hover:text-green-400 transition-colors duration-300">Home</a>
                     
-                    <!-- Mobile Gallery Dropdown -->
                     <div class="relative">
                         <button id="mobileGalleryDropdown" class="flex items-center justify-between w-full text-white hover:text-green-400 transition-colors duration-300">
                             Gallery
@@ -167,22 +131,13 @@
                             </svg>
                         </button>
                         <div id="mobileGalleryLinks" class="hidden pl-4 mt-2 space-y-2 border-l border-gray-700">
-                            <a href="{{ route('gallery') }}" class="block text-white hover:text-green-400 transition-colors duration-300">
-                                All Photos
-                            </a>
-                            <a href="{{ route('gallery.rooms') }}" class="block text-white hover:text-green-400 transition-colors duration-300">
-                                Room Gallery
-                            </a>
-                            <a href="{{ route('gallery.outdoor') }}" class="block text-white hover:text-green-400 transition-colors duration-300">
-                                Outdoor Gallery
-                            </a>
-                            <a href="{{ route('gallery.weddings') }}" class="block text-white hover:text-green-400 transition-colors duration-300">
-                                Weddings Gallery
-                            </a>
+                            <a href="{{ route('gallery') }}" class="block text-white hover:text-green-400 transition-colors duration-300">All Photos</a>
+                            <a href="{{ route('gallery.rooms') }}" class="block text-white hover:text-green-400 transition-colors duration-300">Room Gallery</a>
+                            <a href="{{ route('gallery.outdoor') }}" class="block text-white hover:text-green-400 transition-colors duration-300">Outdoor Gallery</a>
+                            <a href="{{ route('gallery.weddings') }}" class="block text-white hover:text-green-400 transition-colors duration-300">Weddings Gallery</a>
                         </div>
                     </div>
 
-                    <!-- Mobile Packages Dropdown -->
                     <div class="relative">
                         <button id="mobilePackagesDropdown" class="flex items-center justify-between w-full text-white hover:text-green-400 transition-colors duration-300">
                             Packages
@@ -190,55 +145,39 @@
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </button>
-<!-- Mobile Packages Dropdown -->
                         <div id="mobilePackagesLinks" class="hidden pl-4 mt-2 space-y-2 border-l border-gray-700">
-                            <a href="{{ route('rates') }}" class="block text-white hover:text-green-400 transition-colors duration-300">
-                                All Packages
-                            </a>
-                            <a href="{{ route('package-builder') }}" class="block text-white hover:text-blue-400 transition-colors duration-300">
-                                <i class="fas fa-magic mr-2"></i>Create Custom Package
-                            </a>
+                            <a href="{{ route('rates') }}" class="block text-white hover:text-green-400 transition-colors duration-300">All Packages</a>
+                            <a href="{{ route('package-builder') }}" class="block text-white hover:text-blue-400 transition-colors duration-300"><i class="fas fa-magic mr-2"></i>Create Custom Package</a>
                             <div class="border-t border-gray-700 my-2"></div>
-                            <a href="{{ route('packages.couple') }}" class="block text-white hover:text-pink-400 transition-colors duration-300">
-                                Couple Packages
-                            </a>
-                            <a href="{{ route('packages.family') }}" class="block text-white hover:text-purple-400 transition-colors duration-300">
-                                Family Packages
-                            </a>
-                            <a href="{{ route('packages.group') }}" class="block text-white hover:text-green-400 transition-colors duration-300">
-                                Group Packages
-                            </a>
-                            <a href="{{ route('packages.wedding') }}" class="block text-white hover:text-purple-400 transition-colors duration-300">
-                                Wedding Packages
-                            </a>
-                            <a href="{{ route('packages.engagement') }}" class="block text-white hover:text-rose-400 transition-colors duration-300">
-                                Engagement Packages
-                            </a>
-                            <a href="{{ route('packages.birthday') }}" class="block text-white hover:text-yellow-400 transition-colors duration-300">
-                                Birthday Packages
-                            </a>
-                            <a href="{{ route('packages.honeymoon') }}" class="block text-white hover:text-red-400 transition-colors duration-300">
-                                Honeymoon Packages
-                            </a>
+                            <a href="{{ route('packages.couple') }}" class="block text-white hover:text-pink-400 transition-colors duration-300">Couple Packages</a>
+                            <a href="{{ route('packages.family') }}" class="block text-white hover:text-purple-400 transition-colors duration-300">Family Packages</a>
+                            <a href="{{ route('packages.group') }}" class="block text-white hover:text-green-400 transition-colors duration-300">Group Packages</a>
+                            <a href="{{ route('packages.wedding') }}" class="block text-white hover:text-purple-400 transition-colors duration-300">Wedding Packages</a>
+                            <a href="{{ route('packages.engagement') }}" class="block text-white hover:text-rose-400 transition-colors duration-300">Engagement Packages</a>
+                            <a href="{{ route('packages.birthday') }}" class="block text-white hover:text-yellow-400 transition-colors duration-300">Birthday Packages</a>
+                            <a href="{{ route('packages.honeymoon') }}" class="block text-white hover:text-red-400 transition-colors duration-300">Honeymoon Packages</a>
                         </div>
                     </div>
                     
                     <a href="{{ route('about') }}" class="block text-white hover:text-green-400 transition-colors duration-300">About</a>
                     <a href="{{ route('contact') }}" class="block text-white hover:text-green-400 transition-colors duration-300">Contact</a>
                     
-                    <!-- Mobile Authentication Links -->
                     @auth
                         <div class="border-t border-gray-700 pt-4 mt-4">
                             <span class="block text-white mb-2">{{ auth()->user()->name }}</span>
+                            
+                            <a href="{{ route('profile') }}" class="block text-white hover:text-green-400 transition-colors duration-300 mb-2 font-medium">My Profile</a>
+
                             @if(auth()->user()->is_admin)
-                                <span class="inline-block bg-green-500 px-2 py-1 rounded text-sm text-white mb-2">Admin</span>
-                                <a href="{{ route('admin.packages.index') }}" class="block text-white hover:text-green-400 transition-colors duration-300 mb-2">Manage Packages</a>
-                                <a href="{{ route('admin.gallery.index') }}" class="block text-white hover:text-green-400 transition-colors duration-300 mb-2">Manage Galleries</a>
-                                <a href="{{ route('admin.custom-packages.index') }}" class="block text-white hover:text-green-400 transition-colors duration-300 mb-2">Custom Packages</a>
+                                <span class="bg-green-500 px-2 py-1 rounded text-sm text-white inline-block mb-2">Admin</span>
+                                <a href="{{ route('admin.users.index') }}" class="block text-white hover:text-green-400 transition-colors duration-300 mb-1">Manage Users</a>
+                                <a href="{{ route('admin.packages.index') }}" class="block text-white hover:text-green-400 transition-colors duration-300 mb-1">Manage Packages</a>
+                                <a href="{{ route('admin.gallery.index') }}" class="block text-white hover:text-green-400 transition-colors duration-300 mb-1">Manage Galleries</a>
+                                <a href="{{ route('admin.custom-packages.index') }}" class="block text-white hover:text-green-400 transition-colors duration-300 mb-1">Custom Packages</a>
                             @endif
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="block w-full text-white hover:text-green-400 transition-colors duration-300 text-left">
+                                <button type="submit" class="block w-full text-white hover:text-green-400 transition-colors duration-300 text-left mt-2">
                                     Logout
                                 </button>
                             </form>
@@ -256,7 +195,6 @@
         </div>
     </nav>
 
-    <!-- Content -->
     @yield('content')
 
     @stack('scripts')
@@ -317,17 +255,12 @@
             const galleryMenu = document.querySelector('.gallery-dropdown-menu');
             
             if (galleryContainer && galleryButton && galleryMenu) {
-                // Show dropdown on mouseenter
                 galleryContainer.addEventListener('mouseenter', function() {
                     galleryMenu.classList.remove('hidden');
                 });
-                
-                // Hide dropdown on mouseleave
                 galleryContainer.addEventListener('mouseleave', function() {
                     galleryMenu.classList.add('hidden');
                 });
-                
-                // Toggle dropdown on button click
                 galleryButton.addEventListener('click', function(e) {
                     e.preventDefault();
                     galleryMenu.classList.toggle('hidden');
@@ -340,17 +273,12 @@
             const packagesMenu = document.querySelector('.packages-dropdown-menu');
             
             if (packagesContainer && packagesButton && packagesMenu) {
-                // Show dropdown on mouseenter
                 packagesContainer.addEventListener('mouseenter', function() {
                     packagesMenu.classList.remove('hidden');
                 });
-                
-                // Hide dropdown on mouseleave
                 packagesContainer.addEventListener('mouseleave', function() {
                     packagesMenu.classList.add('hidden');
                 });
-                
-                // Toggle dropdown on button click
                 packagesButton.addEventListener('click', function(e) {
                     e.preventDefault();
                     packagesMenu.classList.toggle('hidden');
@@ -359,14 +287,11 @@
 
             // Close dropdowns when clicking outside
             document.addEventListener('click', function(event) {
-                // Close gallery dropdown if clicking outside
                 if (galleryContainer && !galleryContainer.contains(event.target)) {
                     if (galleryMenu) {
                         galleryMenu.classList.add('hidden');
                     }
                 }
-                
-                // Close packages dropdown if clicking outside
                 if (packagesContainer && !packagesContainer.contains(event.target)) {
                     if (packagesMenu) {
                         packagesMenu.classList.add('hidden');
