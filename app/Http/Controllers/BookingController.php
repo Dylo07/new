@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use App\Models\CustomPackage;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
@@ -84,6 +85,57 @@ class BookingController extends Controller
                 'children' => $data['children'] ?? 0
             ]
         ]);
+
+        // Send email notification to customer
+        $user = auth()->user();
+        $package = CustomPackage::find($data['package_id']);
+        
+        try {
+            // Email to customer
+            Mail::raw(
+                "Dear {$user->name},\n\n" .
+                "Thank you for your booking at Soba Lanka Hotel!\n\n" .
+                "Booking Details:\n" .
+                "Booking ID: #{$booking->id}\n" .
+                "Package: {$package->name}\n" .
+                "Check-in: {$booking->check_in}\n" .
+                "Check-out: {$booking->check_out}\n" .
+                "Guests: {$data['adults']} Adults" . (isset($data['children']) && $data['children'] > 0 ? ", {$data['children']} Children" : "") . "\n" .
+                "Total Price: Rs {$booking->total_price}\n" .
+                "Status: Pending\n\n" .
+                "We will contact you shortly to confirm your booking.\n\n" .
+                "Best regards,\n" .
+                "Soba Lanka Hotel Team",
+                function($msg) use ($user) {
+                    $msg->to($user->email)
+                        ->subject('Booking Confirmation - Soba Lanka Hotel');
+                }
+            );
+
+            // Email to admin
+            $adminEmail = config('mail.admin_email');
+            Mail::raw(
+                "New Booking Received!\n\n" .
+                "Booking Details:\n" .
+                "Booking ID: #{$booking->id}\n" .
+                "Customer: {$user->name}\n" .
+                "Email: {$user->email}\n" .
+                "Package: {$package->name}\n" .
+                "Check-in: {$booking->check_in}\n" .
+                "Check-out: {$booking->check_out}\n" .
+                "Guests: {$data['adults']} Adults" . (isset($data['children']) && $data['children'] > 0 ? ", {$data['children']} Children" : "") . "\n" .
+                "Total Price: Rs {$booking->total_price}\n" .
+                "Status: Pending\n\n" .
+                "Please review and confirm this booking.",
+                function($msg) use ($adminEmail) {
+                    $msg->to($adminEmail)
+                        ->subject('New Booking Notification - Soba Lanka Hotel');
+                }
+            );
+        } catch (\Exception $e) {
+            // Log error but don't stop the booking process
+            \Log::error('Booking email failed: ' . $e->getMessage());
+        }
 
         // Clear the session so they don't book it twice by mistake
         session()->forget('pending_booking');

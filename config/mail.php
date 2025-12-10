@@ -131,4 +131,16 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Email Address
+    |--------------------------------------------------------------------------
+    |
+    | This is the email address where admin notifications will be sent,
+    | such as new booking notifications, contact form submissions, etc.
+    |
+    */
+
+    'admin_email' => env('MAIL_ADMIN_EMAIL', 'admin@example.com'),
+
 ];
