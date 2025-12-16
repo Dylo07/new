@@ -47,7 +47,7 @@
                             @error('phone') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
 
-                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded transition">
+                        <button type="submit" class="w-full btn-primary text-white py-3 rounded-xl font-semibold">
                             Update Profile
                         </button>
                     </form>
@@ -80,7 +80,7 @@
                                    class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
                         </div>
 
-                        <button type="submit" class="w-full bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 py-2 rounded transition">
+                        <button type="submit" class="w-full bg-gray-600 text-white py-3 rounded-xl font-semibold border border-gray-500 hover:bg-gray-500 transition-all duration-300">
                             Change Password
                         </button>
                     </form>
