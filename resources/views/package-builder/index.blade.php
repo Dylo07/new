@@ -662,7 +662,7 @@ function createPackageCard(package, adults, children) {
         }
         
         <button 
-            class="w-full ${isAvailable ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-gray-600'} text-white py-2 rounded-lg transition-all duration-300"
+            class="w-full ${isAvailable ? 'btn-primary' : 'bg-gray-600'} text-white py-3 rounded-xl font-semibold transition-all duration-300"
             ${isAvailable ? `onclick="selectPackage(${package.id})"` : 'disabled'}
         >
             ${isAvailable ? 'Select This Package' : 'Not Available'}
