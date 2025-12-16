@@ -20,6 +20,7 @@
         /* Base Styles */
         body {
             background-color: #000000;
+            color: #e5e7eb;
             min-height: 100vh;
         }
         

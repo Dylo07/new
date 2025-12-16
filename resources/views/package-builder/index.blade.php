@@ -117,9 +117,9 @@
         <div class="max-w-2xl mx-auto bg-gray-900 rounded-xl p-8 mb-8 hidden" id="step1_75">
             <h2 class="text-2xl text-white mb-6 text-center">What kind of package are you looking for?</h2>
             
-            <div class="space-y-6">
+            <div class="space-y-6" id="packageTypeOptions">
                 <!-- Day Out Option -->
-                <div class="bg-gray-800 rounded-lg p-6 cursor-pointer hover:bg-gray-700 transition-all duration-300 package-type-option" data-type="day_out">
+                <div class="bg-gray-800 rounded-lg p-6 transition-all duration-300 package-type-option" data-type="day_out" id="dayOutOption">
                     <div class="flex items-start">
                         <input type="radio" name="packageType" value="day_out" id="dayOut" class="mt-1 mr-4 text-emerald-500">
                         <div class="flex-1">
@@ -137,12 +137,16 @@
                                     <li>Indoor & outdoor games</li>
                                 </ul>
                             </div>
+                            <div class="unavailable-reason text-red-400 text-sm mt-3 hidden" id="dayOutReason">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Day Out is only available when check-in and check-out are on the same day.
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Night Stay Half Board Option -->
-                <div class="bg-gray-800 rounded-lg p-6 cursor-pointer hover:bg-gray-700 transition-all duration-300 package-type-option" data-type="half_board">
+                <div class="bg-gray-800 rounded-lg p-6 transition-all duration-300 package-type-option" data-type="half_board" id="halfBoardOption">
                     <div class="flex items-start">
                         <input type="radio" name="packageType" value="half_board" id="halfBoard" class="mt-1 mr-4 text-emerald-500">
                         <div class="flex-1">
@@ -161,12 +165,16 @@
                                     <li>Indoor & outdoor games</li>
                                 </ul>
                             </div>
+                            <div class="unavailable-reason text-red-400 text-sm mt-3 hidden" id="halfBoardReason">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Night Stay requires at least 1 night. Please select a check-out date after your check-in date.
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Night Stay Full Board Option -->
-                <div class="bg-gray-800 rounded-lg p-6 cursor-pointer hover:bg-gray-700 transition-all duration-300 package-type-option" data-type="full_board">
+                <div class="bg-gray-800 rounded-lg p-6 transition-all duration-300 package-type-option" data-type="full_board" id="fullBoardOption">
                     <div class="flex items-start">
                         <input type="radio" name="packageType" value="full_board" id="fullBoard" class="mt-1 mr-4 text-emerald-500">
                         <div class="flex-1">
@@ -187,6 +195,10 @@
                                     <li>Swimming pool access</li>
                                     <li>Indoor & outdoor games</li>
                                 </ul>
+                            </div>
+                            <div class="unavailable-reason text-red-400 text-sm mt-3 hidden" id="fullBoardReason">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Night Stay requires at least 1 night. Please select a check-out date after your check-in date.
                             </div>
                         </div>
                     </div>
@@ -327,6 +339,23 @@ let currentRooms = {
 };
 let additionalRoomCharge = 0;
 let selectedPackageType = null;
+let numberOfNights = calculateNights();
+
+// Calculate number of nights from URL parameters
+function calculateNights() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const checkIn = urlParams.get('check_in');
+    const checkOut = urlParams.get('check_out');
+    
+    if (checkIn && checkOut) {
+        const checkInDate = new Date(checkIn);
+        const checkOutDate = new Date(checkOut);
+        const diffTime = checkOutDate - checkInDate;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays >= 0 ? diffDays : 0;
+    }
+    return 0;
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get URL parameters and pre-fill guest counts
@@ -355,6 +384,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle package type selection
     document.querySelectorAll('.package-type-option').forEach(option => {
         option.addEventListener('click', function() {
+            // Check if this option is disabled
+            if (this.classList.contains('opacity-50') || this.classList.contains('cursor-not-allowed')) {
+                return; // Don't allow selection of disabled options
+            }
+            
             const radio = this.querySelector('input[type="radio"]');
             radio.checked = true;
             selectedPackageType = radio.value;
@@ -423,11 +457,74 @@ function proceedToPackageType() {
     
     document.getElementById('step1_5').classList.add('hidden');
     document.getElementById('step1_75').classList.remove('hidden');
+    
+    // Update package type availability based on nights
+    updatePackageTypeAvailability();
 }
 
 function backToRoomSelection() {
     document.getElementById('step1_75').classList.add('hidden');
     document.getElementById('step1_5').classList.remove('hidden');
+}
+
+function updatePackageTypeAvailability() {
+    const isSameDay = numberOfNights === 0;
+    
+    const dayOutOption = document.getElementById('dayOutOption');
+    const halfBoardOption = document.getElementById('halfBoardOption');
+    const fullBoardOption = document.getElementById('fullBoardOption');
+    
+    const dayOutReason = document.getElementById('dayOutReason');
+    const halfBoardReason = document.getElementById('halfBoardReason');
+    const fullBoardReason = document.getElementById('fullBoardReason');
+    
+    const dayOutRadio = document.getElementById('dayOut');
+    const halfBoardRadio = document.getElementById('halfBoard');
+    const fullBoardRadio = document.getElementById('fullBoard');
+    
+    // Reset all selections
+    selectedPackageType = null;
+    document.getElementById('proceedWithPackageType').disabled = true;
+    document.querySelectorAll('.package-type-option').forEach(opt => {
+        opt.classList.remove('ring-2', 'ring-emerald-500');
+    });
+    dayOutRadio.checked = false;
+    halfBoardRadio.checked = false;
+    fullBoardRadio.checked = false;
+    
+    if (isSameDay) {
+        // Same day: Only Day Out is available
+        dayOutOption.classList.remove('opacity-50', 'cursor-not-allowed');
+        dayOutOption.classList.add('cursor-pointer', 'hover:bg-gray-700');
+        dayOutReason.classList.add('hidden');
+        dayOutRadio.disabled = false;
+        
+        halfBoardOption.classList.add('opacity-50', 'cursor-not-allowed');
+        halfBoardOption.classList.remove('cursor-pointer', 'hover:bg-gray-700');
+        halfBoardReason.classList.remove('hidden');
+        halfBoardRadio.disabled = true;
+        
+        fullBoardOption.classList.add('opacity-50', 'cursor-not-allowed');
+        fullBoardOption.classList.remove('cursor-pointer', 'hover:bg-gray-700');
+        fullBoardReason.classList.remove('hidden');
+        fullBoardRadio.disabled = true;
+    } else {
+        // Overnight stay: Only Night Stay options are available
+        dayOutOption.classList.add('opacity-50', 'cursor-not-allowed');
+        dayOutOption.classList.remove('cursor-pointer', 'hover:bg-gray-700');
+        dayOutReason.classList.remove('hidden');
+        dayOutRadio.disabled = true;
+        
+        halfBoardOption.classList.remove('opacity-50', 'cursor-not-allowed');
+        halfBoardOption.classList.add('cursor-pointer', 'hover:bg-gray-700');
+        halfBoardReason.classList.add('hidden');
+        halfBoardRadio.disabled = false;
+        
+        fullBoardOption.classList.remove('opacity-50', 'cursor-not-allowed');
+        fullBoardOption.classList.add('cursor-pointer', 'hover:bg-gray-700');
+        fullBoardReason.classList.add('hidden');
+        fullBoardRadio.disabled = false;
+    }
 }
 
 function autoSuggestRooms() {
@@ -624,7 +721,11 @@ function displayPackages(data) {
 }
 
 function createPackageCard(package, adults, children) {
-    const packageTotal = (package.adult_price * adults) + (package.child_price * children);
+    const perNightTotal = (package.adult_price * adults) + (package.child_price * children);
+    // For night stay packages (half_board, full_board), multiply by number of nights
+    const isNightStay = selectedPackageType === 'half_board' || selectedPackageType === 'full_board';
+    const nightsMultiplier = isNightStay ? numberOfNights : 1;
+    const packageTotal = perNightTotal * nightsMultiplier;
     const totalWithRooms = packageTotal + additionalRoomCharge;
     const isAvailable = package.available;
     
@@ -650,6 +751,7 @@ function createPackageCard(package, adults, children) {
             <div class="text-gray-400 text-sm">
                 Adults: Rs ${package.adult_price} × ${adults} = Rs ${(package.adult_price * adults).toLocaleString()}<br>
                 ${children > 0 ? `Children: Rs ${package.child_price} × ${children} = Rs ${(package.child_price * children).toLocaleString()}<br>` : ''}
+                ${isNightStay && numberOfNights > 1 ? `<span class="text-yellow-400">× ${numberOfNights} night${numberOfNights > 1 ? 's' : ''} = Rs ${packageTotal.toLocaleString()}</span><br>` : ''}
                 ${additionalRoomCharge > 0 ? `Additional Rooms: Rs ${additionalRoomCharge.toLocaleString()}<br>` : ''}
                 <strong>Package Total: Rs ${packageTotal.toLocaleString()}</strong>
                 ${additionalRoomCharge > 0 ? `<br><strong>Grand Total: Rs ${totalWithRooms.toLocaleString()}</strong>` : ''}
@@ -738,6 +840,10 @@ function displayPackageDetails(data) {
         imagesContainer.appendChild(placeholderWrapper);
     }
     
+    // Calculate nights multiplier for night stay packages
+    const isNightStay = selectedPackageType === 'half_board' || selectedPackageType === 'full_board';
+    const nightsMultiplier = isNightStay ? numberOfNights : 1;
+    
     // Update price breakdown
     document.getElementById('adultCount').textContent = data.adults;
     document.getElementById('adultPrice').textContent = `Rs ${data.adult_price.toLocaleString()}`;
@@ -756,8 +862,15 @@ function displayPackageDetails(data) {
         roomChargesRow.classList.add('hidden');
     }
     
-    const finalTotal = data.total + additionalRoomCharge;
-    document.getElementById('totalPrice').textContent = `Rs ${finalTotal.toLocaleString()}`;
+    // Calculate total with nights multiplier
+    const packageTotalWithNights = data.package_total * nightsMultiplier;
+    const finalTotal = packageTotalWithNights + additionalRoomCharge;
+    
+    // Store the calculated total for booking
+    selectedPackage.calculatedTotal = finalTotal;
+    selectedPackage.nightsMultiplier = nightsMultiplier;
+    
+    document.getElementById('totalPrice').textContent = `Rs ${finalTotal.toLocaleString()}${isNightStay && numberOfNights > 1 ? ` (${numberOfNights} nights)` : ''}`;
     
     // Hide children row if no children
     document.getElementById('childPriceRow').style.display = data.children > 0 ? 'flex' : 'none';
@@ -789,12 +902,12 @@ function proceedToBooking() {
 
     // 2. Prepare the data
     const payload = {
-        package_id: selectedPackage.package.id, // Fixed: accessing ID from the stored object
-        check_in: checkIn,                      // Fixed: getting from URL
-        check_out: checkOut,                    // Fixed: getting from URL
+        package_id: selectedPackage.package.id,
+        check_in: checkIn,
+        check_out: checkOut,
         adults: currentAdults,
         children: currentChildren,
-        total_price: selectedPackage.total      // Fixed: getting price from stored object
+        total_price: selectedPackage.calculatedTotal || selectedPackage.total
     };
 
     // 3. Send to Laravel
@@ -835,6 +948,7 @@ function proceedToBooking() {
 <style>
 body {
     background-color: #000000;
+    color: #e5e7eb;
 }
 
 .package-type-section:empty {

@@ -1569,6 +1569,7 @@ A parking garage where you can park your car safely and conveniently.</p>
     
     body {
         background-color: #000000;
+        color: #e5e7eb;
         min-height: 100vh;
     }
     
@@ -1632,6 +1633,7 @@ A parking garage where you can park your car safely and conveniently.</p>
 
 @push('scripts')
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
 
     // Navigation scroll effect
@@ -1644,26 +1646,40 @@ A parking garage where you can park your car safely and conveniently.</p>
             mobileMenu.classList.toggle('hidden');
         });
     }
-});
 
-
-       // Date validation for booking form
-const checkIn = document.querySelector('input[name="check_in"]');
-const checkOut = document.querySelector('input[name="check_out"]');
-
-if (checkIn && checkOut) {
-    checkIn.addEventListener('change', function() {
-        // Set the minimum check-out date to be the SAME as check-in date
-        checkOut.min = this.value;
+    // Initialize Flatpickr for date pickers
+    const checkInInput = document.getElementById('check_in');
+    const checkOutInput = document.getElementById('check_out');
+    
+    let checkOutPicker = null;
+    
+    if (checkInInput && checkOutInput) {
+        // Initialize check-out date picker first
+        checkOutPicker = flatpickr(checkOutInput, {
+            dateFormat: "Y-m-d",
+            minDate: "today"
+        });
         
-        // Only reset the value if the current check-out is BEFORE the new check-in
-        if(checkOut.value && checkOut.value < this.value) {
-            checkOut.value = this.value;
-        }
-    });
-}
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Initialize check-in date picker
+        flatpickr(checkInInput, {
+            dateFormat: "Y-m-d",
+            minDate: "today",
+            onChange: function(selectedDates, dateStr) {
+                if (selectedDates.length > 0) {
+                    // Set the minimum date for check-out to be the same as check-in date
+                    checkOutPicker.set('minDate', dateStr);
+                    
+                    // If current check-out date is before new check-in, clear it
+                    if (checkOutInput.value && checkOutInput.value < dateStr) {
+                        checkOutPicker.clear();
+                    }
+                }
+            }
+        });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));

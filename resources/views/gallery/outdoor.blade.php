@@ -106,6 +106,7 @@
 <style>
     body {
         background-color: #000000;
+        color: #e5e7eb;
     }
 
     .transition-all {

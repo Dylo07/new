@@ -145,6 +145,7 @@
 <style>
     body {
         background-color: #000000;
+        color: #e5e7eb;
     }
     .content {
         padding-top: 80px;
