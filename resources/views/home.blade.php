@@ -886,7 +886,7 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-400">ONLY FOR</p>
-                                <p class="text-white text-xl font-semibold">Rs.10,000</p>
+                                <p class="text-white text-xl font-semibold">Rs.10,500</p>
                             </div>
                             <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                 BOOK NOW
@@ -915,7 +915,7 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-400">ONLY FOR</p>
-                                <p class="text-white text-xl font-semibold">Rs.7,000</p>
+                                <p class="text-white text-xl font-semibold">Rs.7,500</p>
                             </div>
                             <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                 BOOK NOW
@@ -948,7 +948,7 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-400">ONLY FOR</p>
-                                <p class="text-white text-xl font-semibold">Rs.12,000</p>
+                                <p class="text-white text-xl font-semibold">Rs.12,500</p>
                             </div>
                             <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                 BOOK NOW
@@ -1028,7 +1028,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-white text-xl font-semibold">Rs.3,000/-</p>
+                        <p class="text-white text-xl font-semibold">Rs.2,500/-</p>
                     </div>
                     <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                         BOOK NOW
@@ -1110,7 +1110,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-white text-xl font-semibold">Rs.3,990</p>
+                        <p class="text-white text-xl font-semibold">Rs.4,500</p>
                     </div>
                     <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                         BOOK NOW
@@ -1143,7 +1143,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-white text-xl font-semibold">Rs.4,790</p>
+                        <p class="text-white text-xl font-semibold">Rs.5,500/p>
                     </div>
                     <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                         BOOK NOW
