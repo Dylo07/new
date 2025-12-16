@@ -35,22 +35,22 @@
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <a href="{{ route('admin.packages.index') }}" 
                            class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm 
-                           {{ request()->routeIs('admin.packages.*') ? 'border-green-500 text-green-600' : '' }}">
+                           {{ request()->routeIs('admin.packages.*') ? 'border-emerald-500 text-emerald-600' : '' }}">
                             <i class="fas fa-box mr-2"></i>Packages
                         </a>
                         <a href="{{ route('admin.custom-packages.index') }}" 
        class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm
-       {{ request()->routeIs('admin.custom-packages.*') ? 'border-green-500 text-green-600' : '' }}">
+       {{ request()->routeIs('admin.custom-packages.*') ? 'border-emerald-500 text-emerald-600' : '' }}">
         <i class="fas fa-puzzle-piece mr-2"></i>Custom Packages
     </a>
                         <a href="{{ route('admin.gallery.index') }}" 
                            class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm
-                           {{ request()->routeIs('admin.gallery.*') ? 'border-green-500 text-green-600' : '' }}">
+                           {{ request()->routeIs('admin.gallery.*') ? 'border-emerald-500 text-emerald-600' : '' }}">
                             <i class="fas fa-images mr-2"></i>Gallery
                         </a>
                         <a href="{{ route('admin.calendar') }}" 
                            class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm
-                           {{ request()->routeIs('admin.calendar*') ? 'border-green-500 text-green-600' : '' }}">
+                           {{ request()->routeIs('admin.calendar*') ? 'border-emerald-500 text-emerald-600' : '' }}">
                             <i class="fas fa-calendar mr-2"></i>Calendar
                         </a>
                     </div>
@@ -95,22 +95,22 @@
             <div class="pt-2 pb-3 space-y-1">
                 <a href="{{ route('admin.packages.index') }}" 
                    class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50
-                   {{ request()->routeIs('admin.packages.*') ? 'bg-green-50 border-green-500 text-green-700' : '' }}">
+                   {{ request()->routeIs('admin.packages.*') ? 'bg-emerald-50 border-emerald-500 text-emerald-700' : '' }}">
                     <i class="fas fa-box mr-2"></i>Packages
                 </a>
                 <a href="{{ route('admin.custom-packages.index') }}" 
        class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm
-       {{ request()->routeIs('admin.custom-packages.*') ? 'border-green-500 text-green-600' : '' }}">
+       {{ request()->routeIs('admin.custom-packages.*') ? 'border-emerald-500 text-emerald-600' : '' }}">
         <i class="fas fa-puzzle-piece mr-2"></i>Custom Packages
     </a>
                 <a href="{{ route('admin.gallery.index') }}" 
                    class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50
-                   {{ request()->routeIs('admin.gallery.*') ? 'bg-green-50 border-green-500 text-green-700' : '' }}">
+                   {{ request()->routeIs('admin.gallery.*') ? 'bg-emerald-50 border-emerald-500 text-emerald-700' : '' }}">
                     <i class="fas fa-images mr-2"></i>Gallery
                 </a>
                 <a href="{{ route('admin.calendar') }}" 
                    class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50
-                   {{ request()->routeIs('admin.calendar*') ? 'bg-green-50 border-green-500 text-green-700' : '' }}">
+                   {{ request()->routeIs('admin.calendar*') ? 'bg-emerald-50 border-emerald-500 text-emerald-700' : '' }}">
                     <i class="fas fa-calendar mr-2"></i>Calendar
                 </a>
                 <div class="border-t border-gray-200 pt-3 mt-3">

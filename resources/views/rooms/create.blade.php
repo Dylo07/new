@@ -19,7 +19,7 @@
                             type="text" 
                             name="room_number" 
                             value="{{ old('room_number') }}"
-                            class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                            class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                             required
                         >
                         @error('room_number')
@@ -34,7 +34,7 @@
                             type="text" 
                             name="type" 
                             value="{{ old('type') }}"
-                            class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                            class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                             required
                         >
                         @error('type')
@@ -48,7 +48,7 @@
                     <label class="block text-gray-300 mb-2">Category *</label>
                     <select 
                         name="category" 
-                        class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                        class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                         required
                     >
                         <option value="">Select Category</option>
@@ -69,7 +69,7 @@
                     <textarea 
                         name="description" 
                         rows="4" 
-                        class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                        class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                         required
                     >{{ old('description') }}</textarea>
                     @error('description')
@@ -85,7 +85,7 @@
                         name="price" 
                         value="{{ old('price') }}"
                         step="0.01"
-                        class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                        class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                         required
                     >
                     @error('price')
@@ -100,7 +100,7 @@
                         type="file" 
                         name="image"
                         accept="image/*"
-                        class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                        class="w-full p-3 bg-gray-900 rounded text-white border border-gray-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                     >
                     @error('image')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -113,7 +113,7 @@
                         type="checkbox" 
                         name="is_available" 
                         id="is_available"
-                        class="rounded bg-gray-900 border-gray-800 text-green-500 focus:ring-green-500"
+                        class="rounded bg-gray-900 border-gray-800 text-emerald-500 focus:ring-emerald-500"
                         {{ old('is_available') ? 'checked' : '' }}
                     >
                     <label for="is_available" class="ml-2 text-gray-300">Room is Available</label>
@@ -129,7 +129,7 @@
                     </a>
                     <button 
                         type="submit"
-                        class="px-6 py-3 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+                        class="px-6 py-3 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors"
                     >
                         Create Room
                     </button>

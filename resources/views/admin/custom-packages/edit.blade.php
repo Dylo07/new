@@ -27,7 +27,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Package Name *</label>
                     <input type="text" name="name" value="{{ old('name', $customPackage->name ?? '') }}" 
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-green-500" required>
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500" required>
                     @error('name')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -35,7 +35,7 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
-                    <select name="category" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-green-500" required>
+                    <select name="category" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500" required>
                         <option value="">Select Category</option>
                         <option value="couple" {{ old('category', $customPackage->category ?? '') === 'couple' ? 'selected' : '' }}>Couple</option>
                         <option value="family" {{ old('category', $customPackage->category ?? '') === 'family' ? 'selected' : '' }}>Family</option>
@@ -48,7 +48,7 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Type *</label>
-                    <select name="type" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-green-500" required>
+                    <select name="type" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500" required>
                         <option value="">Select Type</option>
                         <option value="day_out" {{ old('type', $customPackage->type ?? '') === 'day_out' ? 'selected' : '' }}>Day Out</option>
                         <option value="half_board" {{ old('type', $customPackage->type ?? '') === 'half_board' ? 'selected' : '' }}>Half Board</option>
@@ -63,7 +63,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Sub Type</label>
                     <input type="text" name="sub_type" value="{{ old('sub_type', $customPackage->sub_type ?? '') }}" 
                            placeholder="e.g., Oasis, Paradise, Crown, Gold, Platinum"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-green-500">
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500">
                     <p class="text-gray-500 text-sm mt-1">Optional: For group packages with sub-categories</p>
                     @error('sub_type')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -76,7 +76,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Adult Price (Rs) *</label>
                     <input type="number" name="adult_price" value="{{ old('adult_price', $customPackage->adult_price ?? '') }}" 
-                           step="0.01" min="0" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-green-500" required>
+                           step="0.01" min="0" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500" required>
                     @error('adult_price')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -85,7 +85,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Child Price (Rs) *</label>
                     <input type="number" name="child_price" value="{{ old('child_price', $customPackage->child_price ?? '0') }}" 
-                           step="0.01" min="0" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-green-500" required>
+                           step="0.01" min="0" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500" required>
                     @error('child_price')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -94,7 +94,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Minimum Adults *</label>
                     <input type="number" name="min_adults" value="{{ old('min_adults', $customPackage->min_adults ?? '1') }}" 
-                           min="1" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-green-500" required>
+                           min="1" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500" required>
                     <p class="text-gray-500 text-sm mt-1">Minimum number of adults required</p>
                     @error('min_adults')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -106,7 +106,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
                 <textarea name="description" rows="4" 
-                          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-green-500"
+                          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500"
                           placeholder="Detailed description of the package...">{{ old('description', $customPackage->description ?? '') }}</textarea>
                 @error('description')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -117,7 +117,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Menu Details</label>
                 <textarea name="menu" rows="6" 
-                          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-green-500"
+                          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500"
                           placeholder="Menu items and meal details...">{{ old('menu', $customPackage->menu ?? '') }}</textarea>
                 @error('menu')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -128,7 +128,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Package Images</label>
                 <input type="file" name="images[]" multiple accept="image/*" 
-                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-green-500">
+                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500">
                 <p class="text-gray-500 text-sm mt-1">Select multiple images to showcase the package</p>
                 @error('images.*')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -159,7 +159,7 @@
             <div class="flex items-center">
                 <input type="checkbox" name="is_active" id="is_active" value="1" 
                        {{ old('is_active', $customPackage->is_active ?? true) ? 'checked' : '' }}
-                       class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                       class="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded">
                 <label for="is_active" class="ml-2 block text-sm text-gray-900">
                     Active (Package will be available for customers)
                 </label>
@@ -173,7 +173,7 @@
                 Cancel
             </a>
             <button type="submit" 
-                    class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                    class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                 {{ isset($customPackage) ? 'Update Package' : 'Create Package' }}
             </button>
         </div>

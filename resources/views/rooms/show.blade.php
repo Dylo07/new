@@ -36,27 +36,27 @@
                     <h2 class="text-2xl font-light mb-4">Room Amenities</h2>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                         <div class="flex items-center gap-3">
-                            <i class="fas fa-snowflake text-green-400"></i>
+                            <i class="fas fa-snowflake text-emerald-400"></i>
                             <span>Air Conditioning</span>
                         </div>
                         <div class="flex items-center gap-3">
-                            <i class="fas fa-wifi text-green-400"></i>
+                            <i class="fas fa-wifi text-emerald-400"></i>
                             <span>Free WiFi</span>
                         </div>
                         <div class="flex items-center gap-3">
-                            <i class="fas fa-tv text-green-400"></i>
+                            <i class="fas fa-tv text-emerald-400"></i>
                             <span>Flat Screen TV</span>
                         </div>
                         <div class="flex items-center gap-3">
-                            <i class="fas fa-bed text-green-400"></i>
+                            <i class="fas fa-bed text-emerald-400"></i>
                             <span>King Size Bed</span>
                         </div>
                         <div class="flex items-center gap-3">
-                            <i class="fas fa-shower text-green-400"></i>
+                            <i class="fas fa-shower text-emerald-400"></i>
                             <span>Hot Water</span>
                         </div>
                         <div class="flex items-center gap-3">
-                            <i class="fas fa-concierge-bell text-green-400"></i>
+                            <i class="fas fa-concierge-bell text-emerald-400"></i>
                             <span>Room Service</span>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                     <!-- Price Display -->
                     <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-800">
                         <span class="text-gray-300">Price per night</span>
-                        <span class="text-3xl text-green-400">Rs. {{ number_format($room->price, 2) }}</span>
+                        <span class="text-3xl text-emerald-400">Rs. {{ number_format($room->price, 2) }}</span>
                     </div>
 
                     <!-- Booking Form -->
@@ -106,7 +106,7 @@
                                     type="date" 
                                     name="check_in"
                                     min="{{ date('Y-m-d') }}"
-                                    class="w-full p-3 bg-black rounded text-white border border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                                    class="w-full p-3 bg-black rounded text-white border border-gray-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                                     required
                                 >
                             </div>
@@ -117,7 +117,7 @@
                                     type="date" 
                                     name="check_out"
                                     min="{{ date('Y-m-d', strtotime('+1 day')) }}"
-                                    class="w-full p-3 bg-black rounded text-white border border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                                    class="w-full p-3 bg-black rounded text-white border border-gray-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                                     required
                                 >
                             </div>
@@ -126,7 +126,7 @@
                                 <label class="block text-gray-300 mb-2">Guests</label>
                                 <select 
                                     name="guests" 
-                                    class="w-full p-3 bg-black rounded text-white border border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                                    class="w-full p-3 bg-black rounded text-white border border-gray-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                                     required
                                 >
                                     @for($i = 1; $i <= 4; $i++)
@@ -137,7 +137,7 @@
 
                 <button 
                     type="submit"
-                    class="w-full bg-green-500 text-white py-3 px-4 rounded hover:bg-green-600 transition-colors duration-300"
+                    class="w-full bg-emerald-500 text-white py-3 px-4 rounded hover:bg-emerald-600 transition-colors duration-300"
                 >
                     Book Now
                 </button>
@@ -186,10 +186,10 @@
                         <div class="p-6">
                             <h3 class="text-xl text-white mb-2">{{ $similarRoom->type }}</h3>
                             <div class="flex justify-between items-center">
-                                <p class="text-green-400 text-lg">Rs. {{ number_format($similarRoom->price, 2) }}/night</p>
+                                <p class="text-emerald-400 text-lg">Rs. {{ number_format($similarRoom->price, 2) }}/night</p>
                                 <a 
                                     href="{{ route('rooms.show', $similarRoom) }}" 
-                                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                                    class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600 transition-colors"
                                 >
                                     View Details
                                 </a>

@@ -6,7 +6,7 @@
         
         <div class="mb-8">
             <h1 class="text-3xl font-light text-white">My Dashboard</h1>
-            <p class="text-gray-400">Welcome back, <span class="text-green-500">{{ $user->name }}</span></p>
+            <p class="text-gray-400">Welcome back, <span class="text-emerald-500">{{ $user->name }}</span></p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -17,7 +17,7 @@
                     <h2 class="text-xl text-white font-light mb-6 border-b border-gray-800 pb-2">Profile Settings</h2>
                     
                     @if(session('success'))
-                        <div class="mb-4 bg-green-500/10 border border-green-500 text-green-500 px-4 py-2 rounded text-sm">
+                        <div class="mb-4 bg-emerald-500/10 border border-emerald-500 text-emerald-500 px-4 py-2 rounded text-sm">
                             {{ session('success') }}
                         </div>
                     @endif
@@ -29,25 +29,25 @@
                         <div>
                             <label class="block text-gray-400 text-sm mb-1">Name</label>
                             <input type="text" name="name" value="{{ old('name', $user->name) }}" 
-                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-green-500">
+                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
                             @error('name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="block text-gray-400 text-sm mb-1">Email</label>
                             <input type="email" name="email" value="{{ old('email', $user->email) }}" 
-                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-green-500">
+                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
                             @error('email') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="block text-gray-400 text-sm mb-1">Phone Number</label>
                             <input type="text" name="phone" value="{{ old('phone', $user->phone) }}" 
-                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-green-500">
+                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
                             @error('phone') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
 
-                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded transition">
+                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded transition">
                             Update Profile
                         </button>
                     </form>
@@ -63,21 +63,21 @@
                         <div>
                             <label class="block text-gray-400 text-sm mb-1">Current Password</label>
                             <input type="password" name="current_password" 
-                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-green-500">
+                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
                             @error('current_password') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="block text-gray-400 text-sm mb-1">New Password</label>
                             <input type="password" name="password" 
-                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-green-500">
+                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
                             @error('password') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="block text-gray-400 text-sm mb-1">Confirm Password</label>
                             <input type="password" name="password_confirmation" 
-                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-green-500">
+                                   class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
                         </div>
 
                         <button type="submit" class="w-full bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 py-2 rounded transition">
@@ -93,7 +93,7 @@
                 <div class="bg-gray-900 rounded-lg p-6 border border-gray-800 min-h-[300px]">
                     <div class="flex justify-between items-center mb-6 border-b border-gray-800 pb-2">
                         <h2 class="text-xl text-white font-light">My Bookings</h2>
-                        <span class="bg-green-500/10 text-green-500 text-xs px-2 py-1 rounded">
+                        <span class="bg-emerald-500/10 text-emerald-500 text-xs px-2 py-1 rounded">
                             Active: {{ $user->bookings->where('status', '!=', 'completed')->where('status', '!=', 'cancelled')->count() }}
                         </span>
                     </div>
@@ -101,10 +101,10 @@
                     @if($user->bookings && $user->bookings->count() > 0)
                         <div class="space-y-4">
                             @foreach($user->bookings->sortByDesc('created_at') as $booking)
-                                <div class="bg-gray-800/40 rounded-lg p-4 border border-gray-700 hover:border-green-500/50 transition">
+                                <div class="bg-gray-800/40 rounded-lg p-4 border border-gray-700 hover:border-emerald-500/50 transition">
                                     <div class="flex justify-between items-start mb-3">
                                         <div>
-                                            <h3 class="text-green-400 font-bold text-lg">
+                                            <h3 class="text-emerald-400 font-bold text-lg">
                                                 @if($booking->customPackage)
                                                     {{ $booking->customPackage->name }}
                                                 @elseif($booking->room)
@@ -117,7 +117,7 @@
                                         </div>
                                         
                                         <span class="px-3 py-1 rounded-full text-xs font-bold capitalize
-                                            {{ $booking->status === 'confirmed' ? 'bg-green-500/20 text-green-500' : '' }}
+                                            {{ $booking->status === 'confirmed' ? 'bg-emerald-500/20 text-emerald-500' : '' }}
                                             {{ $booking->status === 'pending' ? 'bg-yellow-500/20 text-yellow-500' : '' }}
                                             {{ $booking->status === 'cancelled' ? 'bg-red-500/20 text-red-500' : '' }}
                                             {{ $booking->status === 'completed' ? 'bg-blue-500/20 text-blue-500' : '' }}">
@@ -156,7 +156,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
                             <p>You have no active bookings.</p>
-                            <a href="{{ route('package-builder') }}" class="text-green-500 hover:underline text-sm">Book a stay now &rarr;</a>
+                            <a href="{{ route('package-builder') }}" class="text-emerald-500 hover:underline text-sm">Book a stay now &rarr;</a>
                         </div>
                     @endif
                 </div>

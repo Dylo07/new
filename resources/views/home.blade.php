@@ -21,15 +21,15 @@
     <main class="w-full max-w-7xl mx-auto px-4 pt-20 pb-32">
         <div class="relative">
             <!-- Hero Content -->
-            <div class="text-center mb-12 animate-fade-in">
-                <h1 class="text-5xl md:text-6xl font-light text-white mb-6 tracking-wide">
-                    Soba Lanka<br/>
-                    <span class="text-4xl md:text-5xl">Holiday Resort</span>
+            <div class="text-center mb-12 opacity-0 animate-fade-in-up">
+                <h1 class="text-4xl md:text-6xl font-heavy text-white mb-6 tracking-tight">
+                    <span class="text-emerald-500 uppercase font-extrabold tracking-tight">Soba Lanka</span><br/>
+                    <span class="text-2xl md:text-4xl text-white font-modern font-thin tracking-widest uppercase mt-2 block">Holiday Resort</span>
                 </h1>
-                <h2 class="text-2xl md:text-3xl text-white mb-4 font-light">
+                <h2 class="text-xl md:text-2xl text-white mb-4 font-modern font-light tracking-wider">
                     Opulence Beyond Imagination
                 </h2>
-                <p class="text-lg md:text-xl text-white">
+                <p class="text-lg md:text-xl text-gray-300 font-modern">
                     Enjoy your most glorious moments with us
                 </p>
             </div>
@@ -38,46 +38,88 @@
 
 
             <!-- Booking Form -->
-            <div class="max-w-4xl mx-auto bg-black/40 backdrop-blur-md p-6 md:p-8 rounded-xl shadow-2xl">
-                <div class="text-white text-lg mb-6 text-center">NIGHT STAY & DAY OUT PACKAGES</div>
+            <div class="max-w-5xl mx-auto glass p-6 md:p-10 rounded-2xl shadow-2xl opacity-0 animate-fade-in-up stagger-2">
+                <div class="text-white text-lg mb-8 text-center font-medium tracking-widest uppercase">Night Stay & Day Out Packages</div>
                 
-                <form action="{{ route('package-builder') }}" method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <form action="{{ route('package-builder') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     
-                    <div class="md:col-span-1">
+                    <!-- Check-in Date -->
+                    <div>
                         <label class="block text-white text-sm mb-2">Check-in *</label>
                         <input 
                             type="date" 
                             name="check_in" 
-                            class="w-full p-3 rounded-lg bg-white text-gray-900"
+                            id="check_in"
+                            class="w-full p-3.5 rounded-xl input-modern text-white font-medium"
                             required
                             min="{{ date('Y-m-d') }}" 
                             value="{{ old('check_in') }}"
                         >
                     </div>
 
-                    <div class="md:col-span-1">
-    <label class="block text-white text-sm mb-2">Check-out *</label>
-    <input 
-        type="date" 
-        name="check_out" 
-        id="check_out" 
-        class="w-full p-3 rounded-lg bg-white text-gray-900"
-        required
-        min="{{ date('Y-m-d') }}"  value="{{ old('check_out') }}"
-    >
-</div>
+                    <!-- Check-out Date -->
+                    <div>
+                        <label class="block text-white text-sm mb-2">Check-out *</label>
+                        <input 
+                            type="date" 
+                            name="check_out" 
+                            id="check_out" 
+                            class="w-full p-3.5 rounded-xl input-modern text-white font-medium"
+                            required
+                            min="{{ date('Y-m-d') }}"
+                            value="{{ old('check_out') }}"
+                        >
+                    </div>
 
-                    <div class="md:col-span-1">
-                        <label class="block text-white text-sm mb-2"> </label>
+                    <!-- Adults Input -->
+                    <div>
+                        <label class="block text-white text-sm mb-2">Adults *</label>
+                        <input 
+                            type="number" 
+                            name="adults" 
+                            min="1"
+                            value="{{ old('adults', 2) }}"
+                            class="w-full p-3.5 rounded-xl input-modern text-white font-medium"
+                            required
+                            placeholder="Enter adults"
+                        >
+                    </div>
+
+                    <!-- Children Input -->
+                    <div>
+                        <label class="block text-white text-sm mb-2">Children</label>
+                        <input 
+                            type="number" 
+                            name="children" 
+                            min="0"
+                            value="{{ old('children', 0) }}"
+                            class="w-full p-3.5 rounded-xl input-modern text-white font-medium"
+                            placeholder="Enter children"
+                        >
+                    </div>
+
+                    <!-- Search Button -->
+                    <div>
+                        <label class="block text-white text-sm mb-2 opacity-0 hidden lg:block">Search</label>
                         <button type="submit" 
-                                class="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition-all duration-300 flex items-center justify-center gap-2">
+                                class="w-full btn-primary text-white p-3.5 rounded-xl flex items-center justify-center gap-2 font-semibold text-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                             </svg>
-                            Search Packages
+                            Search
                         </button>
                     </div>
                 </form>
+
+                <!-- Guest Info Helper Text -->
+                <div class="mt-4 text-center text-white/60 text-sm">
+                    <span class="inline-flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Children ages 3-12. Under 3 stay free.
+                    </span>
+                </div>
             </div>
 
 
@@ -116,7 +158,7 @@
             <div class="w-full md:w-1/2 text-white space-y-8">
                 <h2 class="text-5xl font-light leading-tight">
                     Discover a hotel that defines
-                    <span class="text-green-400">a new dimension</span> 
+                    <span class="text-emerald-400">a new dimension</span> 
                     of luxury
                 </h2>
                 <p class="text-3xl text-white/80">Emotional luxury.</p>
@@ -175,7 +217,7 @@
                             $dateString = $date->format('Y-m-d');
                             $status = $currentMonthAvailability[$dateString] ?? 'available';
                             
-                            $bgClass = 'bg-green-500'; // Available
+                            $bgClass = 'bg-emerald-500'; // Available
                             if ($status === 'limited') {
                                 $bgClass = 'bg-yellow-500';
                             } elseif ($status === 'booked') {
@@ -196,7 +238,7 @@
                 
                 <div class="flex justify-center mt-8 gap-8">
                     <div class="flex items-center">
-                        <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                        <div class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></div>
                         <span class="text-white">Available</span>
                     </div>
                     <div class="flex items-center">
@@ -210,7 +252,7 @@
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="{{ route('calendar.index') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-all duration-300">
+                    <a href="{{ route('calendar.index') }}" class="bg-emerald-500 text-white px-6 py-3 rounded-lg hover:bg-emerald-600 transition-all duration-300">
                         View Full Availability
                     </a>
                 </div>
@@ -424,7 +466,7 @@
 
         <!-- Gallery Category Navigation - Updated with All 12 Categories -->
 <div class="flex justify-center items-center gap-4 mb-12 flex-wrap">
-    <a href="{{ route('gallery') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+    <a href="{{ route('gallery') }}" class="bg-emerald-500 text-white px-6 py-3 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
         View All Gallery
     </a>
     <a href="{{ route('gallery.rooms') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
@@ -486,8 +528,8 @@
     @if(isset($familyCottageImages) && $familyCottageImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Family Cottages</h3>
-                <a href="{{ route('gallery.family_cottages') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Family Cottages</h3>
+                <a href="{{ route('gallery.family_cottages') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -511,8 +553,8 @@
     @if(isset($coupleCottageImages) && $coupleCottageImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Couple Cottages</h3>
-                <a href="{{ route('gallery.couple_cottages') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Couple Cottages</h3>
+                <a href="{{ route('gallery.couple_cottages') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -536,8 +578,8 @@
     @if(isset($familyRoomImages) && $familyRoomImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Family Rooms</h3>
-                <a href="{{ route('gallery.family_rooms') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Family Rooms</h3>
+                <a href="{{ route('gallery.family_rooms') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -561,8 +603,8 @@
     @if(isset($roomImages) && $roomImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Hotel Rooms</h3>
-                <a href="{{ route('gallery.rooms') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Hotel Rooms</h3>
+                <a href="{{ route('gallery.rooms') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -586,8 +628,8 @@
     @if(isset($outdoorImages) && $outdoorImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Outdoor Spaces</h3>
-                <a href="{{ route('gallery.outdoor') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Outdoor Spaces</h3>
+                <a href="{{ route('gallery.outdoor') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -611,8 +653,8 @@
     @if(isset($weddingImages) && $weddingImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Weddings & Events</h3>
-                <a href="{{ route('gallery.weddings') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Weddings & Events</h3>
+                <a href="{{ route('gallery.weddings') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -636,8 +678,8 @@
     @if(isset($conferenceHallImages) && $conferenceHallImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Conference Hall</h3>
-                <a href="{{ route('gallery.conference_hall') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Conference Hall</h3>
+                <a href="{{ route('gallery.conference_hall') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -661,8 +703,8 @@
     @if(isset($eventImages) && $eventImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Events & Celebrations</h3>
-                <a href="{{ route('gallery.events') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Events & Celebrations</h3>
+                <a href="{{ route('gallery.events') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -686,8 +728,8 @@
     @if(isset($indoorGameImages) && $indoorGameImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Indoor Game Area</h3>
-                <a href="{{ route('gallery.indoor_games') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Indoor Game Area</h3>
+                <a href="{{ route('gallery.indoor_games') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -711,8 +753,8 @@
     @if(isset($outdoorGameImages) && $outdoorGameImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Outdoor Game Area</h3>
-                <a href="{{ route('gallery.outdoor_games') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Outdoor Game Area</h3>
+                <a href="{{ route('gallery.outdoor_games') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -736,8 +778,8 @@
     @if(isset($swimmingPoolImages) && $swimmingPoolImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Swimming Pool</h3>
-                <a href="{{ route('gallery.swimming_pool') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Swimming Pool</h3>
+                <a href="{{ route('gallery.swimming_pool') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -761,8 +803,8 @@
     @if(isset($diningAreaImages) && $diningAreaImages->count() > 0)
         <div class="mb-16">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-green-400 text-2xl font-bold">Dining Area</h3>
-                <a href="{{ route('gallery.dining_area') }}" class="text-green-400 hover:text-green-300 transition-colors duration-300">
+                <h3 class="text-white text-2xl font-bold">Dining Area</h3>
+                <a href="{{ route('gallery.dining_area') }}" class="text-white hover:text-emerald-400 transition-colors duration-300">
                     View All <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -793,7 +835,7 @@
                 We're preparing an amazing collection of photos showcasing our beautiful accommodations and facilities. 
                 Check back soon to see our stunning gallery!
             </p>
-            <a href="{{ route('contact') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+            <a href="{{ route('contact') }}" class="bg-emerald-500 text-white px-6 py-3 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                 Contact Us for More Info
             </a>
         </div>
@@ -817,9 +859,9 @@
         <div class="mb-16">
             <div class="mb-8">
                 <p class="text-gray-400">For Couples</p>
-                <h3 class="text-pink-500 text-3xl mb-4">Couple Packages</h3>
+                <h3 class="text-white text-3xl mb-4">Couple Packages</h3>
                 <p class="text-gray-300">Indulge in our exclusive couple packages featuring cozy cottage accommodations, delicious meals, swimming pool access, and a variety of games for a perfect getaway</p>
-                <a href="#" class="inline-block text-white hover:text-pink-500 transition-colors duration-300 mt-4">View Details</a>
+                <a href="#" class="inline-block text-white hover:text-emerald-400 transition-colors duration-300 mt-4">View Details</a>
             </div>
 
             <!-- Package Cards Grid -->
@@ -844,9 +886,9 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-400">ONLY FOR</p>
-                                <p class="text-pink-500 text-xl">Rs.10,000</p>
+                                <p class="text-white text-xl font-semibold">Rs.10,000</p>
                             </div>
-                            <a href="https://wa.me/94717152955" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
+                            <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                 BOOK NOW
                             </a>
                         </div>
@@ -873,9 +915,9 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-400">ONLY FOR</p>
-                                <p class="text-pink-500 text-xl">Rs.7,000</p>
+                                <p class="text-white text-xl font-semibold">Rs.7,000</p>
                             </div>
-                            <a href="https://wa.me/94717152955" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
+                            <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                 BOOK NOW
                             </a>
                         </div>
@@ -906,9 +948,9 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-400">ONLY FOR</p>
-                                <p class="text-pink-500 text-xl">Rs.12,000</p>
+                                <p class="text-white text-xl font-semibold">Rs.12,000</p>
                             </div>
-                            <a href="https://wa.me/94717152955" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300">
+                            <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                 BOOK NOW
                             </a>
                         </div>
@@ -926,9 +968,9 @@
 <div class="mb-16">
     <div class="mb-8">
         <p class="text-gray-400">For Families (2 to 10 Guests)</p>
-        <h3 class="text-purple-500 text-3xl mb-4">Family Packages</h3>
+        <h3 class="text-white text-3xl mb-4">Family Packages</h3>
         <p class="text-gray-300">Enjoy our family packages with cozy cottage accommodations, delicious meals, swimming pool access, and a variety of games, perfect for groups of 2 to 10 guests.</p>
-        <a href="#" class="inline-block text-white hover:text-purple-500 transition-colors duration-300 mt-4">View Details</a>
+        <a href="#" class="inline-block text-white hover:text-emerald-400 transition-colors duration-300 mt-4">View Details</a>
     </div>
 
     <!-- Package Cards Grid -->
@@ -955,9 +997,9 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-purple-500 text-xl">Rs.4,500/-</p>
+                        <p class="text-white text-xl font-semibold">Rs.4,500/-</p>
                     </div>
-                    <a href="https://wa.me/94717152955" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -986,9 +1028,9 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-purple-500 text-xl">Rs.3,000/-</p>
+                        <p class="text-white text-xl font-semibold">Rs.3,000/-</p>
                     </div>
-                    <a href="https://wa.me/94717152955" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -1020,9 +1062,9 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-purple-500 text-xl">Rs.5,500/-</p>
+                        <p class="text-white text-xl font-semibold">Rs.5,500/-</p>
                     </div>
-                    <a href="https://wa.me/94717152955" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -1038,9 +1080,9 @@
 <div class="mb-16">
     <div class="mb-8">
         <p class="text-gray-400">Suitable for Offices, Large Families, and Groups (10+ Guests)</p>
-        <h3 class="text-green-500 text-3xl mb-4">Group Packages</h3>
+        <h3 class="text-white text-3xl mb-4">Group Packages</h3>
         <p class="text-gray-300">Experience our group packages with cozy cottage accommodations, delicious meals, swimming pool access, and a variety of games, perfect for groups of more than 10 guests.</p>
-        <a href="#" class="inline-block text-white hover:text-green-500 transition-colors duration-300 mt-4">View Details</a>
+        <a href="#" class="inline-block text-white hover:text-emerald-400 transition-colors duration-300 mt-4">View Details</a>
     </div>
 
     <!-- Package Cards Grid -->
@@ -1068,9 +1110,9 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-green-500 text-xl">Rs.3,990</p>
+                        <p class="text-white text-xl font-semibold">Rs.3,990</p>
                     </div>
-                    <a href="https://wa.me/94717152955" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -1101,9 +1143,9 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-green-500 text-xl">Rs.4,790</p>
+                        <p class="text-white text-xl font-semibold">Rs.4,790</p>
                     </div>
-                    <a href="https://wa.me/94717152955" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -1130,9 +1172,9 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400">ONLY FOR</p>
-                        <p class="text-green-500 text-xl">Rs.2,490</p>
+                        <p class="text-white text-xl font-semibold">Rs.2,490</p>
                     </div>
-                    <a href="https://wa.me/94717152955" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                    <a href="https://wa.me/94717152955" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                         BOOK NOW
                     </a>
                 </div>
@@ -1148,7 +1190,7 @@
     <div class="container mx-auto px-4">
         <!-- Header -->
         <div class="mb-16">
-            <h3 class="text-purple-500 text-3xl mb-4">Wedding Packages</h3>
+            <h3 class="text-white text-3xl mb-4">Wedding Packages</h3>
             <h4 class="text-white text-xl mb-4">Experience Unmatched Elegance with Our Luxury Wedding Packages</h4>
             <p class="text-gray-300 mb-6">Celebrate your special day in unparalleled style and sophistication with our exclusive luxury wedding packages. Our meticulously curated offerings include opulent accommodations, gourmet dining experiences, and access to our stunning swimming pool and other premium amenities.</p>
         </div>
@@ -1171,66 +1213,66 @@
                 <div class="grid md:grid-cols-2 gap-12">
                     <!-- Left Column - Package Details -->
                     <div class="space-y-6">
-                        <div class="border-b border-gray-700 pb-4">
+                        <div class="border-b border-emerald-500 pb-4">
                             <h4 class="text-white text-3xl font-light">WEDDING PACKAGE</h4>
                             <p class="text-gray-400 mt-2">All-inclusive luxury wedding experience</p>
                         </div>
                         
                         <ul class="text-gray-300 space-y-3">
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>WEDDING MENU (32 ITEMS)</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>LUXURY BANQUET HALL</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>LED DANCE FLOOR </span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>JAYA MANGALA GATHA</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>TRADITIONAL DANCING GROUP</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>ASHTAKA</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>DJ MUSIC</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>ENTRANCE DECORATIONS</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>OIL LAMP, TABLES & CHAIR DECORATIONS</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>SETTEE AND PORUWA</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>LUXURY HONEYMOON COTTAGE (HB)</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>VIP BAR SERVICE</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>PHOTOGRAPHY LOCATIONS</span>
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="text-purple-400 text-xl">•</span>
+                                <span class="text-white text-xl">•</span>
                                 <span>EVENT COORDINATION</span>
                             </li>
                         </ul>
@@ -1239,39 +1281,39 @@
                     <!-- Right Column - Pricing -->
                     <div class="space-y-8">
                         <!-- Pricing Card -->
-                        <div class="bg-black/40 p-8 rounded-xl border border-gray-800">
+                        <div class="bg-black/40 p-8 rounded-xl border border-emerald-500">
                             <h5 class="text-white text-2xl mb-6 font-light">PRICING</h5>
                             <ul class="text-gray-300 space-y-4">
-                                <li class="flex justify-between items-center border-b border-gray-700 pb-3">
+                                <li class="flex justify-between items-center border-b border-emerald-500 pb-3">
                                     <span>50 Pax</span>
-                                    <span class="text-purple-400 font-semibold">350,000 /-</span>
+                                    <span class="text-white font-semibold">350,000 /-</span>
                                 </li>
-                                <li class="flex justify-between items-center border-b border-gray-700 pb-3">
+                                <li class="flex justify-between items-center border-b border-emerald-500 pb-3">
                                     <span>100 Pax</span>
-                                    <span class="text-purple-400 font-semibold">560,000 /-</span>
+                                    <span class="text-white font-semibold">560,000 /-</span>
                                 </li>
-                                <li class="flex justify-between items-center border-b border-gray-700 pb-3">
+                                <li class="flex justify-between items-center border-b border-emerald-500 pb-3">
                                     <span>150 Pax</span>
-                                    <span class="text-purple-400 font-semibold">480,000 /-</span>
+                                    <span class="text-white font-semibold">480,000 /-</span>
                                 </li>
-                                <li class="flex justify-between items-center border-b border-gray-700 pb-3">
+                                <li class="flex justify-between items-center border-b border-emerald-500 pb-3">
                                     <span>200 Pax</span>
-                                    <span class="text-purple-400 font-semibold">550,000 /-</span>
+                                    <span class="text-white font-semibold">550,000 /-</span>
                                 </li>
-                                <li class="flex justify-between items-center border-b border-gray-700 pb-3">
+                                <li class="flex justify-between items-center border-b border-emerald-500 pb-3">
                                     <span>300 Pax</span>
-                                    <span class="text-purple-400 font-semibold">795,000 /-</span>
+                                    <span class="text-white font-semibold">795,000 /-</span>
                                 </li>
                                 <li class="flex justify-between items-center">
                                     <span>400 Pax</span>
-                                    <span class="text-purple-400 font-semibold">995,000 /-</span>
+                                    <span class="text-white font-semibold">995,000 /-</span>
                                 </li>
                             </ul>
                         </div>
 
                         <!-- Special Discount -->
-                        <div class="bg-purple-900/20 p-8 rounded-xl text-center border border-purple-800/30">
-                            <p class="text-purple-400 mb-2 text-lg">Special Discount</p>
+                        <div class="bg-emerald-900/20 p-8 rounded-xl text-center border border-emerald-500/30">
+                            <p class="text-emerald-400 mb-2 text-lg">Special Discount</p>
                             <p class="text-white text-6xl font-bold mb-2">25%</p>
                             <p class="text-gray-400">Valid till May 2025</p>
                         </div>
@@ -1279,7 +1321,7 @@
                         <!-- Contact Button -->
                         <div class="text-center">
                             <a href="https://wa.me/94717152955" 
-                               class="bg-purple-500 text-white px-8 py-3 rounded-lg hover:bg-purple-600 inline-block transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+                               class="bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 inline-block transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/20">
                                 Contact Us
                             </a>
                         </div>
@@ -1301,7 +1343,7 @@
             <!-- FAQ List -->
             <div class="space-y-4">
                 <!-- Question 1 -->
-                <div x-data="{ open: true }" class="border-b border-gray-700">
+                <div x-data="{ open: true }" class="border-b border-emerald-500">
                     <button 
                         @click="open = !open" 
                         class="flex justify-between items-center w-full py-4 text-left text-white hover:text-brown-400 transition-colors duration-300"
@@ -1318,7 +1360,7 @@
                 </div>
 
                 <!-- Question 2 -->
-                <div x-data="{ open: false }" class="border-b border-gray-700">
+                <div x-data="{ open: false }" class="border-b border-emerald-500">
                     <button 
                         @click="open = !open" 
                         class="flex justify-between items-center w-full py-4 text-left text-white hover:text-brown-400 transition-colors duration-300"
@@ -1335,7 +1377,7 @@
                 </div>
 
                 <!-- Question 3 -->
-                <div x-data="{ open: false }" class="border-b border-gray-700">
+                <div x-data="{ open: false }" class="border-b border-emerald-500">
                     <button 
                         @click="open = !open" 
                         class="flex justify-between items-center w-full py-4 text-left text-white hover:text-brown-400 transition-colors duration-300"
@@ -1358,7 +1400,7 @@ A parking garage where you can park your car safely and conveniently.</p>
                 </div>
 
                 <!-- Question 4 -->
-                <div x-data="{ open: false }" class="border-b border-gray-700">
+                <div x-data="{ open: false }" class="border-b border-emerald-500">
                     <button 
                         @click="open = !open" 
                         class="flex justify-between items-center w-full py-4 text-left text-white hover:text-brown-400 transition-colors duration-300"
@@ -1375,7 +1417,7 @@ A parking garage where you can park your car safely and conveniently.</p>
                 </div>
 
                 <!-- Question 5 -->
-                <div x-data="{ open: false }" class="border-b border-gray-700">
+                <div x-data="{ open: false }" class="border-b border-emerald-500">
                     <button 
                         @click="open = !open" 
                         class="flex justify-between items-center w-full py-4 text-left text-white hover:text-brown-400 transition-colors duration-300"
@@ -1424,12 +1466,12 @@ A parking garage where you can park your car safely and conveniently.</p>
 
             <!-- Contact Details -->
             <div class="space-y-8">
-                <h2 class="text-3xl text-green-500">Location</h2>
+                <h2 class="text-3xl text-white">Location</h2>
 
                 <div class="space-y-6">
                     <!-- Address -->
                     <div>
-                        <h3 class="text-green-400 text-xl mb-2">Address</h3>
+                        <h3 class="text-white text-xl mb-2">Address</h3>
                         <p class="text-white">
                             Soba Lanka Holiday Resort PVT (LTD), Balawattala Road, Melsiripura 60540
                         </p>
@@ -1437,7 +1479,7 @@ A parking garage where you can park your car safely and conveniently.</p>
 
                     <!-- Hours -->
                     <div>
-                        <h3 class="text-green-400 text-xl mb-2">Hours</h3>
+                        <h3 class="text-white text-xl mb-2">Hours</h3>
                         <div class="text-white">
                             <p>Open / Close - 8AM to 10PM</p>
                             <p>Open Every Day</p>
@@ -1446,7 +1488,7 @@ A parking garage where you can park your car safely and conveniently.</p>
 
                     <!-- Contact Number -->
                     <div>
-                        <h3 class="text-green-400 text-xl mb-2">Contact Number</h3>
+                        <h3 class="text-white text-xl mb-2">Contact Number</h3>
                         <div class="text-white">
                             <p>037 22 50 308 / 071 71 52 955</p>
                         </div>
@@ -1478,7 +1520,7 @@ A parking garage where you can park your car safely and conveniently.</p>
                     <a 
                         href="https://maps.app.goo.gl/99iFNphobJ9DFyq99"
                         target="_blank"
-                        class="inline-block bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-all duration-300 flex items-center gap-2"
+                        class="w-full btn-primary text-white p-3 rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
@@ -1506,13 +1548,13 @@ A parking garage where you can park your car safely and conveniently.</p>
 
     <!-- Content -->
     <div class="relative container mx-auto px-4 py-24 text-center">
-        <h2 class="text-green-400 text-4xl mb-4">TALK TO US</h2>
+        <h2 class="text-white text-4xl mb-4">TALK TO US</h2>
         <p class="text-white text-lg mb-8">
             Questions or feedback? Reach out to us. We're here to assist you promptly and courteously.
         </p>
         <a 
             href="{{ route('contact') }}" 
-            class="inline-block bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300"
+            class="inline-block bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 transition-colors duration-300"
         >
             GET IN TOUCH
         </a>

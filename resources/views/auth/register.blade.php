@@ -15,7 +15,7 @@
                         type="text" 
                         name="name" 
                         id="name"
-                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                         required
                         autofocus
                     >
@@ -30,7 +30,7 @@
                         type="email" 
                         name="email" 
                         id="email"
-                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                         required
                     >
                     @error('email')
@@ -39,7 +39,7 @@
                 </div>
 <div class="mt-4">
     <label for="phone" class="block text-gray-300 mb-2" >Phone Number</label>
-    <input id="phone"  class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500"
+    <input id="phone"  class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
            type="text" 
            name="phone" 
            value="{{ old('phone') }}" 
@@ -51,7 +51,7 @@
                         type="password" 
                         name="password" 
                         id="password"
-                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                         required
                     >
                     @error('password')
@@ -65,21 +65,21 @@
                         type="password" 
                         name="password_confirmation" 
                         id="password_confirmation"
-                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                         required
                     >
                 </div>
 
                 <button 
                     type="submit"
-                    class="w-full bg-green-500 text-white py-3 rounded hover:bg-green-600 transition-colors"
+                    class="w-full btn-primary text-white py-3 rounded-xl transition-colors"
                 >
                     Register
                 </button>
 
                 <p class="text-center text-gray-400">
                     Already have an account? 
-                    <a href="{{ route('login') }}" class="text-green-500 hover:text-green-400">Login</a>
+                    <a href="{{ route('login') }}" class="text-emerald-500 hover:text-emerald-400">Login</a>
                 </p>
             </form>
         </div>

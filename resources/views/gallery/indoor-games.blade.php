@@ -22,7 +22,7 @@
         
         <!-- Overlay and Text -->
         <div class="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center">
-            <h1 class="text-green-500 text-5xl mb-4 text-center">INDOOR GAME AREA GALLERY</h1>
+            <h1 class="text-5xl mb-4 text-center opacity-0 animate-fade-in-up"><span class="gradient-text">INDOOR GAME AREA GALLERY</span></h1>
             <p class="text-white text-xl text-center">
                 Fun indoor gaming and entertainment facilities for all ages.
             </p>
@@ -62,7 +62,7 @@
             <a href="{{ route('gallery.events') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
                 Events
             </a>
-            <a href="{{ route('gallery.indoor_games') }}" class="bg-green-500 text-white px-4 py-2 rounded-lg">
+            <a href="{{ route('gallery.indoor_games') }}" class="bg-emerald-500 text-white px-4 py-2 rounded-lg">
                 Indoor Games
             </a>
             <a href="{{ route('gallery.outdoor_games') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
@@ -133,13 +133,13 @@
 
         <!-- Content -->
         <div class="relative container mx-auto px-4 py-24 text-center">
-            <h2 class="text-green-400 text-4xl mb-4">TALK TO US</h2>
+            <h2 class="text-emerald-400 text-4xl mb-4">TALK TO US</h2>
             <p class="text-white text-lg mb-8">
                 Questions or feedback? Reach out to us. We're here to assist you promptly and courteously.
             </p>
             <a 
                 href="{{ route('contact') }}" 
-                class="inline-block bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300"
+                class="inline-block bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 transition-colors duration-300"
             >
                 GET IN TOUCH
             </a>

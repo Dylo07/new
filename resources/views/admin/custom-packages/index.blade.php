@@ -7,13 +7,13 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-900">Custom Packages</h1>
         <a href="{{ route('admin.custom-packages.create') }}" 
-           class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+           class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
             <i class="fas fa-plus mr-2"></i>Add New Package
         </a>
     </div>
 
     @if(session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+        <div class="bg-emerald-100 border border-emerald-400 text-emerald-700 px-4 py-3 rounded mb-4">
             {{ session('success') }}
         </div>
     @endif
@@ -56,7 +56,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                                     {{ $package->category === 'couple' ? 'bg-pink-100 text-pink-800' : 
-                                       ($package->category === 'family' ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800') }}">
+                                       ($package->category === 'family' ? 'bg-purple-100 text-purple-800' : 'bg-emerald-100 text-emerald-800') }}">
                                     {{ ucfirst($package->category) }}
                                 </span>
                             </td>
@@ -75,7 +75,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($package->is_active)
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800">
                                         Active
                                     </span>
                                 @else
@@ -91,7 +91,7 @@
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     <a href="{{ route('admin.custom-packages.edit', $package) }}" 
-                                       class="text-green-600 hover:text-green-900">
+                                       class="text-emerald-600 hover:text-emerald-900">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <form method="POST" action="{{ route('admin.custom-packages.destroy', $package) }}" 
@@ -108,7 +108,7 @@
                     @empty
                         <tr>
                             <td colspan="8" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                                No custom packages found. <a href="{{ route('admin.custom-packages.create') }}" class="text-green-600 hover:text-green-500">Create your first package</a>
+                                No custom packages found. <a href="{{ route('admin.custom-packages.create') }}" class="text-emerald-600 hover:text-emerald-500">Create your first package</a>
                             </td>
                         </tr>
                     @endforelse

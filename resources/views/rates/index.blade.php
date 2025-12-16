@@ -9,7 +9,7 @@
     <div class="bg-center bg-cover relative" style="background-image: url('{{ asset('images/rates-bg.jpg') }}')">
         <div class="absolute inset-0 bg-black bg-opacity-70"></div>
         <div class="container mx-auto px-4 py-24 relative">
-            <h1 class="text-center text-green-500 text-5xl mb-4">RATES & PACKAGES</h1>
+            <h1 class="text-center text-5xl mb-4 opacity-0 animate-fade-in-up"><span class="gradient-text">RATES & PACKAGES</span></h1>
             <p class="text-center text-white text-xl">Exclusive Packages For Our Valued Clients</p>
         </div>
     </div>
@@ -137,7 +137,7 @@
                                                     <div class="w-full h-64 bg-gradient-to-r 
                                                         @if($packageType === 'couple') from-pink-500 to-purple-600
                                                         @elseif($packageType === 'family') from-purple-500 to-blue-600
-                                                        @elseif($packageType === 'group') from-green-500 to-teal-600
+                                                        @elseif($packageType === 'group') from-emerald-500 to-teal-600
                                                         @elseif($packageType === 'engagement') from-rose-500 to-pink-600
                                                         @elseif($packageType === 'birthday') from-yellow-500 to-orange-600
                                                         @elseif($packageType === 'honeymoon') from-red-500 to-pink-600
@@ -242,7 +242,7 @@
                     <p class="text-gray-400">We're currently updating our packages. Please check back soon or contact us directly for current rates and availability.</p>
                     <div class="mt-8">
                         <a href="{{ route('contact') }}" 
-                           class="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                           class="bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                             Contact Us
                         </a>
                     </div>
@@ -266,13 +266,13 @@
 
             <!-- Content -->
             <div class="relative container mx-auto px-4 py-24 text-center">
-                <h2 class="text-green-400 text-4xl mb-4">TALK TO US</h2>
+                <h2 class="text-emerald-400 text-4xl mb-4">TALK TO US</h2>
                 <p class="text-white text-lg mb-8">
                     Questions or feedback? Reach out to us. We're here to assist you promptly and courteously.
                 </p>
                 <a 
                     href="{{ route('contact') }}" 
-                    class="inline-block bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300"
+                    class="inline-block bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 transition-colors duration-300"
                 >
                     GET IN TOUCH
                 </a>

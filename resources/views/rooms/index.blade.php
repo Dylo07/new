@@ -77,7 +77,7 @@
             </div>
             <button 
                 onclick="window.history.back()"
-                class="mt-4 md:mt-0 px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors duration-300 inline-flex items-center gap-2"
+                class="mt-4 md:mt-0 px-6 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors duration-300 inline-flex items-center gap-2"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
@@ -102,7 +102,7 @@
                     <h2 class="text-3xl text-white font-light">Room Management</h2>
                     <a 
                         href="{{ route('rooms.create') }}"
-                        class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300 flex items-center gap-2"
+                        class="bg-emerald-500 text-white px-6 py-3 rounded-lg hover:bg-emerald-600 transition-colors duration-300 flex items-center gap-2"
                     >
                         <i class="fas fa-plus"></i>
                         Add New Room
@@ -110,7 +110,7 @@
                 </div>
 
                 @if(session('success'))
-                    <div class="bg-green-500/20 text-green-400 px-4 py-3 rounded mb-6 success-alert">
+                    <div class="bg-emerald-500/20 text-emerald-400 px-4 py-3 rounded mb-6 success-alert">
                         {{ session('success') }}
                     </div>
                 @endif
@@ -127,14 +127,14 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($rooms->where('category', 'ac') as $room)
                 
-                <div class="bg-gray-900 rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
-    <div class="relative">
+                <div class="card-modern rounded-2xl overflow-hidden group">
+    <div class="relative img-hover-zoom">
         <img 
             src="{{ $room->image ? asset('storage/' . $room->image) : '/api/placeholder/400/300' }}" 
             alt="{{ $room->type }} {{ $room->room_number }}"
-            class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+            class="w-full h-56 object-cover"
         >
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         
         @if(request('check_in') && request('check_out'))
             @if(!$room->is_available_for_dates)
@@ -145,7 +145,7 @@
                 </div>
             @else
                 <div class="absolute top-4 right-4">
-                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <span class="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                         Available
                     </span>
                 </div>
@@ -161,11 +161,11 @@
         <h3 class="text-xl text-white mb-2">{{ $room->type }}</h3>
         <p class="text-gray-400 mb-4 line-clamp-2">{{ $room->description }}</p>
         <div class="flex justify-between items-center">
-            <p class="text-green-400 text-lg">Rs. {{ number_format($room->price, 2) }}/night</p>
+            <p class="text-emerald-400 text-lg">Rs. {{ number_format($room->price, 2) }}/night</p>
             @if(request('check_in') && request('check_out'))
                 @if(!$room->is_available_for_dates)
                     <button 
-                        class="bg-gray-500 text-white px-4 py-2 rounded cursor-not-allowed"
+                        class="btn-secondary text-white px-5 py-2.5 rounded-xl cursor-not-allowed opacity-60"
                         disabled
                     >
                         Not Available
@@ -173,7 +173,7 @@
                 @else
                     <a 
                         href="{{ route('rooms.show', $room) }}?check_in={{ request('check_in') }}&check_out={{ request('check_out') }}&adults={{ request('adults', 1) }}&children={{ request('children', 0) }}" 
-                        class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                        class="btn-primary text-white px-5 py-2.5 rounded-xl font-medium"
                     >
                         Book Now
                     </a>
@@ -181,7 +181,7 @@
             @else
                 <a 
                     href="{{ route('rooms.show', $room) }}" 
-                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                    class="btn-primary text-white px-5 py-2.5 rounded-xl font-medium"
                 >
                     View Details
                 </a>
@@ -214,14 +214,14 @@
                 @foreach($rooms->where('category', 'ac-balcony') as $room)
                 
                 
-                <div class="bg-gray-900 rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
-    <div class="relative">
+                <div class="card-modern rounded-2xl overflow-hidden group">
+    <div class="relative img-hover-zoom">
         <img 
             src="{{ $room->image ? asset('storage/' . $room->image) : '/api/placeholder/400/300' }}" 
             alt="{{ $room->type }} {{ $room->room_number }}"
-            class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+            class="w-full h-56 object-cover"
         >
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         
         @if(request('check_in') && request('check_out'))
             @if(!$room->is_available_for_dates)
@@ -232,7 +232,7 @@
                 </div>
             @else
                 <div class="absolute top-4 right-4">
-                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <span class="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                         Available
                     </span>
                 </div>
@@ -248,11 +248,11 @@
         <h3 class="text-xl text-white mb-2">{{ $room->type }}</h3>
         <p class="text-gray-400 mb-4 line-clamp-2">{{ $room->description }}</p>
         <div class="flex justify-between items-center">
-            <p class="text-green-400 text-lg">Rs. {{ number_format($room->price, 2) }}/night</p>
+            <p class="text-emerald-400 text-lg">Rs. {{ number_format($room->price, 2) }}/night</p>
             @if(request('check_in') && request('check_out'))
                 @if(!$room->is_available_for_dates)
                     <button 
-                        class="bg-gray-500 text-white px-4 py-2 rounded cursor-not-allowed"
+                        class="btn-secondary text-white px-5 py-2.5 rounded-xl cursor-not-allowed opacity-60"
                         disabled
                     >
                         Not Available
@@ -260,7 +260,7 @@
                 @else
                     <a 
                         href="{{ route('rooms.show', $room) }}?check_in={{ request('check_in') }}&check_out={{ request('check_out') }}&adults={{ request('adults', 1) }}&children={{ request('children', 0) }}" 
-                        class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                        class="btn-primary text-white px-5 py-2.5 rounded-xl font-medium"
                     >
                         Book Now
                     </a>
@@ -268,7 +268,7 @@
             @else
                 <a 
                     href="{{ route('rooms.show', $room) }}" 
-                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                    class="btn-primary text-white px-5 py-2.5 rounded-xl font-medium"
                 >
                     View Details
                 </a>
@@ -296,14 +296,14 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($rooms->where('category', 'couple') as $room)
                 
-                <div class="bg-gray-900 rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
-    <div class="relative">
+                <div class="card-modern rounded-2xl overflow-hidden group">
+    <div class="relative img-hover-zoom">
         <img 
             src="{{ $room->image ? asset('storage/' . $room->image) : '/api/placeholder/400/300' }}" 
             alt="{{ $room->type }} {{ $room->room_number }}"
-            class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+            class="w-full h-56 object-cover"
         >
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         
         @if(request('check_in') && request('check_out'))
             @if(!$room->is_available_for_dates)
@@ -314,7 +314,7 @@
                 </div>
             @else
                 <div class="absolute top-4 right-4">
-                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <span class="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                         Available
                     </span>
                 </div>
@@ -330,11 +330,11 @@
         <h3 class="text-xl text-white mb-2">{{ $room->type }}</h3>
         <p class="text-gray-400 mb-4 line-clamp-2">{{ $room->description }}</p>
         <div class="flex justify-between items-center">
-            <p class="text-green-400 text-lg">Rs. {{ number_format($room->price, 2) }}/night</p>
+            <p class="text-emerald-400 text-lg">Rs. {{ number_format($room->price, 2) }}/night</p>
             @if(request('check_in') && request('check_out'))
                 @if(!$room->is_available_for_dates)
                     <button 
-                        class="bg-gray-500 text-white px-4 py-2 rounded cursor-not-allowed"
+                        class="btn-secondary text-white px-5 py-2.5 rounded-xl cursor-not-allowed opacity-60"
                         disabled
                     >
                         Not Available
@@ -342,7 +342,7 @@
                 @else
                     <a 
                         href="{{ route('rooms.show', $room) }}?check_in={{ request('check_in') }}&check_out={{ request('check_out') }}&adults={{ request('adults', 1) }}&children={{ request('children', 0) }}" 
-                        class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                        class="btn-primary text-white px-5 py-2.5 rounded-xl font-medium"
                     >
                         Book Now
                     </a>
@@ -350,7 +350,7 @@
             @else
                 <a 
                     href="{{ route('rooms.show', $room) }}" 
-                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                    class="btn-primary text-white px-5 py-2.5 rounded-xl font-medium"
                 >
                     View Details
                 </a>
@@ -381,14 +381,14 @@
                 
                 
                 
-                <div class="bg-gray-900 rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
-    <div class="relative">
+                <div class="card-modern rounded-2xl overflow-hidden group">
+    <div class="relative img-hover-zoom">
         <img 
             src="{{ $room->image ? asset('storage/' . $room->image) : '/api/placeholder/400/300' }}" 
             alt="{{ $room->type }} {{ $room->room_number }}"
-            class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+            class="w-full h-56 object-cover"
         >
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         
         @if(request('check_in') && request('check_out'))
             @if(!$room->is_available_for_dates)
@@ -399,7 +399,7 @@
                 </div>
             @else
                 <div class="absolute top-4 right-4">
-                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <span class="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                         Available
                     </span>
                 </div>
@@ -415,11 +415,11 @@
         <h3 class="text-xl text-white mb-2">{{ $room->type }}</h3>
         <p class="text-gray-400 mb-4 line-clamp-2">{{ $room->description }}</p>
         <div class="flex justify-between items-center">
-            <p class="text-green-400 text-lg">Rs. {{ number_format($room->price, 2) }}/night</p>
+            <p class="text-emerald-400 text-lg">Rs. {{ number_format($room->price, 2) }}/night</p>
             @if(request('check_in') && request('check_out'))
                 @if(!$room->is_available_for_dates)
                     <button 
-                        class="bg-gray-500 text-white px-4 py-2 rounded cursor-not-allowed"
+                        class="btn-secondary text-white px-5 py-2.5 rounded-xl cursor-not-allowed opacity-60"
                         disabled
                     >
                         Not Available
@@ -427,7 +427,7 @@
                 @else
                     <a 
                         href="{{ route('rooms.show', $room) }}?check_in={{ request('check_in') }}&check_out={{ request('check_out') }}&adults={{ request('adults', 1) }}&children={{ request('children', 0) }}" 
-                        class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                        class="btn-primary text-white px-5 py-2.5 rounded-xl font-medium"
                     >
                         Book Now
                     </a>
@@ -435,7 +435,7 @@
             @else
                 <a 
                     href="{{ route('rooms.show', $room) }}" 
-                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                    class="btn-primary text-white px-5 py-2.5 rounded-xl font-medium"
                 >
                     View Details
                 </a>
@@ -465,14 +465,14 @@
                 @foreach($rooms->where('category', 'family-ac') as $room)
                 
                 
-                <div class="bg-gray-900 rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
-    <div class="relative">
+                <div class="card-modern rounded-2xl overflow-hidden group">
+    <div class="relative img-hover-zoom">
         <img 
             src="{{ $room->image ? asset('storage/' . $room->image) : '/api/placeholder/400/300' }}" 
             alt="{{ $room->type }} {{ $room->room_number }}"
-            class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+            class="w-full h-56 object-cover"
         >
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         
         @if(request('check_in') && request('check_out'))
             @if(!$room->is_available_for_dates)
@@ -483,7 +483,7 @@
                 </div>
             @else
                 <div class="absolute top-4 right-4">
-                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <span class="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                         Available
                     </span>
                 </div>
@@ -499,11 +499,11 @@
         <h3 class="text-xl text-white mb-2">{{ $room->type }}</h3>
         <p class="text-gray-400 mb-4 line-clamp-2">{{ $room->description }}</p>
         <div class="flex justify-between items-center">
-            <p class="text-green-400 text-lg">Rs. {{ number_format($room->price, 2) }}/night</p>
+            <p class="text-emerald-400 text-lg">Rs. {{ number_format($room->price, 2) }}/night</p>
             @if(request('check_in') && request('check_out'))
                 @if(!$room->is_available_for_dates)
                     <button 
-                        class="bg-gray-500 text-white px-4 py-2 rounded cursor-not-allowed"
+                        class="btn-secondary text-white px-5 py-2.5 rounded-xl cursor-not-allowed opacity-60"
                         disabled
                     >
                         Not Available
@@ -511,7 +511,7 @@
                 @else
                     <a 
                         href="{{ route('rooms.show', $room) }}?check_in={{ request('check_in') }}&check_out={{ request('check_out') }}&adults={{ request('adults', 1) }}&children={{ request('children', 0) }}" 
-                        class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                        class="btn-primary text-white px-5 py-2.5 rounded-xl font-medium"
                     >
                         Book Now
                     </a>
@@ -519,7 +519,7 @@
             @else
                 <a 
                     href="{{ route('rooms.show', $room) }}" 
-                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                    class="btn-primary text-white px-5 py-2.5 rounded-xl font-medium"
                 >
                     View Details
                 </a>
@@ -550,28 +550,28 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <!-- Air Conditioning -->
                 <div class="text-center">
-                    <i class="fas fa-snowflake text-4xl text-green-400 mb-4"></i>
+                    <i class="fas fa-snowflake text-4xl text-emerald-400 mb-4"></i>
                     <h3 class="text-white text-lg mb-2">Air Conditioning</h3>
                     <p class="text-gray-400">Climate controlled comfort</p>
                 </div>
 
                 <!-- WiFi -->
                 <div class="text-center">
-                    <i class="fas fa-wifi text-4xl text-green-400 mb-4"></i>
+                    <i class="fas fa-wifi text-4xl text-emerald-400 mb-4"></i>
                     <h3 class="text-white text-lg mb-2">Free WiFi</h3>
                     <p class="text-gray-400">High-speed internet access</p>
                 </div>
 
                 <!-- TV -->
                 <div class="text-center">
-                    <i class="fas fa-tv text-4xl text-green-400 mb-4"></i>
+                    <i class="fas fa-tv text-4xl text-emerald-400 mb-4"></i>
                     <h3 class="text-white text-lg mb-2">Flat Screen TV</h3>
                     <p class="text-gray-400">Premium entertainment</p>
                 </div>
 
                 <!-- Room Service -->
                 <div class="text-center">
-                    <i class="fas fa-concierge-bell text-4xl text-green-400 mb-4"></i>
+                    <i class="fas fa-concierge-bell text-4xl text-emerald-400 mb-4"></i>
                     <h3 class="text-white text-lg mb-2">Room Service</h3>
                     <p class="text-gray-400">24/7 service available</p>
                 </div>
@@ -643,12 +643,12 @@ async function updateRoomAvailability(date) {
                     <p class="text-sm text-gray-400">Category: ${room.category}</p>
                 </div>
                 <div class="flex items-center gap-4">
-                    <span class="text-sm ${isUnavailable ? 'text-red-400' : 'text-green-400'}">
+                    <span class="text-sm ${isUnavailable ? 'text-red-400' : 'text-emerald-400'}">
                         ${isUnavailable ? 'Unavailable' : 'Available'}
                     </span>
                     <button 
                         onclick="toggleRoomAvailability(${room.id}, '${date}')"
-                        class="px-4 py-2 rounded ${isUnavailable ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'} text-white transition-colors"
+                        class="px-4 py-2 rounded ${isUnavailable ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-red-500 hover:bg-red-600'} text-white transition-colors"
                         ${isUnavailable ? 'data-action="make-available"' : 'data-action="make-unavailable"'}
                     >
                         ${isUnavailable ? 'Make Available' : 'Make Unavailable'}
@@ -665,7 +665,7 @@ async function toggleRoomAvailability(roomId, date) {
     try {
         const button = event.target; // Get clicked button
         const roomDiv = button.closest('.flex.items-center.justify-between'); // Get parent room div
-        const statusSpan = roomDiv.querySelector('.text-sm.text-green-400, .text-sm.text-red-400'); // Get status span
+        const statusSpan = roomDiv.querySelector('.text-sm.text-emerald-400, .text-sm.text-red-400'); // Get status span
 
         // Disable button during API call
         button.disabled = true;
@@ -690,11 +690,11 @@ async function toggleRoomAvailability(roomId, date) {
         
         // Update status text and color
         statusSpan.textContent = isUnavailable ? 'Unavailable' : 'Available';
-        statusSpan.className = `text-sm ${isUnavailable ? 'text-red-400' : 'text-green-400'}`;
+        statusSpan.className = `text-sm ${isUnavailable ? 'text-red-400' : 'text-emerald-400'}`;
         
         // Update button text and color
         button.textContent = isUnavailable ? 'Make Available' : 'Make Unavailable';
-        button.className = `px-4 py-2 rounded ${isUnavailable ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'} text-white transition-colors`;
+        button.className = `px-4 py-2 rounded ${isUnavailable ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-red-500 hover:bg-red-600'} text-white transition-colors`;
 
         // Re-enable button
         button.disabled = false;

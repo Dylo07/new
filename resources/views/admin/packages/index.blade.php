@@ -19,7 +19,7 @@
     </div>
 
     @if(session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6" role="alert">
+        <div class="bg-emerald-100 border border-emerald-400 text-emerald-700 px-4 py-3 rounded mb-6" role="alert">
             <span class="block sm:inline">{{ session('success') }}</span>
         </div>
     @endif
@@ -111,7 +111,7 @@
                                     <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
     @if($package->type === 'couple') bg-pink-100 text-pink-800
     @elseif($package->type === 'family') bg-purple-100 text-purple-800
-    @elseif($package->type === 'group') bg-green-100 text-green-800
+    @elseif($package->type === 'group') bg-emerald-100 text-emerald-800
     @elseif($package->type === 'wedding') bg-indigo-100 text-indigo-800
     @elseif($package->type === 'engagement') bg-pink-100 text-pink-800
     @elseif($package->type === 'birthday') bg-yellow-100 text-yellow-800
@@ -120,7 +120,7 @@
     {{ ucfirst($package->type) }}
 </span>
                                     <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                                        {{ $package->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                        {{ $package->is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800' }}">
                                         {{ $package->is_active ? 'Active' : 'Inactive' }}
                                     </span>
                                 </div>
@@ -143,7 +143,7 @@
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" 
-                                        class="text-sm px-3 py-1 rounded {{ $package->is_active ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-green-100 text-green-700 hover:bg-green-200' }}">
+                                        class="text-sm px-3 py-1 rounded {{ $package->is_active ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200' }}">
                                     {{ $package->is_active ? 'Deactivate' : 'Activate' }}
                                 </button>
                             </form>
@@ -352,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 sortInstructions.innerHTML = `
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
-                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <i class="fas fa-check-circle text-emerald-600 mr-2"></i>
                             <span><strong>Sort Mode Active:</strong> Order updated successfully! Drag and drop packages to reorder.</span>
                         </div>
                         <button id="exitSortMode" class="text-purple-600 hover:text-purple-800">

@@ -9,7 +9,7 @@
             <div class="space-y-4 mb-8 text-gray-300">
                 <div class="flex justify-between border-b border-gray-800 pb-2">
                     <span>Package:</span>
-                    <span class="text-green-500 font-bold">{{ $package->name }}</span>
+                    <span class="text-emerald-500 font-bold">{{ $package->name }}</span>
                 </div>
                 <div class="flex justify-between border-b border-gray-800 pb-2">
                     <span>Dates:</span>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="flex justify-between text-xl font-bold pt-2">
                     <span class="text-white">Total Price:</span>
-                    <span class="text-green-500">Rs {{ number_format($bookingData['total_price'], 0) }}</span>
+                    <span class="text-emerald-500">Rs {{ number_format($bookingData['total_price'], 0) }}</span>
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
                     <a href="{{ route('package-builder') }}" class="block text-center bg-gray-700 text-white py-3 rounded hover:bg-gray-600 transition">
                         Cancel
                     </a>
-                    <button type="submit" class="block w-full text-center bg-green-600 text-white py-3 rounded hover:bg-green-700 transition font-bold">
+                    <button type="submit" class="block w-full text-center bg-emerald-600 text-white py-3 rounded hover:bg-emerald-700 transition font-bold">
                         Confirm Booking
                     </button>
                 </div>

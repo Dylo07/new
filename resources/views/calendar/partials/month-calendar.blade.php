@@ -29,7 +29,7 @@
                                 $dateString = $date->format('Y-m-d');
                                 $status = $availability[$dateString] ?? 'available';
                                 
-                                $bgClass = 'bg-green-500'; // Available
+                                $bgClass = 'bg-emerald-500'; // Available
                                 if ($status === 'limited') {
                                     $bgClass = 'bg-yellow-500';
                                 } elseif ($status === 'booked') {

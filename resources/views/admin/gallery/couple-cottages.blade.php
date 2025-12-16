@@ -51,7 +51,7 @@
                 </div>
                 
                 <div>
-                    <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 transition-colors">
+                    <button type="submit" class="bg-emerald-500 text-white px-6 py-2 rounded hover:bg-emerald-600 transition-colors">
                         Upload Images
                     </button>
                 </div>
@@ -63,7 +63,7 @@
             <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-white">Existing Images</h2>
             
             @if(session('success'))
-                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4">
+                <div class="bg-emerald-100 border-l-4 border-emerald-500 text-emerald-700 p-4 mb-4">
                     {{ session('success') }}
                 </div>
             @endif

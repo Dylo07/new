@@ -12,7 +12,7 @@
         </div>
 
         @if(session('success'))
-            <div class="bg-green-500/10 border border-green-500 text-green-500 px-4 py-3 rounded mb-6">
+            <div class="bg-emerald-500/10 border border-emerald-500 text-emerald-500 px-4 py-3 rounded mb-6">
                 {{ session('success') }}
             </div>
         @endif
@@ -42,14 +42,14 @@
                                 <td class="px-6 py-4">
                                     <div class="text-white font-medium">{{ $booking->user->name }}</div>
                                     <div class="text-sm text-gray-500">{{ $booking->user->email }}</div>
-                                    <a href="tel:{{ $booking->user->phone }}" class="text-sm text-green-500 hover:underline">
+                                    <a href="tel:{{ $booking->user->phone }}" class="text-sm text-emerald-500 hover:underline">
                                         {{ $booking->user->phone ?? 'No Phone' }}
                                     </a>
                                 </td>
 
                                 <td class="px-6 py-4 text-gray-300">
                                     @if($booking->customPackage)
-                                        <span class="text-green-400 font-medium">{{ $booking->customPackage->name }}</span>
+                                        <span class="text-emerald-400 font-medium">{{ $booking->customPackage->name }}</span>
                                         <div class="text-xs text-gray-500">
                                             {{ $booking->guests }} Guests 
                                             @if(!empty($booking->package_details['children']))
@@ -74,7 +74,7 @@
 
                                 <td class="px-6 py-4">
                                     <span class="px-3 py-1 rounded-full text-xs font-bold
-                                        {{ $booking->status === 'confirmed' ? 'bg-green-500/20 text-green-500' : '' }}
+                                        {{ $booking->status === 'confirmed' ? 'bg-emerald-500/20 text-emerald-500' : '' }}
                                         {{ $booking->status === 'pending' ? 'bg-yellow-500/20 text-yellow-500' : '' }}
                                         {{ $booking->status === 'cancelled' ? 'bg-red-500/20 text-red-500' : '' }}
                                         {{ $booking->status === 'completed' ? 'bg-blue-500/20 text-blue-500' : '' }}
@@ -89,7 +89,7 @@
                                             <form action="{{ route('admin.bookings.update', $booking) }}" method="POST">
                                                 @csrf @method('PUT')
                                                 <input type="hidden" name="status" value="confirmed">
-                                                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs" onclick="return confirm('Confirm this booking?')">
+                                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded text-xs" onclick="return confirm('Confirm this booking?')">
                                                     Confirm
                                                 </button>
                                             </form>

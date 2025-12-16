@@ -22,7 +22,7 @@
         
         <!-- Overlay and Text -->
         <div class="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center">
-            <h1 class="text-green-500 text-5xl mb-4 text-center">OUTDOOR GALLERY</h1>
+            <h1 class="text-5xl mb-4 text-center opacity-0 animate-fade-in-up"><span class="gradient-text">OUTDOOR GALLERY</span></h1>
             <p class="text-white text-xl text-center">
                 Explore our beautiful outdoor spaces, gardens, and recreational areas.
             </p>
@@ -88,13 +88,13 @@
 
         <!-- Content -->
         <div class="relative container mx-auto px-4 py-24 text-center">
-            <h2 class="text-green-400 text-4xl mb-4">TALK TO US</h2>
+            <h2 class="text-emerald-400 text-4xl mb-4">TALK TO US</h2>
             <p class="text-white text-lg mb-8">
                 Questions or feedback? Reach out to us. We're here to assist you promptly and courteously.
             </p>
             <a 
                 href="{{ route('contact') }}" 
-                class="inline-block bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300"
+                class="inline-block bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 transition-colors duration-300"
             >
                 GET IN TOUCH
             </a>

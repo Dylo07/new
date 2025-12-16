@@ -9,7 +9,7 @@
     <div class="bg-center bg-cover relative" style="background-image: url('{{ asset('images/about-bg.jpg') }}')">
         <div class="absolute inset-0 bg-black bg-opacity-70"></div>
         <div class="container mx-auto px-4 py-24 relative">
-            <h1 class="text-center text-green-500 text-5xl mb-4">ABOUT US</h1>
+            <h1 class="text-center text-5xl mb-4 opacity-0 animate-fade-in-up"><span class="gradient-text">ABOUT US</span></h1>
             <p class="text-center text-white text-xl">
                 Welcome to our luxurious hotel, where comfort meets elegance. With years of expertise in hospitality, 
                 we strive to provide our guests with unforgettable experiences.
@@ -89,13 +89,13 @@
 
     <!-- Content -->
     <div class="relative container mx-auto px-4 py-24 text-center">
-        <h2 class="text-green-400 text-4xl mb-4">TALK TO US</h2>
+        <h2 class="text-4xl mb-4"><span class="gradient-text">TALK TO US</span></h2>
         <p class="text-white text-lg mb-8">
             Questions or feedback? Reach out to us. We're here to assist you promptly and courteously.
         </p>
         <a 
             href="{{ route('contact') }}" 
-            class="inline-block bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300"
+            class="btn-primary text-white px-8 py-4 rounded-xl font-semibold"
         >
             GET IN TOUCH
         </a>

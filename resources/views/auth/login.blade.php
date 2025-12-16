@@ -15,7 +15,7 @@
                         type="email" 
                         name="email" 
                         id="email"
-                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                         required
                         autofocus
                     >
@@ -30,7 +30,7 @@
                         type="password" 
                         name="password" 
                         id="password"
-                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                         required
                     >
                     @error('password')
@@ -44,7 +44,7 @@
                             type="checkbox" 
                             name="remember" 
                             id="remember" 
-                            class="rounded bg-gray-800 border-gray-700 text-green-500 focus:ring-green-500"
+                            class="rounded bg-gray-800 border-gray-700 text-emerald-500 focus:ring-emerald-500"
                         >
                         <label class="ml-2 text-gray-300" for="remember">Remember me</label>
                     </div>
@@ -52,14 +52,14 @@
 
                 <button 
                     type="submit"
-                    class="w-full bg-green-500 text-white py-3 rounded hover:bg-green-600 transition-colors"
+                    class="w-full btn-primary text-white py-3 rounded-xl transition-colors"
                 >
                     Login
                 </button>
 
                 <p class="text-center text-gray-400">
                     Don't have an account? 
-                    <a href="{{ route('register') }}" class="text-green-500 hover:text-green-400">Register</a>
+                    <a href="{{ route('register') }}" class="text-emerald-500 hover:text-emerald-400">Register</a>
                 </p>
             </form>
         </div>

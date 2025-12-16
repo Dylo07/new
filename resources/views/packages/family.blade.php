@@ -12,7 +12,7 @@
     <div class="bg-center bg-cover relative" style="background-image: url('{{ asset('images/family-bg.jpg') }}')">
         <div class="absolute inset-0 bg-black bg-opacity-70"></div>
         <div class="container mx-auto px-4 py-24 relative">
-            <h1 class="text-center text-purple-500 text-5xl mb-4">FAMILY PACKAGES</h1>
+            <h1 class="text-center text-5xl mb-4 opacity-0 animate-fade-in-up"><span class="gradient-text">FAMILY PACKAGES</span></h1>
             <p class="text-center text-white text-xl max-w-3xl mx-auto">
                 Enjoy our family packages with cozy cottage accommodations, delicious meals, 
                 swimming pool access, and a variety of games, perfect for groups of 2 to 10 guests.
@@ -183,7 +183,7 @@
                     <a 
                         href="https://wa.me/94717152955" 
                         target="_blank"
-                        class="inline-block bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300 flex items-center gap-2"
+                        class="inline-block bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 transition-colors duration-300 flex items-center gap-2"
                     >
                         <i class="fab fa-whatsapp"></i>
                         WhatsApp

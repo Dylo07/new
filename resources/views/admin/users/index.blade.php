@@ -18,7 +18,7 @@
 
     <!-- Success/Error Messages -->
     @if(session('success'))
-        <div class="bg-green-500 text-white px-6 py-4 rounded-lg mb-6 flex items-center justify-between">
+        <div class="bg-emerald-500 text-white px-6 py-4 rounded-lg mb-6 flex items-center justify-between">
             <span>{{ session('success') }}</span>
             <button onclick="this.parentElement.remove()" class="text-white hover:text-gray-200">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -85,7 +85,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($user->is_admin)
-                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-900 text-green-200">
+                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-900 text-emerald-200">
                                         Admin
                                     </span>
                                 @else
@@ -159,7 +159,7 @@
         </div>
         <div class="bg-gray-900 rounded-lg p-6 border border-gray-700">
             <div class="text-gray-400 text-sm mb-2">Admin Users</div>
-            <div class="text-3xl font-bold text-green-400">{{ $users->where('is_admin', true)->count() }}</div>
+            <div class="text-3xl font-bold text-emerald-400">{{ $users->where('is_admin', true)->count() }}</div>
         </div>
         <div class="bg-gray-900 rounded-lg p-6 border border-gray-700">
             <div class="text-gray-400 text-sm mb-2">Regular Users</div>
@@ -178,7 +178,7 @@
 <script>
     // Auto-hide success/error messages after 5 seconds
     setTimeout(function() {
-        const alerts = document.querySelectorAll('.bg-green-500, .bg-red-500');
+        const alerts = document.querySelectorAll('.bg-emerald-500, .bg-red-500');
         alerts.forEach(alert => {
             alert.style.transition = 'opacity 0.5s';
             alert.style.opacity = '0';

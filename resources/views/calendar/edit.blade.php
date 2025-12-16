@@ -52,7 +52,7 @@
                             $dateString = $date->format('Y-m-d');
                             $status = $currentMonthAvailability[$dateString] ?? 'available';
                             
-                            $bgClass = 'bg-green-500'; // Available
+                            $bgClass = 'bg-emerald-500'; // Available
                             if ($status === 'limited') {
                                 $bgClass = 'bg-yellow-500';
                             } elseif ($status === 'booked') {
@@ -100,7 +100,7 @@
                             $dateString = $date->format('Y-m-d');
                             $status = $nextMonthAvailability[$dateString] ?? 'available';
                             
-                            $bgClass = 'bg-green-500'; // Available
+                            $bgClass = 'bg-emerald-500'; // Available
                             if ($status === 'limited') {
                                 $bgClass = 'bg-yellow-500';
                             } elseif ($status === 'booked') {
@@ -122,7 +122,7 @@
         
         <div class="flex justify-center mt-8 gap-8">
             <div class="flex items-center">
-                <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                <div class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></div>
                 <span class="text-white">Available</span>
             </div>
             <div class="flex items-center">
@@ -180,10 +180,10 @@
                     if (data.success) {
                         // Update UI
                         this.dataset.status = newStatus;
-                        this.classList.remove('bg-green-500', 'bg-yellow-500', 'bg-red-500');
+                        this.classList.remove('bg-emerald-500', 'bg-yellow-500', 'bg-red-500');
                         
                         if (newStatus === 'available') {
-                            this.classList.add('bg-green-500');
+                            this.classList.add('bg-emerald-500');
                         } else if (newStatus === 'limited') {
                             this.classList.add('bg-yellow-500');
                         } else {
@@ -191,7 +191,7 @@
                         }
                         
                         // Update status message
-                        statusMessage.innerHTML = `<span class="text-green-500">Successfully updated ${date} to ${newStatus}</span>`;
+                        statusMessage.innerHTML = `<span class="text-emerald-500">Successfully updated ${date} to ${newStatus}</span>`;
                     }
                 })
                 .catch(error => {

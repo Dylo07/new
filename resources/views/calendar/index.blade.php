@@ -9,7 +9,7 @@
             <h1 class="text-3xl text-white font-light">Room Availability</h1>
             
             @if(auth()->check() && auth()->user()->is_admin)
-                <a href="{{ route('admin.calendar.edit') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-all duration-300 flex items-center">
+                <a href="{{ route('admin.calendar.edit') }}" class="bg-emerald-500 text-white px-6 py-3 rounded-lg hover:bg-emerald-600 transition-all duration-300 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                     </svg>
@@ -47,7 +47,7 @@
                             $dateString = $date->format('Y-m-d');
                             $status = $currentMonthAvailability[$dateString] ?? 'available';
                             
-                            $bgClass = 'bg-green-500'; // Available
+                            $bgClass = 'bg-emerald-500'; // Available
                             if ($status === 'limited') {
                                 $bgClass = 'bg-yellow-500';
                             } elseif ($status === 'booked') {
@@ -91,7 +91,7 @@
                             $dateString = $date->format('Y-m-d');
                             $status = $nextMonthAvailability[$dateString] ?? 'available';
                             
-                            $bgClass = 'bg-green-500'; // Available
+                            $bgClass = 'bg-emerald-500'; // Available
                             if ($status === 'limited') {
                                 $bgClass = 'bg-yellow-500';
                             } elseif ($status === 'booked') {
@@ -109,7 +109,7 @@
         
         <div class="flex justify-center mt-8 gap-8">
             <div class="flex items-center">
-                <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                <div class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></div>
                 <span class="text-white">Available</span>
             </div>
             <div class="flex items-center">

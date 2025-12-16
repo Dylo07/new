@@ -8,7 +8,7 @@
         <h1 class="text-3xl font-bold text-gray-900">{{ $customPackage->name }}</h1>
         <div class="flex space-x-2">
             <a href="{{ route('admin.custom-packages.edit', $customPackage) }}" 
-               class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+               class="bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                 <i class="fas fa-edit mr-2"></i>Edit
             </a>
             <a href="{{ route('admin.custom-packages.index') }}" 
@@ -41,7 +41,7 @@
                         <label class="block text-sm font-medium text-gray-700">Category</label>
                         <span class="px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-full 
                             {{ $customPackage->category === 'couple' ? 'bg-pink-100 text-pink-800' : 
-                               ($customPackage->category === 'family' ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800') }}">
+                               ($customPackage->category === 'family' ? 'bg-purple-100 text-purple-800' : 'bg-emerald-100 text-emerald-800') }}">
                             {{ ucfirst($customPackage->category) }}
                         </span>
                     </div>
@@ -61,7 +61,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Status</label>
                         @if($customPackage->is_active)
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800">
                                 Active
                             </span>
                         @else
@@ -76,7 +76,7 @@
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Adult Price</label>
-                        <p class="text-2xl font-bold text-green-600">Rs {{ number_format($customPackage->adult_price, 0) }}</p>
+                        <p class="text-2xl font-bold text-emerald-600">Rs {{ number_format($customPackage->adult_price, 0) }}</p>
                     </div>
 
                     <div>

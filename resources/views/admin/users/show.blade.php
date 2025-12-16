@@ -17,7 +17,7 @@
         <div class="flex items-start justify-between">
             <div class="flex items-center space-x-6">
                 <!-- Avatar -->
-                <div class="w-24 h-24 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center text-white text-3xl font-bold">
+                <div class="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-blue-500 flex items-center justify-center text-white text-3xl font-bold">
                     {{ strtoupper(substr($user->name, 0, 2)) }}
                 </div>
                 
@@ -27,7 +27,7 @@
                     <p class="text-gray-400 mb-3">{{ $user->email }}</p>
                     <div class="flex items-center space-x-4">
                         @if($user->is_admin)
-                            <span class="px-4 py-2 bg-green-900 text-green-200 rounded-lg font-semibold">
+                            <span class="px-4 py-2 bg-emerald-900 text-emerald-200 rounded-lg font-semibold">
                                 Administrator
                             </span>
                         @else
@@ -104,7 +104,7 @@
                 </div>
                 <div>
                     <label class="text-gray-400 text-sm">Account Status</label>
-                    <p class="text-green-400 font-medium">Active</p>
+                    <p class="text-emerald-400 font-medium">Active</p>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-sm">
                                     @if($booking->status === 'confirmed')
-                                        <span class="px-3 py-1 bg-green-900 text-green-200 rounded-full text-xs">Confirmed</span>
+                                        <span class="px-3 py-1 bg-emerald-900 text-emerald-200 rounded-full text-xs">Confirmed</span>
                                     @elseif($booking->status === 'pending')
                                         <span class="px-3 py-1 bg-yellow-900 text-yellow-200 rounded-full text-xs">Pending</span>
                                     @elseif($booking->status === 'cancelled')
@@ -171,7 +171,7 @@
         </div>
         <div class="bg-gray-900 rounded-lg p-6 border border-gray-700">
             <div class="text-gray-400 text-sm mb-2">Confirmed</div>
-            <div class="text-3xl font-bold text-green-400">
+            <div class="text-3xl font-bold text-emerald-400">
                 {{ $user->bookings->where('status', 'confirmed')->count() ?? 0 }}
             </div>
         </div>

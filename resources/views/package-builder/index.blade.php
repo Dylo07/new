@@ -6,13 +6,13 @@
 <div class="min-h-screen bg-black py-20">
     <div class="container mx-auto px-4">
         <!-- Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-5xl font-light text-white mb-4">Create Your Custom Package</h1>
-            <p class="text-xl text-gray-300">Design the perfect getaway tailored just for you</p>
+        <div class="text-center mb-12 opacity-0 animate-fade-in-up">
+            <h1 class="text-5xl md:text-6xl font-light text-white mb-4"><span class="gradient-text">Create Your Custom Package</span></h1>
+            <p class="text-xl text-gray-400">Design the perfect getaway tailored just for you</p>
         </div>
 
         <!-- Step 1: Guest Count -->
-        <div class="max-w-2xl mx-auto bg-gray-900 rounded-xl p-8 mb-8" id="step1">
+        <div class="max-w-2xl mx-auto glass-card rounded-2xl p-8 mb-8 opacity-0 animate-fade-in-up stagger-2" id="step1">
             <h2 class="text-2xl text-white mb-6 text-center">How many guests will be joining you?</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -24,7 +24,7 @@
                         min="1" 
                         max="50" 
                         value="2" 
-                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:outline-none text-xl text-center"
+                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-emerald-500 focus:outline-none text-xl text-center"
                     >
                 </div>
                 <div>
@@ -35,7 +35,7 @@
                         min="0" 
                         max="20" 
                         value="0" 
-                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:outline-none text-xl text-center"
+                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-emerald-500 focus:outline-none text-xl text-center"
                     >
                 </div>
             </div>
@@ -43,7 +43,7 @@
             <div class="text-center mt-8">
                 <button 
                     id="nextToRooms" 
-                    class="bg-green-500 text-white px-8 py-4 rounded-lg text-xl hover:bg-green-600 transition-all duration-300"
+                    class="btn-primary text-white px-10 py-4 rounded-xl text-xl font-semibold"
                 >
                     Next: Select Rooms
                 </button>
@@ -51,7 +51,7 @@
         </div>
 
         <!-- Step 1.5: Room Selection -->
-        <div class="max-w-2xl mx-auto bg-gray-900 rounded-xl p-8 mb-8 hidden" id="step1_5">
+        <div class="max-w-2xl mx-auto glass-card rounded-2xl p-8 mb-8 hidden" id="step1_5">
             <h2 class="text-2xl text-white mb-6 text-center">How many rooms do you need?</h2>
             
             <div class="space-y-6">
@@ -63,7 +63,7 @@
                         min="0" 
                         max="20" 
                         value="0" 
-                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:outline-none text-xl text-center"
+                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-emerald-500 focus:outline-none text-xl text-center"
                     >
                 </div>
                 <div>
@@ -74,7 +74,7 @@
                         min="0" 
                         max="20" 
                         value="0" 
-                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:outline-none text-xl text-center"
+                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-emerald-500 focus:outline-none text-xl text-center"
                     >
                 </div>
                 <div>
@@ -85,7 +85,7 @@
                         min="0" 
                         max="10" 
                         value="0" 
-                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:outline-none text-xl text-center"
+                        class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-emerald-500 focus:outline-none text-xl text-center"
                     >
                 </div>
             </div>
@@ -106,7 +106,7 @@
                 </button>
                 <button 
                     id="nextToPackageType" 
-                    class="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-all duration-300 flex-1"
+                    class="bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 transition-all duration-300 flex-1"
                 >
                     Next: Select Package Type
                 </button>
@@ -121,12 +121,12 @@
                 <!-- Day Out Option -->
                 <div class="bg-gray-800 rounded-lg p-6 cursor-pointer hover:bg-gray-700 transition-all duration-300 package-type-option" data-type="day_out">
                     <div class="flex items-start">
-                        <input type="radio" name="packageType" value="day_out" id="dayOut" class="mt-1 mr-4 text-green-500">
+                        <input type="radio" name="packageType" value="day_out" id="dayOut" class="mt-1 mr-4 text-emerald-500">
                         <div class="flex-1">
                             <label for="dayOut" class="text-white text-xl font-semibold cursor-pointer">Day Out</label>
                             <div class="text-gray-300 mt-2">
                                 <div class="flex items-center mb-2">
-                                    <i class="fas fa-clock mr-2 text-green-400"></i>
+                                    <i class="fas fa-clock mr-2 text-emerald-400"></i>
                                     <span>Check in: 9:00 AM | Check out: 5:00 PM</span>
                                 </div>
                                 <ul class="list-disc list-inside text-sm space-y-1 ml-6">
@@ -144,12 +144,12 @@
                 <!-- Night Stay Half Board Option -->
                 <div class="bg-gray-800 rounded-lg p-6 cursor-pointer hover:bg-gray-700 transition-all duration-300 package-type-option" data-type="half_board">
                     <div class="flex items-start">
-                        <input type="radio" name="packageType" value="half_board" id="halfBoard" class="mt-1 mr-4 text-green-500">
+                        <input type="radio" name="packageType" value="half_board" id="halfBoard" class="mt-1 mr-4 text-emerald-500">
                         <div class="flex-1">
                             <label for="halfBoard" class="text-white text-xl font-semibold cursor-pointer">Night Stay (Half Board)</label>
                             <div class="text-gray-300 mt-2">
                                 <div class="flex items-center mb-2">
-                                    <i class="fas fa-clock mr-2 text-green-400"></i>
+                                    <i class="fas fa-clock mr-2 text-emerald-400"></i>
                                     <span>Check in: 3:00 PM | Check out: 10:00 AM (next day)</span>
                                 </div>
                                 <ul class="list-disc list-inside text-sm space-y-1 ml-6">
@@ -168,12 +168,12 @@
                 <!-- Night Stay Full Board Option -->
                 <div class="bg-gray-800 rounded-lg p-6 cursor-pointer hover:bg-gray-700 transition-all duration-300 package-type-option" data-type="full_board">
                     <div class="flex items-start">
-                        <input type="radio" name="packageType" value="full_board" id="fullBoard" class="mt-1 mr-4 text-green-500">
+                        <input type="radio" name="packageType" value="full_board" id="fullBoard" class="mt-1 mr-4 text-emerald-500">
                         <div class="flex-1">
                             <label for="fullBoard" class="text-white text-xl font-semibold cursor-pointer">Night Stay (Full Board)</label>
                             <div class="text-gray-300 mt-2">
                                 <div class="flex items-center mb-2">
-                                    <i class="fas fa-clock mr-2 text-green-400"></i>
+                                    <i class="fas fa-clock mr-2 text-emerald-400"></i>
                                     <span>Check in: 3:00 PM | Check out: 3:00 PM (next day)</span>
                                 </div>
                                 <ul class="list-disc list-inside text-sm space-y-1 ml-6">
@@ -202,7 +202,7 @@
                 </button>
                 <button 
                     id="proceedWithPackageType" 
-                    class="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-all duration-300 flex-1 disabled:bg-gray-500 disabled:cursor-not-allowed"
+                    class="bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 transition-all duration-300 flex-1 disabled:bg-gray-500 disabled:cursor-not-allowed"
                     disabled
                 >
                     Find Packages
@@ -221,7 +221,7 @@
             <div id="packageTypes" class="space-y-8">
                 <!-- Day Out Packages -->
                 <div class="package-type-section" data-type="day_out">
-                    <h3 class="text-2xl text-green-400 mb-6 text-center">Day Out Packages</h3>
+                    <h3 class="text-2xl text-emerald-400 mb-6 text-center">Day Out Packages</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="dayOutPackages">
                         <!-- Packages will be loaded here -->
                     </div>
@@ -229,7 +229,7 @@
 
                 <!-- Half Board Packages -->
                 <div class="package-type-section" data-type="half_board">
-                    <h3 class="text-2xl text-green-400 mb-6 text-center">Half Board Packages</h3>
+                    <h3 class="text-2xl text-emerald-400 mb-6 text-center">Half Board Packages</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="halfBoardPackages">
                         <!-- Packages will be loaded here -->
                     </div>
@@ -237,7 +237,7 @@
 
                 <!-- Full Board Packages -->
                 <div class="package-type-section" data-type="full_board">
-                    <h3 class="text-2xl text-green-400 mb-6 text-center">Full Board Packages</h3>
+                    <h3 class="text-2xl text-emerald-400 mb-6 text-center">Full Board Packages</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="fullBoardPackages">
                         <!-- Packages will be loaded here -->
                     </div>
@@ -257,7 +257,7 @@
                             <!-- Images will be loaded here -->
                         </div>
                         
-                        <h3 class="text-2xl text-green-400 mb-4" id="selectedPackageName"></h3>
+                        <h3 class="text-2xl text-emerald-400 mb-4" id="selectedPackageName"></h3>
                         
                         <div class="mb-6">
                             <h4 class="text-lg text-white mb-2">Description</h4>
@@ -288,7 +288,7 @@
                                 <span id="roomCharges">Rs 0</span>
                             </div>
                             <hr class="border-gray-700">
-                            <div class="flex justify-between text-xl text-green-400 font-bold">
+                            <div class="flex justify-between text-xl text-emerald-400 font-bold">
                                 <span>Total</span>
                                 <span id="totalPrice">Rs 0</span>
                             </div>
@@ -296,7 +296,7 @@
                         
                         <div class="space-y-4">
                             <button 
-                                class="w-full bg-green-500 text-white py-3 rounded-lg text-lg hover:bg-green-600 transition-all duration-300"
+                                class="w-full bg-emerald-500 text-white py-3 rounded-lg text-lg hover:bg-emerald-600 transition-all duration-300"
                                 onclick="proceedToBooking()"
                             >
                                 Proceed to Booking
@@ -329,6 +329,20 @@ let additionalRoomCharge = 0;
 let selectedPackageType = null;
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Get URL parameters and pre-fill guest counts
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlAdults = urlParams.get('adults');
+    const urlChildren = urlParams.get('children');
+    
+    if (urlAdults) {
+        document.getElementById('adults').value = urlAdults;
+        currentAdults = parseInt(urlAdults);
+    }
+    if (urlChildren) {
+        document.getElementById('children').value = urlChildren;
+        currentChildren = parseInt(urlChildren);
+    }
+    
     // Handle input changes
     document.getElementById('adults').addEventListener('input', updateGuestCount);
     document.getElementById('children').addEventListener('input', updateGuestCount);
@@ -350,9 +364,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Update visual selection
             document.querySelectorAll('.package-type-option').forEach(opt => {
-                opt.classList.remove('ring-2', 'ring-green-500');
+                opt.classList.remove('ring-2', 'ring-emerald-500');
             });
-            this.classList.add('ring-2', 'ring-green-500');
+            this.classList.add('ring-2', 'ring-emerald-500');
         });
     });
     
@@ -503,13 +517,13 @@ function updateRoomSummary() {
     const nextButton = document.getElementById('nextToPackageType');
     if (totalRoomCapacity < totalGuests) {
         nextButton.disabled = true;
-        nextButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+        nextButton.classList.remove('bg-emerald-500', 'hover:bg-emerald-600');
         nextButton.classList.add('bg-red-500', 'cursor-not-allowed');
         nextButton.textContent = 'Insufficient Room Capacity';
     } else {
         nextButton.disabled = false;
         nextButton.classList.remove('bg-red-500', 'cursor-not-allowed');
-        nextButton.classList.add('bg-green-500', 'hover:bg-green-600');
+        nextButton.classList.add('bg-emerald-500', 'hover:bg-emerald-600');
         nextButton.textContent = 'Next: Select Package Type';
     }
 }
@@ -632,7 +646,7 @@ function createPackageCard(package, adults, children) {
         </div>
         
         <div class="mb-4">
-            <div class="text-green-400 text-2xl font-bold">Rs ${totalWithRooms.toLocaleString()}</div>
+            <div class="text-emerald-400 text-2xl font-bold">Rs ${totalWithRooms.toLocaleString()}</div>
             <div class="text-gray-400 text-sm">
                 Adults: Rs ${package.adult_price} × ${adults} = Rs ${(package.adult_price * adults).toLocaleString()}<br>
                 ${children > 0 ? `Children: Rs ${package.child_price} × ${children} = Rs ${(package.child_price * children).toLocaleString()}<br>` : ''}
@@ -648,7 +662,7 @@ function createPackageCard(package, adults, children) {
         }
         
         <button 
-            class="w-full ${isAvailable ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-600'} text-white py-2 rounded-lg transition-all duration-300"
+            class="w-full ${isAvailable ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-gray-600'} text-white py-2 rounded-lg transition-all duration-300"
             ${isAvailable ? `onclick="selectPackage(${package.id})"` : 'disabled'}
         >
             ${isAvailable ? 'Select This Package' : 'Not Available'}

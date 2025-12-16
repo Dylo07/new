@@ -22,8 +22,8 @@
         
         <!-- Overlay and Text -->
         <div class="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center">
-            <h1 class="text-green-500 text-5xl mb-4 text-center">GALLERY</h1>
-            <p class="text-white text-xl text-center">
+            <h1 class="text-5xl md:text-6xl mb-4 text-center opacity-0 animate-fade-in-up"><span class="gradient-text">GALLERY</span></h1>
+            <p class="text-white text-xl text-center opacity-0 animate-fade-in-up stagger-2">
                 Explore our beautiful resort through captivating images.
             </p>
         </div>
@@ -35,7 +35,7 @@
     <div class="container mx-auto px-4">
         <!-- Category Navigation -->
         <div class="flex justify-center items-center gap-4 mb-16 flex-wrap">
-            <a href="{{ route('gallery') }}" class="bg-green-500 text-white px-4 py-2 rounded-lg">
+            <a href="{{ route('gallery') }}" class="bg-emerald-500 text-white px-4 py-2 rounded-lg">
                 All Gallery
             </a>
             <a href="{{ route('gallery.rooms') }}" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">
@@ -103,7 +103,7 @@
             <!-- General Rooms Section -->
             @if($roomImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">General Rooms</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">General Rooms</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($roomImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -117,7 +117,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.rooms') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.rooms') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Room Images
                     </a>
                 </div>
@@ -127,7 +127,7 @@
             <!-- Family Cottages Section -->
             @if($familyCottageImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">Family Cottages</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">Family Cottages</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($familyCottageImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -141,7 +141,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.family_cottages') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.family_cottages') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Family Cottage Images
                     </a>
                 </div>
@@ -151,7 +151,7 @@
             <!-- Couple Cottages Section -->
             @if($coupleCottageImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">Couple Cottages</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">Couple Cottages</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($coupleCottageImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -165,7 +165,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.couple_cottages') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.couple_cottages') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Couple Cottage Images
                     </a>
                 </div>
@@ -175,7 +175,7 @@
             <!-- Family Rooms Section -->
             @if($familyRoomImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">Family Rooms</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">Family Rooms</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($familyRoomImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -189,7 +189,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.family_rooms') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.family_rooms') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Family Room Images
                     </a>
                 </div>
@@ -199,7 +199,7 @@
             <!-- Outdoor Section -->
             @if($outdoorImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">Outdoor</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">Outdoor</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($outdoorImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -213,7 +213,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.outdoor') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.outdoor') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Outdoor Images
                     </a>
                 </div>
@@ -223,7 +223,7 @@
             <!-- Weddings Section -->
             @if($weddingImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">Weddings</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">Weddings</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($weddingImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -237,7 +237,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.weddings') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.weddings') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Wedding Images
                     </a>
                 </div>
@@ -247,7 +247,7 @@
             <!-- Conference Hall Section -->
             @if($conferenceHallImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">Conference Hall</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">Conference Hall</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($conferenceHallImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -261,7 +261,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.conference_hall') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.conference_hall') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Conference Hall Images
                     </a>
                 </div>
@@ -271,7 +271,7 @@
             <!-- Events Section -->
             @if($eventImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">Events</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">Events</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($eventImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -285,7 +285,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.events') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.events') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Event Images
                     </a>
                 </div>
@@ -295,7 +295,7 @@
             <!-- Indoor Games Section -->
             @if($indoorGameImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">Indoor Game Area</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">Indoor Game Area</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($indoorGameImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -309,7 +309,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.indoor_games') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.indoor_games') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Indoor Game Images
                     </a>
                 </div>
@@ -319,7 +319,7 @@
             <!-- Outdoor Games Section -->
             @if($outdoorGameImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">Outdoor Game Area</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">Outdoor Game Area</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($outdoorGameImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -333,7 +333,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.outdoor_games') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.outdoor_games') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Outdoor Game Images
                     </a>
                 </div>
@@ -343,7 +343,7 @@
             <!-- Swimming Pool Section -->
             @if($swimmingPoolImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">Swimming Pool</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">Swimming Pool</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($swimmingPoolImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -357,7 +357,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.swimming_pool') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.swimming_pool') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Swimming Pool Images
                     </a>
                 </div>
@@ -367,7 +367,7 @@
             <!-- Dining Area Section -->
             @if($diningAreaImages->count() > 0)
             <div>
-                <h2 class="text-green-400 text-3xl mb-6 text-center">Dining Area</h2>
+                <h2 class="text-white text-3xl mb-6 text-center font-light">Dining Area</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach($diningAreaImages->take(8) as $image)
                         <div class="relative group overflow-hidden">
@@ -381,7 +381,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-6">
-                    <a href="{{ route('gallery.dining_area') }}" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="{{ route('gallery.dining_area') }}" class="inline-block bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
                         View All Dining Area Images
                     </a>
                 </div>
@@ -406,13 +406,13 @@
 
         <!-- Content -->
         <div class="relative container mx-auto px-4 py-24 text-center">
-            <h2 class="text-green-400 text-4xl mb-4">TALK TO US</h2>
+            <h2 class="text-emerald-400 text-4xl mb-4">TALK TO US</h2>
             <p class="text-white text-lg mb-8">
                 Questions or feedback? Reach out to us. We're here to assist you promptly and courteously.
             </p>
             <a 
                 href="{{ route('contact') }}" 
-                class="inline-block bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300"
+                class="inline-block bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 transition-colors duration-300"
             >
                 GET IN TOUCH
             </a>
