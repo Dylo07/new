@@ -100,13 +100,13 @@
             <div class="flex gap-4 mt-8">
                 <button 
                     id="backToGuests" 
-                    class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-all duration-300 flex-1"
+                    class="bg-gray-600 text-white px-6 py-4 rounded-xl font-semibold border border-gray-500 hover:bg-gray-500 transition-all duration-300 flex-1"
                 >
                     Back
                 </button>
                 <button 
                     id="nextToPackageType" 
-                    class="bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 transition-all duration-300 flex-1"
+                    class="btn-primary text-white px-8 py-4 rounded-xl font-semibold flex-1"
                 >
                     Next: Select Package Type
                 </button>
@@ -196,13 +196,13 @@
             <div class="flex gap-4 mt-8">
                 <button 
                     id="backToRooms" 
-                    class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-all duration-300 flex-1"
+                    class="bg-gray-600 text-white px-6 py-4 rounded-xl font-semibold border border-gray-500 hover:bg-gray-500 transition-all duration-300 flex-1"
                 >
                     Back to Rooms
                 </button>
                 <button 
                     id="proceedWithPackageType" 
-                    class="bg-emerald-500 text-white px-8 py-3 rounded-lg hover:bg-emerald-600 transition-all duration-300 flex-1 disabled:bg-gray-500 disabled:cursor-not-allowed"
+                    class="btn-primary text-white px-8 py-4 rounded-xl font-semibold flex-1 disabled:bg-gray-500 disabled:cursor-not-allowed"
                     disabled
                 >
                     Find Packages
@@ -296,14 +296,14 @@
                         
                         <div class="space-y-4">
                             <button 
-                                class="w-full bg-emerald-500 text-white py-3 rounded-lg text-lg hover:bg-emerald-600 transition-all duration-300"
+                                class="w-full btn-primary text-white py-4 rounded-xl text-lg font-semibold"
                                 onclick="proceedToBooking()"
                             >
                                 Proceed to Booking
                             </button>
                             
                             <button 
-                                class="w-full bg-gray-700 text-white py-3 rounded-lg text-lg hover:bg-gray-600 transition-all duration-300"
+                                class="w-full bg-gray-600 text-white py-4 rounded-xl text-lg font-semibold border border-gray-500 hover:bg-gray-500 transition-all duration-300"
                                 onclick="goBack()"
                             >
                                 Choose Different Package
