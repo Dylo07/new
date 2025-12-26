@@ -118,9 +118,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bookings/package/review', [BookingController::class, 'reviewPackage'])
         ->name('bookings.package.review');
 
-    // 2. Finalize/Store the booking (When they click "Confirm Booking")
+    // 2. Payment Method Selection
+    Route::get('/bookings/package/payment', [BookingController::class, 'showPaymentMethod'])
+        ->name('bookings.package.payment');
+
+    // 3. Finalize/Store the booking (When they complete payment selection)
     Route::post('/bookings/package/store', [BookingController::class, 'storePackage'])
         ->name('bookings.package.store');
+
+    // 4. Upload payment receipt for existing booking
+    Route::post('/bookings/{booking}/upload-receipt', [BookingController::class, 'uploadReceipt'])
+        ->name('bookings.upload-receipt');
+
+    // 5. Booking success page
+    Route::get('/bookings/{booking}/success', [BookingController::class, 'showSuccess'])
+        ->name('bookings.success');
 });
 
 

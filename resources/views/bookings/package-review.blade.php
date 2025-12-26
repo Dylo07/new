@@ -25,21 +25,18 @@
                 </div>
             </div>
 
-            <form action="{{ route('bookings.package.store') }}" method="POST">
-                @csrf
-                <p class="text-gray-400 text-sm mb-6 text-center">
-                    By clicking Confirm, our team will receive your request and call you shortly to arrange the advance payment.
-                </p>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <a href="{{ route('package-builder') }}" class="block text-center bg-gray-700 text-white py-3 rounded hover:bg-gray-600 transition">
-                        Cancel
-                    </a>
-                    <button type="submit" class="block w-full text-center bg-emerald-600 text-white py-3 rounded hover:bg-emerald-700 transition font-bold">
-                        Confirm Booking
-                    </button>
-                </div>
-            </form>
+            <p class="text-gray-400 text-sm mb-6 text-center">
+                By clicking Confirm, you will proceed to select your payment method.
+            </p>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <a href="{{ route('package-builder') }}" class="block text-center bg-gray-700 text-white py-3 rounded hover:bg-gray-600 transition">
+                    Cancel
+                </a>
+                <a href="{{ route('bookings.package.payment') }}" class="block text-center bg-emerald-600 text-white py-3 rounded hover:bg-emerald-700 transition font-bold">
+                    Confirm Booking
+                </a>
+            </div>
         </div>
     </div>
 </div>

@@ -42,44 +42,74 @@ class BookingController extends Controller
     {
         return view('bookings.confirmation', compact('booking'));
     }
+
     public function reviewPackage()
     {
-        // Get the data we saved in the session earlier
         $bookingData = session('pending_booking');
 
-        // If there is no data (maybe they waited too long), send them back to builder
         if (!$bookingData) {
             return redirect()->route('package-builder')
                 ->with('error', 'Session expired. Please build your package again.');
         }
 
-        // Get the full package details from DB to show names/images
         $package = CustomPackage::findOrFail($bookingData['package_id']);
 
         return view('bookings.package-review', compact('bookingData', 'package'));
     }
 
     /**
-     * Step 2: Save to Database
+     * Step 2: Show Payment Method Selection
+     */
+    public function showPaymentMethod()
+    {
+        $bookingData = session('pending_booking');
+
+        if (!$bookingData) {
+            return redirect()->route('package-builder')
+                ->with('error', 'Session expired. Please build your package again.');
+        }
+
+        $package = CustomPackage::findOrFail($bookingData['package_id']);
+
+        return view('bookings.payment-method', compact('bookingData', 'package'));
+    }
+
+    /**
+     * Step 3: Save to Database with Payment Info
      */
     public function storePackage(Request $request)
     {
-        // Get data from session again
         $data = session('pending_booking');
 
         if (!$data) {
             return redirect()->route('package-builder');
         }
 
+        $paymentMethod = $request->input('payment_method', 'bank_transfer');
+        $paymentReceipt = null;
+        $paymentStatus = 'pending';
+
+        // Handle receipt upload if provided
+        if ($request->hasFile('payment_receipt')) {
+            $file = $request->file('payment_receipt');
+            $filename = 'receipt_' . time() . '_' . auth()->id() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/receipts', $filename);
+            $paymentReceipt = 'receipts/' . $filename;
+            $paymentStatus = 'uploaded';
+        }
+
         // Create the Booking in Database
-        $booking = \App\Models\Booking::create([
+        $booking = Booking::create([
             'user_id'           => auth()->id(),
             'custom_package_id' => $data['package_id'],
             'check_in'          => $data['check_in'],
             'check_out'         => $data['check_out'],
-            'guests'            => $data['adults'], // Total guests or just adults
+            'guests'            => $data['adults'],
             'total_price'       => $data['total_price'],
-            'status'            => 'pending', // Default status
+            'status'            => 'pending',
+            'payment_method'    => $paymentMethod,
+            'payment_receipt'   => $paymentReceipt,
+            'payment_status'    => $paymentStatus,
             'package_details'   => [
                 'adults'   => $data['adults'],
                 'children' => $data['children'] ?? 0
@@ -90,8 +120,11 @@ class BookingController extends Controller
         $user = auth()->user();
         $package = CustomPackage::find($data['package_id']);
         
+        $paymentInfo = $paymentMethod === 'bank_transfer' 
+            ? "Payment Method: Bank Transfer\nPayment Status: " . ($paymentReceipt ? "Receipt Uploaded" : "Awaiting Receipt") 
+            : "Payment Method: Card (Pending)";
+
         try {
-            // Email to customer
             Mail::raw(
                 "Dear {$user->name},\n\n" .
                 "Thank you for your booking at Soba Lanka Hotel!\n\n" .
@@ -101,9 +134,15 @@ class BookingController extends Controller
                 "Check-in: {$booking->check_in}\n" .
                 "Check-out: {$booking->check_out}\n" .
                 "Guests: {$data['adults']} Adults" . (isset($data['children']) && $data['children'] > 0 ? ", {$data['children']} Children" : "") . "\n" .
-                "Total Price: Rs {$booking->total_price}\n" .
-                "Status: Pending\n\n" .
-                "We will contact you shortly to confirm your booking.\n\n" .
+                "Total Price: Rs {$booking->total_price}\n\n" .
+                "{$paymentInfo}\n\n" .
+                "Bank Account Details for Payment:\n" .
+                "Account Name: Soba Lanka Holiday Resort (PVT) LTD\n" .
+                "Account Number: 0090201000175926\n" .
+                "Bank: Union Bank of Colombo PLC\n" .
+                "Branch: Kurunegala\n\n" .
+                "Please use Booking #{$booking->id} as your payment reference.\n" .
+                "You can upload your payment receipt from your profile page.\n\n" .
                 "Best regards,\n" .
                 "Soba Lanka Hotel Team",
                 function($msg) use ($user) {
@@ -112,7 +151,6 @@ class BookingController extends Controller
                 }
             );
 
-            // Email to admin
             $adminEmail = config('mail.admin_email');
             Mail::raw(
                 "New Booking Received!\n\n" .
@@ -124,8 +162,8 @@ class BookingController extends Controller
                 "Check-in: {$booking->check_in}\n" .
                 "Check-out: {$booking->check_out}\n" .
                 "Guests: {$data['adults']} Adults" . (isset($data['children']) && $data['children'] > 0 ? ", {$data['children']} Children" : "") . "\n" .
-                "Total Price: Rs {$booking->total_price}\n" .
-                "Status: Pending\n\n" .
+                "Total Price: Rs {$booking->total_price}\n\n" .
+                "{$paymentInfo}\n\n" .
                 "Please review and confirm this booking.",
                 function($msg) use ($adminEmail) {
                     $msg->to($adminEmail)
@@ -133,16 +171,79 @@ class BookingController extends Controller
                 }
             );
         } catch (\Exception $e) {
-            // Log error but don't stop the booking process
             \Log::error('Booking email failed: ' . $e->getMessage());
         }
 
-        // Clear the session so they don't book it twice by mistake
         session()->forget('pending_booking');
 
-        // Redirect to their dashboard or a success page
-        return redirect()->route('profile')
-            ->with('success', 'Booking request placed successfully! Order #' . $booking->id . '. We will contact you shortly.');
+        return redirect()->route('bookings.success', $booking);
+    }
+
+    /**
+     * Show booking success page
+     */
+    public function showSuccess(Booking $booking)
+    {
+        // Ensure user owns this booking
+        if ($booking->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $booking->load('customPackage');
+        
+        return view('bookings.success', compact('booking'));
+    }
+
+    /**
+     * Upload payment receipt for existing booking
+     */
+    public function uploadReceipt(Request $request, Booking $booking)
+    {
+        // Ensure user owns this booking
+        if ($booking->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'payment_receipt' => 'required|file|max:5120'
+        ]);
+
+        $file = $request->file('payment_receipt');
+        
+        if (!$file) {
+            return redirect()->back()->with('error', 'No file was uploaded. Please select a file.');
+        }
+
+        // Check file extension manually for better error messages
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'pdf'];
+        $extension = strtolower($file->getClientOriginalExtension());
+        if (!in_array($extension, $allowedExtensions)) {
+            return redirect()->back()->with('error', 'Invalid file type. Please upload JPG, PNG, GIF or PDF files only.');
+        }
+
+        try {
+            // Delete old receipt if exists
+            if ($booking->payment_receipt) {
+                \Storage::delete('public/' . $booking->payment_receipt);
+            }
+
+            $filename = 'receipt_' . time() . '_' . $booking->id . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('public/receipts', $filename);
+            
+            if (!$path) {
+                return redirect()->back()->with('error', 'Failed to store the file. Please try again.');
+            }
+            
+            $booking->update([
+                'payment_receipt' => 'receipts/' . $filename,
+                'payment_status' => 'uploaded'
+            ]);
+
+            return redirect()->back()->with('success', 'Payment receipt uploaded successfully!');
+        } catch (\Exception $e) {
+            \Log::error('Receipt upload failed: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Upload failed: ' . $e->getMessage());
+        }
     }
 
     // --- Admin: View All Bookings ---

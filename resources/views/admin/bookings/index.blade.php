@@ -27,6 +27,7 @@
                             <th class="px-6 py-4">Package / Room</th>
                             <th class="px-6 py-4">Dates</th>
                             <th class="px-6 py-4">Total</th>
+                            <th class="px-6 py-4">Payment</th>
                             <th class="px-6 py-4">Status</th>
                             <th class="px-6 py-4 text-right">Actions</th>
                         </tr>
@@ -73,6 +74,27 @@
                                 </td>
 
                                 <td class="px-6 py-4">
+                                    @if($booking->payment_method)
+                                        <div class="text-xs text-gray-400 mb-1">
+                                            {{ $booking->payment_method === 'bank_transfer' ? 'Bank Transfer' : 'Card' }}
+                                        </div>
+                                        <span class="px-2 py-0.5 rounded text-xs font-medium
+                                            {{ $booking->payment_status === 'verified' ? 'bg-emerald-500/20 text-emerald-400' : '' }}
+                                            {{ $booking->payment_status === 'uploaded' ? 'bg-blue-500/20 text-blue-400' : '' }}
+                                            {{ $booking->payment_status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' : '' }}">
+                                            {{ ucfirst($booking->payment_status ?? 'Pending') }}
+                                        </span>
+                                        @if($booking->payment_receipt)
+                                            <a href="{{ asset('storage/' . $booking->payment_receipt) }}" target="_blank" class="block text-xs text-emerald-400 hover:underline mt-1">
+                                                View Receipt
+                                            </a>
+                                        @endif
+                                    @else
+                                        <span class="text-gray-500 text-xs">N/A</span>
+                                    @endif
+                                </td>
+
+                                <td class="px-6 py-4">
                                     <span class="px-3 py-1 rounded-full text-xs font-bold
                                         {{ $booking->status === 'confirmed' ? 'bg-emerald-500/20 text-emerald-500' : '' }}
                                         {{ $booking->status === 'pending' ? 'bg-yellow-500/20 text-yellow-500' : '' }}
@@ -116,7 +138,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-12 text-center text-gray-500">
+                                <td colspan="8" class="px-6 py-12 text-center text-gray-500">
                                     No bookings found.
                                 </td>
                             </tr>
