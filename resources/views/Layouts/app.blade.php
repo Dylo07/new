@@ -282,7 +282,7 @@
 </head>
 <body>
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="mainNav">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 relative">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center">
                     <img src="{{ asset('images/logo.png') }}" alt="Soba Lanka Holiday Resort" class="h-24">
@@ -375,15 +375,18 @@
                     </a>
                 </div>
 
-                <button class="md:hidden text-white" id="menuButton">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button class="md:hidden text-white p-2" id="menuButton">
+                    <svg id="menuIconOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg id="menuIconClose" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
 
-            <div class="md:hidden hidden" id="mobileMenu">
-                <div class="py-4 space-y-4">
+            <div class="md:hidden hidden" id="mobileMenu" style="position: fixed; top: 80px; left: 0; right: 0; background: rgba(0,0,0,0.98); border-top: 1px solid #374151; z-index: 9999;">
+                <div class="py-4 px-4 space-y-4 max-h-screen overflow-y-auto">
                     <a href="{{ route('home') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300">Home</a>
                     
                     <div class="relative">
@@ -484,9 +487,17 @@
             });
 
             // Mobile menu toggle
+            const menuIconOpen = document.getElementById('menuIconOpen');
+            const menuIconClose = document.getElementById('menuIconClose');
+            
             if (menuButton && mobileMenu) {
                 menuButton.addEventListener('click', function() {
                     mobileMenu.classList.toggle('hidden');
+                    // Toggle icons
+                    if (menuIconOpen && menuIconClose) {
+                        menuIconOpen.classList.toggle('hidden');
+                        menuIconClose.classList.toggle('hidden');
+                    }
                 });
             }
             
