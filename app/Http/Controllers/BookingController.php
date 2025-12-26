@@ -7,6 +7,8 @@ use App\Models\Room;
 use Illuminate\Http\Request;
 use App\Models\CustomPackage;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\BookingConfirmation;
+use App\Mail\AdminBookingNotification;
 
 class BookingController extends Controller
 {
@@ -128,56 +130,13 @@ class BookingController extends Controller
         $user = auth()->user();
         $package = CustomPackage::find($data['package_id']);
         
-        $paymentInfo = $paymentMethod === 'bank_transfer' 
-            ? "Payment Method: Bank Transfer\nPayment Status: " . ($paymentReceipt ? "Receipt Uploaded" : "Awaiting Receipt") 
-            : "Payment Method: Card (Pending)";
-
         try {
-            Mail::raw(
-                "Dear {$user->name},\n\n" .
-                "Thank you for your booking at Soba Lanka Hotel!\n\n" .
-                "Booking Details:\n" .
-                "Booking ID: #{$booking->id}\n" .
-                "Package: {$package->name}\n" .
-                "Check-in: {$booking->check_in}\n" .
-                "Check-out: {$booking->check_out}\n" .
-                "Guests: {$data['adults']} Adults" . (isset($data['children']) && $data['children'] > 0 ? ", {$data['children']} Children" : "") . "\n" .
-                "Total Price: Rs {$booking->total_price}\n\n" .
-                "{$paymentInfo}\n\n" .
-                "Bank Account Details for Payment:\n" .
-                "Account Name: Soba Lanka Holiday Resort (PVT) LTD\n" .
-                "Account Number: 0090201000175926\n" .
-                "Bank: Union Bank of Colombo PLC\n" .
-                "Branch: Kurunegala\n\n" .
-                "Please use Booking #{$booking->id} as your payment reference.\n" .
-                "You can upload your payment receipt from your profile page.\n\n" .
-                "Best regards,\n" .
-                "Soba Lanka Hotel Team",
-                function($msg) use ($user) {
-                    $msg->to($user->email)
-                        ->subject('Booking Confirmation - Soba Lanka Hotel');
-                }
-            );
+            // Send modern HTML email to customer
+            Mail::to($user->email)->send(new BookingConfirmation($booking, $package, $user));
 
+            // Send modern HTML email to admin
             $adminEmail = config('mail.admin_email');
-            Mail::raw(
-                "New Booking Received!\n\n" .
-                "Booking Details:\n" .
-                "Booking ID: #{$booking->id}\n" .
-                "Customer: {$user->name}\n" .
-                "Email: {$user->email}\n" .
-                "Package: {$package->name}\n" .
-                "Check-in: {$booking->check_in}\n" .
-                "Check-out: {$booking->check_out}\n" .
-                "Guests: {$data['adults']} Adults" . (isset($data['children']) && $data['children'] > 0 ? ", {$data['children']} Children" : "") . "\n" .
-                "Total Price: Rs {$booking->total_price}\n\n" .
-                "{$paymentInfo}\n\n" .
-                "Please review and confirm this booking.",
-                function($msg) use ($adminEmail) {
-                    $msg->to($adminEmail)
-                        ->subject('New Booking Notification - Soba Lanka Hotel');
-                }
-            );
+            Mail::to($adminEmail)->send(new AdminBookingNotification($booking, $package, $user));
         } catch (\Exception $e) {
             \Log::error('Booking email failed: ' . $e->getMessage());
         }
