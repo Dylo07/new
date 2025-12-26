@@ -184,6 +184,52 @@
         .stagger-4 { animation-delay: 0.4s; }
         .stagger-5 { animation-delay: 0.5s; }
         
+        /* Tailwind 3.x opacity classes (not in CDN 2.2.19) */
+        .bg-gray-800\/50 { background-color: rgba(31, 41, 55, 0.5); }
+        .bg-gray-900\/50 { background-color: rgba(17, 24, 39, 0.5); }
+        .bg-gray-900\/80 { background-color: rgba(17, 24, 39, 0.8); }
+        .bg-black\/40 { background-color: rgba(0, 0, 0, 0.4); }
+        .bg-black\/50 { background-color: rgba(0, 0, 0, 0.5); }
+        .bg-black\/60 { background-color: rgba(0, 0, 0, 0.6); }
+        .bg-white\/5 { background-color: rgba(255, 255, 255, 0.05); }
+        .bg-white\/10 { background-color: rgba(255, 255, 255, 0.1); }
+        .bg-emerald-500\/10 { background-color: rgba(16, 185, 129, 0.1); }
+        .bg-emerald-500\/20 { background-color: rgba(16, 185, 129, 0.2); }
+        .bg-emerald-900\/20 { background-color: rgba(6, 78, 59, 0.2); }
+        .bg-yellow-500\/20 { background-color: rgba(234, 179, 8, 0.2); }
+        .bg-yellow-900\/20 { background-color: rgba(113, 63, 18, 0.2); }
+        .bg-red-500\/10 { background-color: rgba(239, 68, 68, 0.1); }
+        .bg-red-900\/20 { background-color: rgba(127, 29, 29, 0.2); }
+        .text-white\/60 { color: rgba(255, 255, 255, 0.6); }
+        .text-white\/70 { color: rgba(255, 255, 255, 0.7); }
+        .text-white\/80 { color: rgba(255, 255, 255, 0.8); }
+        .text-yellow-400\/50 { color: rgba(250, 204, 21, 0.5); }
+        .border-emerald-500\/30 { border-color: rgba(16, 185, 129, 0.3); }
+        .border-gray-700\/50 { border-color: rgba(55, 65, 81, 0.5); }
+        
+        /* Emerald colors (not in Tailwind 2.2.19 CDN - uses green instead) */
+        .bg-emerald-400 { background-color: #34d399; }
+        .bg-emerald-500 { background-color: #10b981; }
+        .bg-emerald-600 { background-color: #059669; }
+        .bg-emerald-700 { background-color: #047857; }
+        .bg-emerald-800 { background-color: #065f46; }
+        .bg-emerald-900 { background-color: #064e3b; }
+        .text-emerald-400 { color: #34d399; }
+        .text-emerald-500 { color: #10b981; }
+        .text-emerald-600 { color: #059669; }
+        .text-emerald-700 { color: #047857; }
+        .border-emerald-400 { border-color: #34d399; }
+        .border-emerald-500 { border-color: #10b981; }
+        .border-emerald-600 { border-color: #059669; }
+        .hover\:bg-emerald-500:hover { background-color: #10b981; }
+        .hover\:bg-emerald-600:hover { background-color: #059669; }
+        .hover\:bg-emerald-700:hover { background-color: #047857; }
+        .hover\:text-emerald-400:hover { color: #34d399; }
+        .hover\:text-emerald-500:hover { color: #10b981; }
+        .hover\:border-emerald-500:hover { border-color: #10b981; }
+        .focus\:border-emerald-500:focus { border-color: #10b981; }
+        .focus\:ring-emerald-500:focus { --tw-ring-color: #10b981; }
+        
         /* Navigation Styles */
         .nav-link {
             position: relative;
