@@ -38,7 +38,7 @@
 
 
             <!-- Booking Form -->
-            <div class="max-w-5xl mx-auto glass p-6 md:p-10 rounded-2xl shadow-2xl opacity-0 animate-fade-in-up stagger-2">
+            <div id="booking-section" class="max-w-5xl mx-auto glass p-6 md:p-10 rounded-2xl shadow-2xl opacity-0 animate-fade-in-up stagger-2">
                 <div class="text-white text-lg mb-8 text-center font-medium tracking-widest uppercase">Night Stay & Day Out Packages</div>
                 
                 <form action="{{ route('package-builder') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">

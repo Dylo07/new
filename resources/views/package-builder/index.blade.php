@@ -11,8 +11,83 @@
             <p class="text-xl text-gray-400">Design the perfect getaway tailored just for you</p>
         </div>
 
+        <!-- Step 0: Date Selection (shown when no dates in URL) -->
+        <div class="max-w-2xl mx-auto glass-card rounded-2xl p-8 mb-8 opacity-0 animate-fade-in-up hidden" id="step0">
+            <h2 class="text-2xl text-white mb-6 text-center">When would you like to visit?</h2>
+            
+            <form id="dateSelectionForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-white text-lg mb-2">Check-in Date *</label>
+                        <input 
+                            type="date" 
+                            id="step0_check_in" 
+                            name="check_in"
+                            min="{{ date('Y-m-d') }}"
+                            class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-emerald-500 focus:outline-none"
+                            required
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-white text-lg mb-2">Check-out Date *</label>
+                        <input 
+                            type="date" 
+                            id="step0_check_out" 
+                            name="check_out"
+                            min="{{ date('Y-m-d') }}"
+                            class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-emerald-500 focus:outline-none"
+                            required
+                        >
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-white text-lg mb-2">Adults *</label>
+                        <input 
+                            type="number" 
+                            id="step0_adults" 
+                            name="adults"
+                            min="1" 
+                            max="50" 
+                            value="2" 
+                            class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-emerald-500 focus:outline-none text-center"
+                            required
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-white text-lg mb-2">Children (3-12 years)</label>
+                        <input 
+                            type="number" 
+                            id="step0_children" 
+                            name="children"
+                            min="0" 
+                            max="20" 
+                            value="0" 
+                            class="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-emerald-500 focus:outline-none text-center"
+                        >
+                    </div>
+                </div>
+                
+                <p class="text-gray-400 text-sm text-center">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Children under 3 years stay free
+                </p>
+                
+                <div class="text-center">
+                    <button 
+                        type="submit"
+                        class="btn-primary text-white px-10 py-4 rounded-xl text-xl font-semibold"
+                    >
+                        <i class="fas fa-search mr-2"></i>
+                        Search Packages
+                    </button>
+                </div>
+            </form>
+        </div>
+
         <!-- Step 1: Guest Count -->
-        <div class="max-w-2xl mx-auto glass-card rounded-2xl p-8 mb-8 opacity-0 animate-fade-in-up stagger-2" id="step1">
+        <div class="max-w-2xl mx-auto glass-card rounded-2xl p-8 mb-8 opacity-0 animate-fade-in-up stagger-2 hidden" id="step1">
             <h2 class="text-2xl text-white mb-6 text-center">How many guests will be joining you?</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -360,8 +435,52 @@ function calculateNights() {
 document.addEventListener('DOMContentLoaded', function() {
     // Get URL parameters and pre-fill guest counts
     const urlParams = new URLSearchParams(window.location.search);
+    const urlCheckIn = urlParams.get('check_in');
+    const urlCheckOut = urlParams.get('check_out');
     const urlAdults = urlParams.get('adults');
     const urlChildren = urlParams.get('children');
+    
+    // Check if dates are provided in URL
+    if (!urlCheckIn || !urlCheckOut) {
+        // Show date selection step (step0), hide step1
+        document.getElementById('step0').classList.remove('hidden');
+        document.getElementById('step1').classList.add('hidden');
+    } else {
+        // Dates provided, show step1 directly
+        document.getElementById('step0').classList.add('hidden');
+        document.getElementById('step1').classList.remove('hidden');
+    }
+    
+    // Handle date selection form submission
+    const dateForm = document.getElementById('dateSelectionForm');
+    if (dateForm) {
+        dateForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const checkIn = document.getElementById('step0_check_in').value;
+            const checkOut = document.getElementById('step0_check_out').value;
+            const adults = document.getElementById('step0_adults').value;
+            const children = document.getElementById('step0_children').value;
+            
+            if (!checkIn || !checkOut) {
+                alert('Please select both check-in and check-out dates.');
+                return;
+            }
+            
+            if (new Date(checkOut) < new Date(checkIn)) {
+                alert('Check-out date must be on or after check-in date.');
+                return;
+            }
+            
+            // Redirect to same page with dates in URL
+            const newUrl = `{{ route('package-builder') }}?check_in=${checkIn}&check_out=${checkOut}&adults=${adults}&children=${children}`;
+            window.location.href = newUrl;
+        });
+        
+        // Update check-out min date when check-in changes
+        document.getElementById('step0_check_in').addEventListener('change', function() {
+            document.getElementById('step0_check_out').min = this.value;
+        });
+    }
     
     if (urlAdults) {
         document.getElementById('adults').value = urlAdults;
