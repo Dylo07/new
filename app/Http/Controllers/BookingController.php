@@ -93,7 +93,15 @@ class BookingController extends Controller
         if ($request->hasFile('payment_receipt')) {
             $file = $request->file('payment_receipt');
             $filename = 'receipt_' . time() . '_' . auth()->id() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/receipts', $filename);
+            
+            // Create directory if it doesn't exist - same pattern as gallery uploads
+            $uploadDir = public_path('storage/receipts');
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+            
+            // Move file directly to public/storage/receipts (same as gallery)
+            $file->move($uploadDir, $filename);
             $paymentReceipt = 'receipts/' . $filename;
             $paymentStatus = 'uploaded';
         }
@@ -224,15 +232,22 @@ class BookingController extends Controller
         try {
             // Delete old receipt if exists
             if ($booking->payment_receipt) {
-                \Storage::delete('public/' . $booking->payment_receipt);
+                $oldPath = public_path('storage/' . $booking->payment_receipt);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
             }
 
             $filename = 'receipt_' . time() . '_' . $booking->id . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('public/receipts', $filename);
             
-            if (!$path) {
-                return redirect()->back()->with('error', 'Failed to store the file. Please try again.');
+            // Create directory if it doesn't exist - same pattern as gallery uploads
+            $uploadDir = public_path('storage/receipts');
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
             }
+            
+            // Move file directly to public/storage/receipts (same as gallery)
+            $file->move($uploadDir, $filename);
             
             $booking->update([
                 'payment_receipt' => 'receipts/' . $filename,
