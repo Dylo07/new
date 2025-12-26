@@ -73,6 +73,28 @@
                     <i class="fas fa-info-circle mr-1"></i>
                     Children under 3 years stay free
                 </p>
+
+                <!-- Package Time Info -->
+                <div class="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+                    <h4 class="text-white text-sm font-medium mb-3 text-center">Check-in & Check-out Times</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-emerald-500/10 border border-emerald-500/30 rounded p-3 text-center">
+                            <p class="text-emerald-400 font-semibold mb-1">Day Out</p>
+                            <p class="text-gray-300">9:00 AM - 5:00 PM</p>
+                            <p class="text-gray-500">(Same day)</p>
+                        </div>
+                        <div class="bg-blue-500/10 border border-blue-500/30 rounded p-3 text-center">
+                            <p class="text-blue-400 font-semibold mb-1">Half Board</p>
+                            <p class="text-gray-300">3:00 PM - 10:00 AM</p>
+                            <p class="text-gray-500">(Next day)</p>
+                        </div>
+                        <div class="bg-purple-500/10 border border-purple-500/30 rounded p-3 text-center">
+                            <p class="text-purple-400 font-semibold mb-1">Full Board</p>
+                            <p class="text-gray-300">3:00 PM - 3:00 PM</p>
+                            <p class="text-gray-500">(Next day)</p>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="text-center">
                     <button 

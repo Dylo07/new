@@ -12,8 +12,32 @@
                     <span class="text-emerald-500 font-bold">{{ $package->name }}</span>
                 </div>
                 <div class="flex justify-between border-b border-gray-800 pb-2">
-                    <span>Dates:</span>
-                    <span>{{ $bookingData['check_in'] }} to {{ $bookingData['check_out'] }}</span>
+                    <span>Check-in:</span>
+                    <span>
+                        {{ $bookingData['check_in'] }}
+                        <span class="text-emerald-400 text-sm">
+                            @if($package->type === 'day_out')
+                                (9:00 AM)
+                            @else
+                                (3:00 PM)
+                            @endif
+                        </span>
+                    </span>
+                </div>
+                <div class="flex justify-between border-b border-gray-800 pb-2">
+                    <span>Check-out:</span>
+                    <span>
+                        {{ $bookingData['check_out'] }}
+                        <span class="text-emerald-400 text-sm">
+                            @if($package->type === 'day_out')
+                                (5:00 PM)
+                            @elseif($package->type === 'half_board')
+                                (10:00 AM)
+                            @elseif($package->type === 'full_board')
+                                (3:00 PM)
+                            @endif
+                        </span>
+                    </span>
                 </div>
                 <div class="flex justify-between border-b border-gray-800 pb-2">
                     <span>Guests:</span>

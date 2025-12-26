@@ -32,11 +32,35 @@
                     </div>
                     <div class="flex justify-between border-b border-gray-800 pb-2">
                         <span class="text-gray-400">Check-in</span>
-                        <span class="text-white">{{ $booking->check_in->format('M d, Y') }}</span>
+                        <span class="text-white">
+                            {{ $booking->check_in->format('M d, Y') }}
+                            @if($booking->customPackage)
+                                <span class="text-emerald-400 text-sm ml-1">
+                                    @if($booking->customPackage->type === 'day_out')
+                                        (9:00 AM)
+                                    @else
+                                        (3:00 PM)
+                                    @endif
+                                </span>
+                            @endif
+                        </span>
                     </div>
                     <div class="flex justify-between border-b border-gray-800 pb-2">
                         <span class="text-gray-400">Check-out</span>
-                        <span class="text-white">{{ $booking->check_out->format('M d, Y') }}</span>
+                        <span class="text-white">
+                            {{ $booking->check_out->format('M d, Y') }}
+                            @if($booking->customPackage)
+                                <span class="text-emerald-400 text-sm ml-1">
+                                    @if($booking->customPackage->type === 'day_out')
+                                        (5:00 PM)
+                                    @elseif($booking->customPackage->type === 'half_board')
+                                        (10:00 AM)
+                                    @elseif($booking->customPackage->type === 'full_board')
+                                        (3:00 PM)
+                                    @endif
+                                </span>
+                            @endif
+                        </span>
                     </div>
                     <div class="flex justify-between border-b border-gray-800 pb-2">
                         <span class="text-gray-400">Guests</span>

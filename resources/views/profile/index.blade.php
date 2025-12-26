@@ -105,10 +105,26 @@
                                         <div>
                                             <span class="text-gray-500 block text-xs uppercase tracking-wider">Check-in</span>
                                             <span class="font-medium">{{ $booking->check_in->format('M d, Y') }}</span>
+                                            @if($booking->customPackage)
+                                                @if($booking->customPackage->type === 'day_out')
+                                                    <span class="text-emerald-400 text-xs block">9:00 AM</span>
+                                                @else
+                                                    <span class="text-emerald-400 text-xs block">3:00 PM</span>
+                                                @endif
+                                            @endif
                                         </div>
                                         <div>
                                             <span class="text-gray-500 block text-xs uppercase tracking-wider">Check-out</span>
                                             <span class="font-medium">{{ $booking->check_out->format('M d, Y') }}</span>
+                                            @if($booking->customPackage)
+                                                @if($booking->customPackage->type === 'day_out')
+                                                    <span class="text-emerald-400 text-xs block">5:00 PM</span>
+                                                @elseif($booking->customPackage->type === 'half_board')
+                                                    <span class="text-emerald-400 text-xs block">10:00 AM</span>
+                                                @elseif($booking->customPackage->type === 'full_board')
+                                                    <span class="text-emerald-400 text-xs block">3:00 PM</span>
+                                                @endif
+                                            @endif
                                         </div>
                                     </div>
 
