@@ -17,108 +17,111 @@
                 </a>
             @endif
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Current Month Calendar -->
-            <div>
-                <h2 class="text-2xl text-white text-center mb-4">{{ $currentMonth->format('F Y') }}</h2>
-                <div class="grid grid-cols-7 gap-1 text-center mb-2">
-                    <div class="text-red-500">S</div>
-                    <div class="text-white">M</div>
-                    <div class="text-white">T</div>
-                    <div class="text-white">W</div>
-                    <div class="text-white">T</div>
-                    <div class="text-white">F</div>
-                    <div class="text-red-500">S</div>
-                </div>
 
-                <div class="grid grid-cols-7 gap-1">
-                    @php
-                        $startDay = $currentMonth->copy()->startOfMonth()->dayOfWeek;
-                        $daysInMonth = $currentMonth->daysInMonth;
-                    @endphp
+        <!-- 6 Month Calendar Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach($months as $monthData)
+                @php
+                    $month = $monthData['month'];
+                    $availability = $monthData['availability'];
+                    $startDay = $month->copy()->startOfMonth()->dayOfWeek;
+                    $daysInMonth = $month->daysInMonth;
+                @endphp
+                
+                <div class="bg-gray-900/50 rounded-xl p-4">
+                    <h2 class="text-xl text-white text-center mb-4 font-semibold">{{ $month->format('F Y') }}</h2>
+                    
+                    <!-- Day Headers -->
+                    <div class="grid grid-cols-7 gap-1 text-center mb-2 text-sm">
+                        <div class="text-red-400">S</div>
+                        <div class="text-gray-400">M</div>
+                        <div class="text-gray-400">T</div>
+                        <div class="text-gray-400">W</div>
+                        <div class="text-gray-400">T</div>
+                        <div class="text-gray-400">F</div>
+                        <div class="text-red-400">S</div>
+                    </div>
 
-                    @for ($i = 0; $i < $startDay; $i++)
-                        <div></div>
-                    @endfor
+                    <!-- Calendar Days -->
+                    <div class="grid grid-cols-7 gap-1">
+                        @for ($i = 0; $i < $startDay; $i++)
+                            <div></div>
+                        @endfor
 
-                    @for ($day = 1; $day <= $daysInMonth; $day++)
-                        @php
-                            $date = $currentMonth->copy()->startOfMonth()->addDays($day - 1);
-                            $dateString = $date->format('Y-m-d');
-                            $status = $currentMonthAvailability[$dateString] ?? 'available';
+                        @for ($day = 1; $day <= $daysInMonth; $day++)
+                            @php
+                                $date = $month->copy()->startOfMonth()->addDays($day - 1);
+                                $dateString = $date->format('Y-m-d');
+                                $dayData = $availability[$dateString] ?? ['status' => 'available'];
+                                $status = $dayData['status'] ?? 'available';
+                                $rooms = $dayData['rooms'] ?? [];
+                                // Handle both array and object formats
+                                if (is_array($rooms)) {
+                                    $rooms = array_values($rooms); // Re-index to ensure proper array
+                                }
+                                $functionType = $dayData['function_type'] ?? null;
+                                $guestCount = $dayData['guest_count'] ?? null;
+                                $roomCount = is_array($rooms) ? count($rooms) : 0;
+                                
+                                // Color based on occupancy level (with inline style fallback)
+                                if ($status === 'available') {
+                                    $bgClass = 'calendar-available'; // Green
+                                    $bgStyle = 'background-color: #10b981;';
+                                    $occupancyLabel = 'Available';
+                                } elseif ($status === 'booked') {
+                                    if ($roomCount === 0) {
+                                        $bgClass = 'calendar-full'; // Red
+                                        $bgStyle = 'background-color: #ef4444;';
+                                        $occupancyLabel = 'Booked';
+                                    } elseif ($roomCount <= 5) {
+                                        $bgClass = 'calendar-low'; // Yellow
+                                        $bgStyle = 'background-color: #eab308;';
+                                        $occupancyLabel = 'Low';
+                                    } elseif ($roomCount <= 10) {
+                                        $bgClass = 'calendar-medium'; // Orange
+                                        $bgStyle = 'background-color: #f97316;';
+                                        $occupancyLabel = 'Medium';
+                                    } else {
+                                        $bgClass = 'calendar-full'; // Red
+                                        $bgStyle = 'background-color: #ef4444;';
+                                        $occupancyLabel = 'High';
+                                    }
+                                } else {
+                                    $bgClass = 'calendar-low'; // Yellow
+                                    $bgStyle = 'background-color: #eab308;';
+                                    $occupancyLabel = 'Limited';
+                                }
+                            @endphp
                             
-                            $bgClass = 'bg-emerald-500'; // Available
-                            if ($status === 'limited') {
-                                $bgClass = 'bg-yellow-500';
-                            } elseif ($status === 'booked') {
-                                $bgClass = 'bg-red-500';
-                            }
-                        @endphp
-                        
-                        <div class="{{ $bgClass }} rounded-lg p-2 text-center text-white">
-                            {{ $day }}
-                        </div>
-                    @endfor
+                            <div 
+                                class="{{ $bgClass }} rounded-lg p-2 text-center text-white text-sm cursor-default transition-all duration-200"
+                                style="{{ $bgStyle }}"
+                            >
+                                {{ $day }}
+                            </div>
+                        @endfor
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Next Month Calendar -->
-            <div>
-                <h2 class="text-2xl text-white text-center mb-4">{{ $nextMonth->format('F Y') }}</h2>
-                <div class="grid grid-cols-7 gap-1 text-center mb-2">
-                    <div class="text-red-500">S</div>
-                    <div class="text-white">M</div>
-                    <div class="text-white">T</div>
-                    <div class="text-white">W</div>
-                    <div class="text-white">T</div>
-                    <div class="text-white">F</div>
-                    <div class="text-red-500">S</div>
-                </div>
-
-                <div class="grid grid-cols-7 gap-1">
-                    @php
-                        $startDay = $nextMonth->copy()->startOfMonth()->dayOfWeek;
-                        $daysInMonth = $nextMonth->daysInMonth;
-                    @endphp
-
-                    @for ($i = 0; $i < $startDay; $i++)
-                        <div></div>
-                    @endfor
-
-                    @for ($day = 1; $day <= $daysInMonth; $day++)
-                        @php
-                            $date = $nextMonth->copy()->startOfMonth()->addDays($day - 1);
-                            $dateString = $date->format('Y-m-d');
-                            $status = $nextMonthAvailability[$dateString] ?? 'available';
-                            
-                            $bgClass = 'bg-emerald-500'; // Available
-                            if ($status === 'limited') {
-                                $bgClass = 'bg-yellow-500';
-                            } elseif ($status === 'booked') {
-                                $bgClass = 'bg-red-500';
-                            }
-                        @endphp
-                        
-                        <div class="{{ $bgClass }} rounded-lg p-2 text-center text-white">
-                            {{ $day }}
-                        </div>
-                    @endfor
-                </div>
-            </div>
+            @endforeach
         </div>
         
-        <div class="flex justify-center mt-8 gap-8">
+        <!-- Legend -->
+        <div class="flex flex-wrap justify-center mt-8 gap-4 md:gap-6">
             <div class="flex items-center">
-                <div class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></div>
-                <span class="text-white">Available</span>
+                <div class="w-4 h-4 rounded-full mr-2" style="background-color: #10b981;"></div>
+                <span class="text-white text-sm">Available</span>
             </div>
             <div class="flex items-center">
-                <div class="w-4 h-4 bg-yellow-500 rounded-full mr-2"></div>
-                <span class="text-white">Limited Availability</span>
+                <div class="w-4 h-4 rounded-full mr-2" style="background-color: #eab308;"></div>
+                <span class="text-white text-sm">Partially Booked</span>
             </div>
             <div class="flex items-center">
-                <div class="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
-                <span class="text-white">Fully Booked</span>
+                <div class="w-4 h-4 rounded-full mr-2" style="background-color: #f97316;"></div>
+                <span class="text-white text-sm">Busy</span>
+            </div>
+            <div class="flex items-center">
+                <div class="w-4 h-4 rounded-full mr-2" style="background-color: #ef4444;"></div>
+                <span class="text-white text-sm">Fully Booked</span>
             </div>
         </div>
     </div>

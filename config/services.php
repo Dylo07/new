@@ -31,4 +31,17 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Ops System API Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for syncing data from the internal Hotel Ops System
+    |
+    */
+    'ops_api' => [
+        'url' => env('OPS_API_URL', 'https://phpstack-850139-2932209.cloudwaysapps.com/api/v1'),
+        'key' => env('OPS_API_KEY'),
+    ],
+
 ];

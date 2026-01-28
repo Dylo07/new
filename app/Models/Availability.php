@@ -9,9 +9,18 @@ class Availability extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['date', 'status'];
+    protected $fillable = [
+        'date', 
+        'status', 
+        'rooms', 
+        'function_type', 
+        'guest_count',
+        'booking_id'
+    ];
     
     protected $casts = [
         'date' => 'date',
+        'rooms' => 'array',
+        'guest_count' => 'integer',
     ];
 }

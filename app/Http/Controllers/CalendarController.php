@@ -10,15 +10,19 @@ use Illuminate\Support\Facades\Validator;
 class CalendarController extends Controller
 {
     public function index()
-{
-    $currentMonth = Carbon::now();
-    $nextMonth = Carbon::now()->addMonth();
-    
-    $currentMonthAvailability = $this->getMonthAvailability($currentMonth);
-    $nextMonthAvailability = $this->getMonthAvailability($nextMonth);
-    
-    return view('calendar.index', compact('currentMonth', 'nextMonth', 'currentMonthAvailability', 'nextMonthAvailability'));
-}
+    {
+        // Generate 6 months of calendar data
+        $months = [];
+        for ($i = 0; $i < 6; $i++) {
+            $month = Carbon::now()->addMonths($i);
+            $months[] = [
+                'month' => $month,
+                'availability' => $this->getMonthAvailability($month),
+            ];
+        }
+        
+        return view('calendar.index', compact('months'));
+    }
 
     
 
@@ -81,39 +85,52 @@ class CalendarController extends Controller
     }
     
      // Add this method to get availability data (same as in CalendarController)
-     private function getMonthAvailability(Carbon $month)
-     {
-         $startOfMonth = $month->copy()->startOfMonth();
-         $endOfMonth = $month->copy()->endOfMonth();
-         
-         // Get all availability records for this month
-         $availabilityRecords = Availability::whereBetween('date', [
-             $startOfMonth->format('Y-m-d'), 
-             $endOfMonth->format('Y-m-d')
-         ])->get();
-         
-         // Create a map with date string as key (for easier lookup)
-         $dateStatusMap = [];
-         foreach ($availabilityRecords as $record) {
-             // Format the date as a string to ensure consistent comparison
-             $dateKey = $record->date instanceof \Carbon\Carbon 
-                 ? $record->date->format('Y-m-d') 
-                 : date('Y-m-d', strtotime($record->date));
-             $dateStatusMap[$dateKey] = $record->status;
-         }
-         
-         // Build availability array
-         $availability = [];
-         $currentDate = $startOfMonth->copy();
-         
-         while ($currentDate <= $endOfMonth) {
-             $dateString = $currentDate->format('Y-m-d');
-             $availability[$dateString] = $dateStatusMap[$dateString] ?? 'available';
-             $currentDate->addDay();
-         }
-         
-         return $availability;
-     }
+     /**
+     * Get availability data with booking details for a month
+     */
+    private function getMonthAvailability(Carbon $month)
+    {
+        $startOfMonth = $month->copy()->startOfMonth();
+        $endOfMonth = $month->copy()->endOfMonth();
+        
+        // Get all availability records for this month with all details
+        $availabilityRecords = Availability::whereBetween('date', [
+            $startOfMonth->format('Y-m-d'), 
+            $endOfMonth->format('Y-m-d')
+        ])->get();
+        
+        // Create a map with date string as key
+        $dateDataMap = [];
+        foreach ($availabilityRecords as $record) {
+            $dateKey = $record->date instanceof \Carbon\Carbon 
+                ? $record->date->format('Y-m-d') 
+                : date('Y-m-d', strtotime($record->date));
+            
+            $dateDataMap[$dateKey] = [
+                'status' => $record->status,
+                'rooms' => $record->rooms ?? [],
+                'function_type' => $record->function_type,
+                'guest_count' => $record->guest_count,
+            ];
+        }
+        
+        // Build availability array
+        $availability = [];
+        $currentDate = $startOfMonth->copy();
+        
+        while ($currentDate <= $endOfMonth) {
+            $dateString = $currentDate->format('Y-m-d');
+            $availability[$dateString] = $dateDataMap[$dateString] ?? [
+                'status' => 'available',
+                'rooms' => [],
+                'function_type' => null,
+                'guest_count' => null,
+            ];
+            $currentDate->addDay();
+        }
+        
+        return $availability;
+    }
  public function search(Request $request)
     {
         $validated = $request->validate([

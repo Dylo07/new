@@ -202,17 +202,33 @@
                             @php
                                 $date = $currentMonth->copy()->startOfMonth()->addDays($day - 1);
                                 $dateString = $date->format('Y-m-d');
-                                $status = $currentMonthAvailability[$dateString] ?? 'available';
+                                $dayData = $currentMonthAvailability[$dateString] ?? ['status' => 'available'];
+                                $status = $dayData['status'] ?? 'available';
+                                $rooms = $dayData['rooms'] ?? [];
+                                if (is_array($rooms)) {
+                                    $rooms = array_values($rooms);
+                                }
+                                $roomCount = is_array($rooms) ? count($rooms) : 0;
 
-                                $bgClass = 'bg-emerald-500'; // Available
-                                if ($status === 'limited') {
-                                    $bgClass = 'bg-yellow-500';
+                                // Color based on occupancy level
+                                if ($status === 'available') {
+                                    $bgStyle = 'background-color: #10b981;'; // Green
                                 } elseif ($status === 'booked') {
-                                    $bgClass = 'bg-red-500';
+                                    if ($roomCount === 0) {
+                                        $bgStyle = 'background-color: #ef4444;'; // Red
+                                    } elseif ($roomCount <= 5) {
+                                        $bgStyle = 'background-color: #eab308;'; // Yellow
+                                    } elseif ($roomCount <= 10) {
+                                        $bgStyle = 'background-color: #f97316;'; // Orange
+                                    } else {
+                                        $bgStyle = 'background-color: #ef4444;'; // Red
+                                    }
+                                } else {
+                                    $bgStyle = 'background-color: #eab308;'; // Yellow
                                 }
                             @endphp
 
-                            <div class="{{ $bgClass }} rounded-lg p-2 text-center text-white">
+                            <div class="rounded-lg p-2 text-center text-white" style="{{ $bgStyle }}">
                                 {{ $day }}
                             </div>
                         @endfor
@@ -223,18 +239,22 @@
                         Updated: {{ now()->format('F d, Y') }}
                     </div>
 
-                    <div class="flex justify-center mt-8 gap-8">
+                    <div class="flex flex-wrap justify-center mt-8 gap-4 md:gap-6">
                         <div class="flex items-center">
-                            <div class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></div>
-                            <span class="text-white">Available</span>
+                            <div class="w-4 h-4 rounded-full mr-2" style="background-color: #10b981;"></div>
+                            <span class="text-white text-sm">Available</span>
                         </div>
                         <div class="flex items-center">
-                            <div class="w-4 h-4 bg-yellow-500 rounded-full mr-2"></div>
-                            <span class="text-white">Limited</span>
+                            <div class="w-4 h-4 rounded-full mr-2" style="background-color: #eab308;"></div>
+                            <span class="text-white text-sm">Partially Booked</span>
                         </div>
                         <div class="flex items-center">
-                            <div class="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
-                            <span class="text-white">Fully Booked</span>
+                            <div class="w-4 h-4 rounded-full mr-2" style="background-color: #f97316;"></div>
+                            <span class="text-white text-sm">Busy</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 rounded-full mr-2" style="background-color: #ef4444;"></div>
+                            <span class="text-white text-sm">Fully Booked</span>
                         </div>
                     </div>
 
