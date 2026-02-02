@@ -279,11 +279,29 @@
     </section>
 </div>
 
+<!-- Sticky Book Online CTA -->
+<div class="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-red-600 to-red-500 py-3 px-4 z-50 shadow-lg" id="sticky-cta">
+    <div class="container mx-auto flex items-center justify-between">
+        <div class="text-white">
+            <span class="font-semibold text-lg hidden sm:inline">Ready to plan your engagement celebration?</span>
+            <span class="font-semibold text-lg sm:hidden">Book now!</span>
+        </div>
+        <a href="{{ route('package-builder') }}" 
+           class="bg-white text-red-600 px-6 py-2 rounded-lg font-bold hover:bg-gray-100 transition-colors duration-300 flex items-center gap-2 shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+            </svg>
+            BOOK ONLINE
+        </a>
+    </div>
+</div>
+
 @push('styles')
 <style>
     body {
         background-color: #000000;
         color: #e5e7eb;
+        padding-bottom: 70px;
     }
     
     .hover\:transform:hover {
