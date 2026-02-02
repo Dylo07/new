@@ -23,6 +23,9 @@
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $pageDescription }}">
     
+    <!-- Canonical URL for SEO -->
+    <link rel="canonical" href="{{ url()->current() }}" />
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
@@ -41,6 +44,40 @@
     <!-- WhatsApp specific -->
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    
+    <!-- Schema.org Structured Data for Rich Snippets -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Hotel",
+        "name": "Soba Lanka Holiday Resort",
+        "image": "https://sobalanka.com/images/pool-bg-min.jpg",
+        "url": "https://sobalanka.com",
+        "telephone": "+94717152955",
+        "priceRange": "$$",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Dambulla Road",
+            "addressLocality": "Melsiripura",
+            "addressRegion": "Kurunegala",
+            "addressCountry": "LK"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.5",
+            "bestRating": "5",
+            "worstRating": "1",
+            "ratingCount": "105"
+        },
+        "amenityFeature": [
+            {"@type": "LocationFeatureSpecification", "name": "Swimming Pool"},
+            {"@type": "LocationFeatureSpecification", "name": "Restaurant"},
+            {"@type": "LocationFeatureSpecification", "name": "Free Parking"},
+            {"@type": "LocationFeatureSpecification", "name": "Games Room"}
+        ]
+    }
+    </script>
+    
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Modern Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
