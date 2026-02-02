@@ -58,8 +58,15 @@ class SyncAvailability extends Command
         $this->info("   Date range: {$data['date_range']['start']} to {$data['date_range']['end']}");
         $this->newLine();
 
-        // Get booked dates
-        $bookedDates = $data['booked_dates'] ?? [];
+        // Build a map of date => booking details from bookings array
+        // This correctly expands date ranges (e.g., July 30-31 becomes two separate dates)
+        $bookings = $data['bookings'] ?? [];
+        $dateBookingMap = $this->buildDateBookingMap($bookings);
+        
+        // Use the calculated dates instead of API's booked_dates (which may miss end dates)
+        $bookedDates = array_keys($dateBookingMap);
+        sort($bookedDates);
+        
         $this->info("📅 Found " . count($bookedDates) . " booked dates to sync");
 
         if ($this->option('dry-run')) {
@@ -78,10 +85,6 @@ class SyncAvailability extends Command
             
             return Command::SUCCESS;
         }
-
-        // Build a map of date => booking details
-        $bookings = $data['bookings'] ?? [];
-        $dateBookingMap = $this->buildDateBookingMap($bookings);
 
         // Sync the data with booking details
         $this->info('Syncing availability with booking details...');
