@@ -3,6 +3,8 @@
 
 @section('title', 'Couple Packages')
 
+@section('meta_description', 'Romantic couple packages at Soba Lanka Resort. Enjoy cozy cottages, swimming pool, delicious meals and intimate settings perfect for your getaway in Kurunegala, Sri Lanka.')
+
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 

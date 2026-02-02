@@ -3,6 +3,8 @@
 
 @section('title', 'Family Packages')
 
+@section('meta_description', 'Family packages at Soba Lanka Resort for 2-10 guests. Spacious cottages, swimming pool, games and activities for unforgettable family time in Kurunegala, Sri Lanka.')
+
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 

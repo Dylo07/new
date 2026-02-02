@@ -3,6 +3,8 @@
 
 @section('title', 'Birthday Packages')
 
+@section('meta_description', 'Birthday celebration packages at Soba Lanka Resort. From intimate gatherings to grand parties with decorations, entertainment and delicious treats in Kurunegala, Sri Lanka.')
+
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 

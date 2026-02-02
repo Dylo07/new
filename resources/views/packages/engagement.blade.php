@@ -3,6 +3,8 @@
 
 @section('title', 'Engagement Packages')
 
+@section('meta_description', 'Romantic engagement packages at Soba Lanka Resort. Celebrate your love story with intimate settings, beautiful decorations and memorable experiences in Kurunegala, Sri Lanka.')
+
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 

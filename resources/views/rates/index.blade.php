@@ -2,16 +2,7 @@
 
 @section('title', 'Rates & Packages')
 
-@section('content')
-<!-- Main Content Container -->
-<div class="relative z-0 pt-20">
-    <!-- Hero Section -->
-    <div class="bg-center bg-cover relative" style="background-image: url('{{ asset('images/rates-bg.jpg') }}')">
-        <div class="absolute inset-0 bg-black bg-opacity-70"></div>
-        <div class="container mx-auto px-4 py-24 relative">
-            <h1 class="text-center text-5xl mb-4 opacity-0 animate-fade-in-up"><span class="gradient-text">RATES & PACKAGES</span></h1>
-            <p class="text-center text-white text-xl">Exclusive Packages For Our Valued Clients</p>
-        </div>
+@section('meta_description', 'View our rates and packages at Soba Lanka Resort. Affordable couple, family, group, wedding, and event packages with luxury accommodations in Kurunegala, Sri Lanka.')
     </div>
 
     <div class="bg-black py-24">

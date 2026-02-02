@@ -2,6 +2,8 @@
 
 @section('title', 'About Us')
 
+@section('meta_description', 'Learn about Soba Lanka Resort - a luxury resort in Melsiripura, Kurunegala offering cottage accommodations, swimming pool, games and exclusive packages for unforgettable experiences in Sri Lanka.')
+
 @section('content')
 <!-- Main Content Container with proper z-index -->
 <div class="relative z-0 pt-20">
@@ -14,13 +16,6 @@
                 Welcome to our luxurious hotel, where comfort meets elegance. With years of expertise in hospitality, 
                 we strive to provide our guests with unforgettable experiences.
             </p>
-        </div>
-    </div>
-
-    <!-- About Content Section -->
-    <div class="container mx-auto px-4 py-16">
-        <!-- Mission & Vision -->
-        <div class="grid md:grid-cols-2 gap-16 mb-24">
             <!-- Mission -->
             <div>
                 <h2 class="text-2xl text-white mb-8">Our Mission</h2>

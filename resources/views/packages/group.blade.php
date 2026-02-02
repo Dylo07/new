@@ -3,6 +3,8 @@
 
 @section('title', 'Group Packages')
 
+@section('meta_description', 'Group packages at Soba Lanka Resort for offices and large groups. Team building activities, cottages, pool and games for memorable corporate events in Kurunegala, Sri Lanka.')
+
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 

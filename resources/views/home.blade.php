@@ -2,6 +2,8 @@
 
 @section('title', 'Soba Lanka')
 
+@section('meta_description', 'Soba Lanka Resort - Experience luxury cottage accommodations, swimming pool, games, and exclusive packages for couples, families, and groups in Melsiripura, Kurunegala, Sri Lanka.')
+
 @section('content')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Hero Section -->

@@ -3,11 +3,10 @@
 
 @section('title', 'Gallery - Soba Lanka Resort')
 
+@section('meta_description', 'Explore our photo gallery showcasing luxury cottages, swimming pool, wedding venues, indoor and outdoor games, conference hall and beautiful surroundings at Soba Lanka Resort in Kurunegala, Sri Lanka.')
+
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
-<!-- Main Content Container -->
-<div class="relative z-0 pt-20">
     <!-- Hero Section with Video -->
     <div class="relative w-full h-96">
         <!-- Video Background -->
