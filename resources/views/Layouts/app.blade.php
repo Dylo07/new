@@ -12,7 +12,7 @@
     @php
         $defaultTitle = 'Soba Lanka Resort - Luxury Cottages in Kurunegala, Sri Lanka';
         $defaultDescription = 'Soba Lanka Resort - Luxury cottage accommodations, swimming pool, games, and exclusive packages for couples, families, and groups in Melsiripura, Kurunegala, Sri Lanka.';
-        $defaultImage = 'https://sobalanka.com/images/restaurant-dish-min.jpg';
+        $defaultImage = 'https://sobalanka.com/images/pool-bg-min.jpg';
         $siteUrl = config('app.url', 'https://sobalanka.com');
         
         $pageTitle = View::hasSection('title') ? View::yieldContent('title') : $defaultTitle;
