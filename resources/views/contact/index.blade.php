@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Contact')
+@section('title', 'Contact Us - Soba Lanka Resort')
+
+@section('meta_description', 'Contact Soba Lanka Resort for bookings and inquiries. Located in Melsiripura, Kurunegala, Sri Lanka. Call us or send a message for luxury cottage reservations.')
 
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">

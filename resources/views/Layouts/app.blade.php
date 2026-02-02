@@ -8,8 +8,39 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title')</title>
-    <meta name="description" content="@yield('meta_description', 'Sobalanka Resort - Luxury cottage accommodations, swimming pool, games, and exclusive packages for couples, families, and groups in Melsiripura, Kurunegala, Sri Lanka')">
+    
+    @php
+        $defaultTitle = 'Soba Lanka Resort - Luxury Cottages in Kurunegala, Sri Lanka';
+        $defaultDescription = 'Soba Lanka Resort - Luxury cottage accommodations, swimming pool, games, and exclusive packages for couples, families, and groups in Melsiripura, Kurunegala, Sri Lanka.';
+        $defaultImage = asset('images/og-image.jpg');
+        $siteUrl = config('app.url', 'https://sobalanka.com');
+        
+        $pageTitle = View::hasSection('title') ? View::yieldContent('title') : $defaultTitle;
+        $pageDescription = View::hasSection('meta_description') ? View::yieldContent('meta_description') : $defaultDescription;
+        $pageImage = View::hasSection('og_image') ? View::yieldContent('og_image') : $defaultImage;
+    @endphp
+    
+    <title>{{ $pageTitle }}</title>
+    <meta name="description" content="{{ $pageDescription }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $pageTitle }}">
+    <meta property="og:description" content="{{ $pageDescription }}">
+    <meta property="og:image" content="{{ $pageImage }}">
+    <meta property="og:site_name" content="Soba Lanka Resort">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $pageTitle }}">
+    <meta name="twitter:description" content="{{ $pageDescription }}">
+    <meta name="twitter:image" content="{{ $pageImage }}">
+    
+    <!-- WhatsApp specific -->
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Modern Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
