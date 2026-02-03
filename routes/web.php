@@ -38,6 +38,9 @@ Route::get('/rates', [RatesController::class, 'index'])->name('rates');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/location', function () {
+    return view('location');
+})->name('location');
 
 // Menu Routes
 Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');

@@ -406,6 +406,7 @@
                     
                     <a href="{{ route('about') }}" class="nav-link text-white hover:text-emerald-500 transition-colors duration-300">About</a>
                     <a href="{{ route('contact') }}" class="nav-link text-white hover:text-emerald-500 transition-colors duration-300">Contact</a>
+                    <a href="{{ route('location') }}" class="nav-link text-white hover:text-emerald-500 transition-colors duration-300">Location</a>
                     
                     @auth
                         <div class="flex items-center gap-4">
@@ -421,6 +422,7 @@
                                 <a href="{{ route('admin.packages.index') }}" class="text-white hover:text-emerald-500 transition-colors duration-300">Manage Packages</a>
                                 <a href="{{ route('admin.gallery.index') }}" class="text-white hover:text-emerald-500 transition-colors duration-300">Manage Galleries</a>
                                 <a href="{{ route('admin.custom-packages.index') }}" class="text-white hover:text-emerald-500 transition-colors duration-300">Custom Packages</a>
+                                <a href="{{ route('admin.menu-categories.index') }}" class="text-white hover:text-emerald-500 transition-colors duration-300">Edit Menu</a>
                             @endif
                             <form action="{{ route('logout') }}" method="POST" class="inline">
                                 @csrf
@@ -496,6 +498,7 @@
                     
                     <a href="{{ route('about') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300">About</a>
                     <a href="{{ route('contact') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300">Contact</a>
+                    <a href="{{ route('location') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300">Location</a>
                     
                     @auth
                         <div class="border-t border-gray-700 pt-4 mt-4">
@@ -511,6 +514,7 @@
                                 <a href="{{ route('admin.packages.index') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300 mb-1">Manage Packages</a>
                                 <a href="{{ route('admin.gallery.index') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300 mb-1">Manage Galleries</a>
                                 <a href="{{ route('admin.custom-packages.index') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300 mb-1">Custom Packages</a>
+                                <a href="{{ route('admin.menu-categories.index') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300 mb-1">Edit Menu</a>
                             @endif
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
