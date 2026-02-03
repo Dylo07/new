@@ -125,19 +125,19 @@
                                         <table role="presentation" style="width: 100%; font-size: 13px;">
                                             <tr>
                                                 <td style="color: #3b82f6; padding: 3px 0;">Account Name:</td>
-                                                <td style="color: #1e3a8a; font-weight: 600;">Soba Lanka Holiday Resort (PVT) LTD</td>
+                                                <td style="color: #1e3a8a; font-weight: 600;">Dilanka Gamlath</td>
                                             </tr>
                                             <tr>
                                                 <td style="color: #3b82f6; padding: 3px 0;">Account Number:</td>
-                                                <td style="color: #1e3a8a; font-weight: 600;">0090201000175926</td>
+                                                <td style="color: #1e3a8a; font-weight: 600;">8160092768</td>
                                             </tr>
                                             <tr>
                                                 <td style="color: #3b82f6; padding: 3px 0;">Bank:</td>
-                                                <td style="color: #1e3a8a; font-weight: 600;">Union Bank of Colombo PLC</td>
+                                                <td style="color: #1e3a8a; font-weight: 600;">Commercial Bank of Ceylon</td>
                                             </tr>
                                             <tr>
                                                 <td style="color: #3b82f6; padding: 3px 0;">Branch:</td>
-                                                <td style="color: #1e3a8a; font-weight: 600;">Kurunegala</td>
+                                                <td style="color: #1e3a8a; font-weight: 600;">Kurunegala (Code: 16)</td>
                                             </tr>
                                         </table>
                                         <p style="color: #dc2626; margin: 15px 0 0 0; font-size: 12px; font-weight: 600;">

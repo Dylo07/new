@@ -34,7 +34,7 @@
                     </thead>
                     <tbody class="divide-y divide-gray-800">
                         @forelse($bookings as $booking)
-                            <tr class="hover:bg-gray-800/50 transition">
+                            <tr class="hover:bg-gray-800/50 transition {{ $booking->status === 'pending' && $booking->payment_status === 'uploaded' ? 'bg-emerald-900/20 border-l-4 border-emerald-500' : '' }}">
                                 <td class="px-6 py-4 text-gray-300">
                                     #{{ $booking->id }}
                                     <div class="text-xs text-gray-500">{{ $booking->created_at->format('M d, Y H:i') }}</div>
@@ -108,13 +108,23 @@
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex items-center justify-end gap-2">
                                         @if($booking->status === 'pending')
-                                            <form action="{{ route('admin.bookings.update', $booking) }}" method="POST">
-                                                @csrf @method('PUT')
-                                                <input type="hidden" name="status" value="confirmed">
-                                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded text-xs" onclick="return confirm('Confirm this booking?')">
-                                                    Confirm
-                                                </button>
-                                            </form>
+                                            {{-- Quick Approve button for bookings with uploaded receipts --}}
+                                            @if($booking->payment_status === 'uploaded' && $booking->payment_receipt)
+                                                <form action="{{ route('admin.bookings.quick-approve', $booking) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white px-4 py-1.5 rounded text-xs font-bold shadow-lg animate-pulse" onclick="return confirm('Quick Approve: Confirm booking AND verify payment?')">
+                                                        ✓ Quick Approve
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('admin.bookings.update', $booking) }}" method="POST">
+                                                    @csrf @method('PUT')
+                                                    <input type="hidden" name="status" value="confirmed">
+                                                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded text-xs" onclick="return confirm('Confirm this booking?')">
+                                                        Confirm
+                                                    </button>
+                                                </form>
+                                            @endif
                                             
                                             <form action="{{ route('admin.bookings.update', $booking) }}" method="POST">
                                                 @csrf @method('PUT')

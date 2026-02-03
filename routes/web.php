@@ -12,6 +12,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\MenuController;
 // Added these two missing controllers
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController; 
@@ -37,6 +38,10 @@ Route::get('/rates', [RatesController::class, 'index'])->name('rates');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// Menu Routes
+Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
+Route::get('/menu/{menu:slug}', [MenuController::class, 'show'])->name('menu.show');
 
 // Package Routes - Updated with new package types
 Route::get('/packages/couple', [PackageController::class, 'couples'])->name('packages.couple');
@@ -88,6 +93,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/bookings/{booking}', [BookingController::class, 'show'])->name('admin.bookings.show');
     Route::put('/admin/bookings/{booking}', [BookingController::class, 'update'])->name('admin.bookings.update');
     Route::delete('/admin/bookings/{booking}', [BookingController::class, 'destroy'])->name('admin.bookings.destroy');
+    Route::post('/admin/bookings/{booking}/quick-approve', [BookingController::class, 'quickApprove'])->name('admin.bookings.quick-approve');
     
     // User Management
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users.index');
@@ -221,4 +227,14 @@ Route::post('/package-builder/calculate-price', [App\Http\Controllers\PackageBui
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('custom-packages', App\Http\Controllers\Admin\CustomPackageController::class);
     Route::post('/custom-packages/{customPackage}/remove-image', [App\Http\Controllers\Admin\CustomPackageController::class, 'removeImage'])->name('custom-packages.remove-image');
+
+    // Menu Categories Management
+    Route::post('/menu-categories/sort', [App\Http\Controllers\Admin\MenuCategoryController::class, 'updateSortOrder'])->name('menu-categories.sort');
+    Route::resource('menu-categories', App\Http\Controllers\Admin\MenuCategoryController::class);
+    Route::patch('/menu-categories/{menuCategory}/toggle-status', [App\Http\Controllers\Admin\MenuCategoryController::class, 'toggleStatus'])->name('menu-categories.toggle-status');
+    Route::post('/menu-categories/{menuCategory}/remove-image', [App\Http\Controllers\Admin\MenuCategoryController::class, 'removeImage'])->name('menu-categories.remove-image');
+    Route::post('/menu-categories/{menuCategory}/remove-menu-image', [App\Http\Controllers\Admin\MenuCategoryController::class, 'removeMenuImage'])->name('menu-categories.remove-menu-image');
+    Route::post('/menu-categories/{menuCategory}/upload-images', [App\Http\Controllers\Admin\MenuCategoryController::class, 'uploadMenuImages'])->name('menu-categories.upload-images');
+    Route::delete('/menu-images/{menuImage}', [App\Http\Controllers\Admin\MenuCategoryController::class, 'deleteMenuImage'])->name('menu-images.delete');
+    Route::post('/menu-categories/{menuCategory}/reorder-images', [App\Http\Controllers\Admin\MenuCategoryController::class, 'updateMenuImageOrder'])->name('menu-categories.reorder-images');
 });

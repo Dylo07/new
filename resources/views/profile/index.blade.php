@@ -170,9 +170,9 @@
                                             <!-- Bank Details Reminder -->
                                             <div class="mt-3 p-2 bg-yellow-500/10 border border-yellow-500/30 rounded text-xs">
                                                 <p class="text-yellow-400 font-medium mb-1">Bank Details:</p>
-                                                <p class="text-gray-400">Soba Lanka Holiday Resort (PVT) LTD</p>
-                                                <p class="text-gray-400">ACC: 0090201000175926</p>
-                                                <p class="text-gray-400">Union Bank - Kurunegala</p>
+                                                <p class="text-gray-400">Dilanka Gamlath</p>
+                                                <p class="text-gray-400">ACC: 8160092768</p>
+                                                <p class="text-gray-400">Commercial Bank - Kurunegala (Code: 16)</p>
                                             </div>
                                         @endif
                                     </div>
@@ -314,10 +314,10 @@
                         Bank Details for Payment
                     </h4>
                     <div class="text-xs text-gray-400 space-y-1">
-                        <p><span class="text-gray-500">Name:</span> Soba Lanka Holiday Resort (PVT) LTD</p>
-                        <p><span class="text-gray-500">ACC:</span> <span class="text-white font-mono">0090201000175926</span></p>
-                        <p><span class="text-gray-500">Bank:</span> Union Bank of Colombo PLC</p>
-                        <p><span class="text-gray-500">Branch:</span> Kurunegala</p>
+                        <p><span class="text-gray-500">Name:</span> Dilanka Gamlath</p>
+                        <p><span class="text-gray-500">ACC:</span> <span class="text-white font-mono">8160092768</span></p>
+                        <p><span class="text-gray-500">Bank:</span> Commercial Bank of Ceylon</p>
+                        <p><span class="text-gray-500">Branch:</span> Kurunegala (Code: 16)</p>
                     </div>
                 </div>
 

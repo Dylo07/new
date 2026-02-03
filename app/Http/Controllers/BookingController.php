@@ -9,6 +9,7 @@ use App\Models\CustomPackage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingConfirmation;
 use App\Mail\AdminBookingNotification;
+use App\Mail\ReceiptUploadedNotification;
 
 class BookingController extends Controller
 {
@@ -213,6 +214,15 @@ class BookingController extends Controller
                 'payment_status' => 'uploaded'
             ]);
 
+            // Send email notification to admin about receipt upload
+            try {
+                $booking->load(['user', 'customPackage']);
+                $adminEmail = config('mail.admin_email');
+                Mail::to($adminEmail)->send(new ReceiptUploadedNotification($booking));
+            } catch (\Exception $e) {
+                \Log::error('Receipt upload notification email failed: ' . $e->getMessage());
+            }
+
             return redirect()->back()->with('success', 'Payment receipt uploaded successfully!');
         } catch (\Exception $e) {
             \Log::error('Receipt upload failed: ' . $e->getMessage());
@@ -224,8 +234,13 @@ class BookingController extends Controller
     public function index()
     {
         // Fetch all bookings with their related User and Package data
-        // Ordered by newest first
+        // Prioritize: pending bookings with uploaded receipts first, then by date
         $bookings = Booking::with(['user', 'customPackage', 'room'])
+            ->orderByRaw("CASE 
+                WHEN status = 'pending' AND payment_status = 'uploaded' THEN 0 
+                WHEN status = 'pending' THEN 1 
+                ELSE 2 
+            END")
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
@@ -242,6 +257,17 @@ class BookingController extends Controller
         $booking->update(['status' => $validated['status']]);
 
         return redirect()->back()->with('success', 'Booking status updated successfully.');
+    }
+
+    // --- Admin: Quick Approve (Confirm + Verify Payment in one click) ---
+    public function quickApprove(Booking $booking)
+    {
+        $booking->update([
+            'status' => 'confirmed',
+            'payment_status' => 'verified'
+        ]);
+
+        return redirect()->back()->with('success', 'Booking #' . $booking->id . ' approved and payment verified!');
     }
     
     // --- Admin: Delete Booking ---

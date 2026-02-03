@@ -95,19 +95,19 @@
                         <div class="space-y-2 text-gray-300 mb-4">
                             <div class="flex justify-between">
                                 <span class="text-gray-400">Account Name</span>
-                                <span>Soba Lanka Holiday Resort (PVT) LTD</span>
+                                <span>Dilanka Gamlath</span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-400">Account Number</span>
-                                <span class="font-mono font-bold">0090201000175926</span>
+                                <span class="font-mono font-bold">8160092768</span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-400">Bank</span>
-                                <span>Union Bank of Colombo PLC</span>
+                                <span>Commercial Bank of Ceylon</span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-400">Branch</span>
-                                <span>Kurunegala</span>
+                                <span>Kurunegala (Code: 16)</span>
                             </div>
                         </div>
 
