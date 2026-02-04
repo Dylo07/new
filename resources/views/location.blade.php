@@ -80,7 +80,7 @@
                     <!-- Static Roadmap Image -->
                     <div class="p-4 md:p-6 flex flex-col items-center">
                         <div class="w-full" style="max-width: 800px;">
-                            <img src="{{ asset('images/roadmap-guide.jpg') }}" 
+                            <img src="{{ asset('images/roadmap-guide1.jpg') }}" 
                                  alt="Soba Lanka Resort Location Map - A6 Highway Dambulla Road" 
                                  class="w-full h-auto rounded-xl border border-gray-700">
                         </div>
