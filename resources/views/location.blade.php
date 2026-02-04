@@ -68,7 +68,7 @@
                 </a>
             </div>
 
-            <!-- Map Card -->
+            <!-- Regional Map Image -->
             <div class="max-w-4xl mx-auto mb-10">
                 <div class="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 shadow-2xl">
                     <div class="p-4 md:p-6 border-b border-gray-800">
@@ -77,16 +77,16 @@
                             Our Location
                         </h2>
                     </div>
-                    <!-- Responsive Google Map Iframe -->
-                    <div class="relative w-full h-64 md:h-96">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.8!2d80.4833!3d7.6167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae33a0e8e8e8e8e%3A0x8e8e8e8e8e8e8e8e!2sSoba%20Lanka%20Holiday%20Resort!5e0!3m2!1sen!2slk!4v1700000000000!5m2!1sen!2slk"
-                            class="absolute inset-0 w-full h-full"
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                    <!-- Static Roadmap Image -->
+                    <div class="p-4 md:p-6 flex flex-col items-center">
+                        <div class="w-full" style="max-width: 800px;">
+                            <img src="{{ asset('images/roadmap-guide.jpg') }}" 
+                                 alt="Soba Lanka Resort Location Map - A6 Highway Dambulla Road" 
+                                 class="w-full h-auto rounded-xl border border-gray-700">
+                        </div>
+                        <p class="text-gray-500 text-sm mt-4 text-center italic">
+                            Regional View: Located on the main A6 Highway (Dambulla Road), just past Kurunegala.
+                        </p>
                     </div>
                 </div>
             </div>
