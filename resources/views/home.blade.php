@@ -4,6 +4,57 @@
 
 @section('meta_description', 'Soba Lanka Resort - Experience luxury cottage accommodations, swimming pool, games, and exclusive packages for couples, families, and groups in Melsiripura, Kurunegala, Sri Lanka.')
 
+@section('faq_schema')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How many people can be accommodated at Soba Lanka Holiday Resort?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our hotel offers accommodation for a maximum of 100 guests. Nestled within a 10-acre area surrounded by beautiful nature, we have a variety of cottages and rooms, totaling over 30 available."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What amenities are available at Soba Lanka Resort?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our hotel offers a swimming pool, restaurant and bar, conference room and banquet hall, room service, indoor and outdoor games, BBQ area, wedding venue, and free parking."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What packages does Soba Lanka Resort offer?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We offer day-out packages, night-stay packages (half board and full board), couple packages, family packages, group packages, wedding packages, engagement packages, birthday packages, and honeymoon packages."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How to reserve Soba Lanka Holiday Resort?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can book online through our website using the Package Builder, call us at +94 71 715 2955, or message us on WhatsApp. You can also visit us at Balawattala Road, Melsiripura, Kurunegala."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What are the check-in and check-out times?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Day Out packages: 9:00 AM to 5:00 PM. Night Stay Half Board: 3:00 PM to 10:00 AM. Night Stay Full Board: 3:00 PM to 3:00 PM next day."
+            }
+        }
+    ]
+}
+</script>
+@endsection
+
 @section('content')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Hero Section -->
@@ -654,7 +705,7 @@
                                                         <p class="text-gray-400">ONLY FOR</p>
                                                         <p class="text-white text-xl font-semibold">Rs.10,500</p>
                                                     </div>
-                                                    <a href="https://wa.me/94717152955"
+                                                    <a href="{{ route('package-builder') }}?adults=2&category=couple&package_type=half_board"
                                                         class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                                         BOOK NOW
                                                     </a>
@@ -685,7 +736,7 @@
                                                         <p class="text-gray-400">ONLY FOR</p>
                                                         <p class="text-white text-xl font-semibold">Rs.7,500</p>
                                                     </div>
-                                                    <a href="https://wa.me/94717152955"
+                                                    <a href="{{ route('package-builder') }}?adults=2&category=couple&package_type=day_out"
                                                         class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                                         BOOK NOW
                                                     </a>
@@ -720,7 +771,7 @@
                                                         <p class="text-gray-400">ONLY FOR</p>
                                                         <p class="text-white text-xl font-semibold">Rs.12,500</p>
                                                     </div>
-                                                    <a href="https://wa.me/94717152955"
+                                                    <a href="{{ route('package-builder') }}?adults=2&category=couple&package_type=full_board"
                                                         class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                                         BOOK NOW
                                                     </a>
@@ -775,7 +826,7 @@
                                                     <p class="text-gray-400">ONLY FOR</p>
                                                     <p class="text-white text-xl font-semibold">Rs.4,500/-</p>
                                                 </div>
-                                                <a href="https://wa.me/94717152955"
+                                                <a href="{{ route('package-builder') }}?adults=4&category=family&package_type=half_board"
                                                     class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                                     BOOK NOW
                                                 </a>
@@ -808,7 +859,7 @@
                                                     <p class="text-gray-400">ONLY FOR</p>
                                                     <p class="text-white text-xl font-semibold">Rs.2,500/-</p>
                                                 </div>
-                                                <a href="https://wa.me/94717152955"
+                                                <a href="{{ route('package-builder') }}?adults=4&category=family&package_type=day_out"
                                                     class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                                     BOOK NOW
                                                 </a>
@@ -844,7 +895,7 @@
                                                     <p class="text-gray-400">ONLY FOR</p>
                                                     <p class="text-white text-xl font-semibold">Rs.5,500/-</p>
                                                 </div>
-                                                <a href="https://wa.me/94717152955"
+                                                <a href="{{ route('package-builder') }}?adults=4&category=family&package_type=full_board"
                                                     class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                                     BOOK NOW
                                                 </a>
@@ -899,7 +950,7 @@
                                                         <p class="text-gray-400">ONLY FOR</p>
                                                         <p class="text-white text-xl font-semibold">Rs.4,500</p>
                                                     </div>
-                                                    <a href="https://wa.me/94717152955"
+                                                    <a href="{{ route('package-builder') }}?adults=10&category=group&package_type=half_board"
                                                         class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                                         BOOK NOW
                                                     </a>
@@ -932,9 +983,9 @@
                                                 <div class="flex items-center justify-between">
                                                     <div>
                                                         <p class="text-gray-400">ONLY FOR</p>
-                                                        <p class="text-white text-xl font-semibold">Rs.5,500/p>
+                                                        <p class="text-white text-xl font-semibold">Rs.5,500</p>
                                                     </div>
-                                                    <a href="https://wa.me/94717152955"
+                                                    <a href="{{ route('package-builder') }}?adults=10&category=group&package_type=full_board"
                                                         class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                                         BOOK NOW
                                                     </a>
@@ -965,7 +1016,7 @@
                                                         <p class="text-gray-400">ONLY FOR</p>
                                                         <p class="text-white text-xl font-semibold">Rs.2,490</p>
                                                     </div>
-                                                    <a href="https://wa.me/94717152955"
+                                                    <a href="{{ route('package-builder') }}?adults=10&category=group&package_type=day_out"
                                                         class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
                                                         BOOK NOW
                                                     </a>
@@ -1120,7 +1171,7 @@
                                                             class="bg-emerald-900/20 p-8 rounded-xl text-center border border-emerald-500/30">
                                                             <p class="text-emerald-400 mb-2 text-lg">Special Discount</p>
                                                             <p class="text-white text-6xl font-bold mb-2">25%</p>
-                                                            <p class="text-gray-400">Valid till May 2025</p>
+                                                            <p class="text-gray-400">Limited Time Offer</p>
                                                         </div>
 
                                                         <!-- Contact Button -->
@@ -1264,6 +1315,131 @@
                                     </div>
 
 
+
+                                    <!-- Guest Testimonials / Social Proof Section -->
+                                    <section class="relative z-10 bg-black py-24">
+                                        <div class="container mx-auto px-4">
+                                            <div class="text-center mb-16">
+                                                <p class="text-emerald-400 mb-4 text-lg">What Our Guests Say</p>
+                                                <h2 class="text-white text-4xl font-light mb-4">Trusted by 365+ Happy Guests</h2>
+                                                <div class="flex items-center justify-center gap-2 mb-4">
+                                                    <div class="flex text-yellow-400">
+                                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-6 h-6 text-yellow-400/50" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                    </div>
+                                                    <span class="text-white text-2xl font-bold">4.2</span>
+                                                    <span class="text-gray-400">on Google</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                                                <!-- Testimonial 1 -->
+                                                <div class="glass-card rounded-2xl p-8 relative">
+                                                    <div class="absolute top-6 right-6 text-emerald-500 opacity-20">
+                                                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+                                                    </div>
+                                                    <div class="flex text-yellow-400 mb-4">
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                    </div>
+                                                    <p class="text-gray-300 mb-6 leading-relaxed">
+                                                        "Amazing place surrounded by nature. The cottages are spacious and clean. Swimming pool was great, and the food was delicious. Perfect for a family getaway!"
+                                                    </p>
+                                                    <div class="flex items-center gap-3">
+                                                        <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold">N</div>
+                                                        <div>
+                                                            <p class="text-white font-medium text-sm">Nimal Perera</p>
+                                                            <p class="text-gray-500 text-xs">Family Package Guest</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Testimonial 2 -->
+                                                <div class="glass-card rounded-2xl p-8 relative">
+                                                    <div class="absolute top-6 right-6 text-emerald-500 opacity-20">
+                                                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+                                                    </div>
+                                                    <div class="flex text-yellow-400 mb-4">
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                    </div>
+                                                    <p class="text-gray-300 mb-6 leading-relaxed">
+                                                        "We had our wedding at Soba Lanka and it was absolutely magical. The banquet hall, decorations, and food were top-notch. The staff went above and beyond!"
+                                                    </p>
+                                                    <div class="flex items-center gap-3">
+                                                        <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">S</div>
+                                                        <div>
+                                                            <p class="text-white font-medium text-sm">Sanduni & Kasun</p>
+                                                            <p class="text-gray-500 text-xs">Wedding Package Guests</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Testimonial 3 -->
+                                                <div class="glass-card rounded-2xl p-8 relative">
+                                                    <div class="absolute top-6 right-6 text-emerald-500 opacity-20">
+                                                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+                                                    </div>
+                                                    <div class="flex text-yellow-400 mb-4">
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                    </div>
+                                                    <p class="text-gray-300 mb-6 leading-relaxed">
+                                                        "Best value for money in the Kurunegala area. We booked the group package for our office trip - 15 people had an incredible time. BBQ night was the highlight!"
+                                                    </p>
+                                                    <div class="flex items-center gap-3">
+                                                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">R</div>
+                                                        <div>
+                                                            <p class="text-white font-medium text-sm">Ravindu Silva</p>
+                                                            <p class="text-gray-500 text-xs">Group Package Guest</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Trust Badges -->
+                                            <div class="flex flex-wrap justify-center items-center gap-8 mt-8">
+                                                <div class="text-center">
+                                                    <p class="text-emerald-400 text-3xl font-bold">365+</p>
+                                                    <p class="text-gray-400 text-sm">Google Reviews</p>
+                                                </div>
+                                                <div class="w-px h-12 bg-gray-700 hidden md:block"></div>
+                                                <div class="text-center">
+                                                    <p class="text-emerald-400 text-3xl font-bold">10+</p>
+                                                    <p class="text-gray-400 text-sm">Acres of Nature</p>
+                                                </div>
+                                                <div class="w-px h-12 bg-gray-700 hidden md:block"></div>
+                                                <div class="text-center">
+                                                    <p class="text-emerald-400 text-3xl font-bold">30+</p>
+                                                    <p class="text-gray-400 text-sm">Rooms & Cottages</p>
+                                                </div>
+                                                <div class="w-px h-12 bg-gray-700 hidden md:block"></div>
+                                                <div class="text-center">
+                                                    <p class="text-emerald-400 text-3xl font-bold">100+</p>
+                                                    <p class="text-gray-400 text-sm">Guest Capacity</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-center mt-12">
+                                                <a href="https://maps.app.goo.gl/3UzGke3yVHaBMU7WA" target="_blank" class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors border-b border-emerald-400/30 hover:border-emerald-300 pb-1">
+                                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                                    Read All Reviews on Google
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </section>
 
                                     <!-- Location Section -->
                                     <section class="relative z-10 bg-black py-16">

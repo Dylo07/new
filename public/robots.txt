@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /profile
+Disallow: /my-bookings
+Allow: /
+
+Sitemap: https://sobalanka.com/sitemap.xml
