@@ -106,6 +106,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // --- ADD THIS LINE BELOW ---
     Route::patch('/admin/users/{user}/toggle-admin', [UserController::class, 'toggleAdmin'])->name('admin.users.toggle-admin');
 
+    // Leads / CRM Management
+    Route::get('/admin/leads', [App\Http\Controllers\Admin\LeadController::class, 'index'])->name('admin.leads.index');
+    Route::post('/admin/leads', [App\Http\Controllers\Admin\LeadController::class, 'store'])->name('admin.leads.store');
+    Route::put('/admin/leads/{lead}', [App\Http\Controllers\Admin\LeadController::class, 'update'])->name('admin.leads.update');
+    Route::delete('/admin/leads/{lead}', [App\Http\Controllers\Admin\LeadController::class, 'destroy'])->name('admin.leads.destroy');
+    Route::post('/admin/leads/{lead}/follow-up', [App\Http\Controllers\Admin\LeadController::class, 'markFollowedUp'])->name('admin.leads.follow-up');
+    Route::post('/admin/leads/mark-stale', [App\Http\Controllers\Admin\LeadController::class, 'markStaleAsAbandoned'])->name('admin.leads.mark-stale');
+
     // Dashboard
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
@@ -120,6 +128,10 @@ Route::middleware(['auth'])->group(function () {
 // --- Package Builder Processing (Public) ---
 Route::post('/package-builder/proceed', [App\Http\Controllers\PackageBuilderController::class, 'proceedToBooking'])
     ->name('package-builder.proceed');
+
+// --- Lead Tracking API (Public, no auth required) ---
+Route::post('/api/leads/track', [App\Http\Controllers\LeadTrackingController::class, 'track'])
+    ->name('leads.track');
 
 // --- Booking Confirmation (Protected - Requires Login) ---
 Route::middleware(['auth'])->group(function () {

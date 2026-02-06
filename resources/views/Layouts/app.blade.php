@@ -459,6 +459,7 @@
                             @if(auth()->user()->is_admin)
                                 <span class="bg-emerald-500 px-2 py-1 rounded text-sm text-white">Admin</span>
                                 <a href="{{ route('admin.bookings.index') }}" class="text-white hover:text-emerald-500 transition-colors duration-300 font-bold">Manage Bookings</a>
+                                <a href="{{ route('admin.leads.index') }}" class="text-white hover:text-emerald-500 transition-colors duration-300 font-bold">Leads CRM</a>
                                 
                                 <a href="{{ route('admin.users.index') }}" class="text-white hover:text-emerald-500 transition-colors duration-300">Manage Users</a>
                                 <a href="{{ route('admin.packages.index') }}" class="text-white hover:text-emerald-500 transition-colors duration-300">Manage Packages</a>
@@ -557,6 +558,7 @@
                             @if(auth()->user()->is_admin)
                                 <span class="bg-emerald-500 px-2 py-1 rounded text-sm text-white inline-block mb-2">Admin</span>
                                 <a href="{{ route('admin.bookings.index') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300 mb-1 font-bold">Manage Bookings</a>
+                                <a href="{{ route('admin.leads.index') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300 mb-1 font-bold">Leads CRM</a>
 
                                 <a href="{{ route('admin.users.index') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300 mb-1">Manage Users</a>
                                 <a href="{{ route('admin.packages.index') }}" class="block text-white hover:text-emerald-500 transition-colors duration-300 mb-1">Manage Packages</a>

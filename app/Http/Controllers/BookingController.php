@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingConfirmation;
 use App\Mail\AdminBookingNotification;
 use App\Mail\ReceiptUploadedNotification;
+use App\Models\Lead;
 
 class BookingController extends Controller
 {
@@ -126,6 +127,20 @@ class BookingController extends Controller
                 'children' => $data['children'] ?? 0
             ]
         ]);
+
+        // Mark any matching lead as converted
+        try {
+            $lead = Lead::where('user_id', auth()->id())
+                ->whereIn('status', ['started', 'browsing', 'reviewed', 'paid'])
+                ->orderBy('updated_at', 'desc')
+                ->first();
+
+            if ($lead) {
+                $lead->markAsConverted($booking->id);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Lead conversion tracking failed: ' . $e->getMessage());
+        }
 
         // Send email notification to customer
         $user = auth()->user();

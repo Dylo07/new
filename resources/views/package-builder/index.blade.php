@@ -437,6 +437,32 @@ let currentRooms = {
 let additionalRoomCharge = 0;
 let selectedPackageType = null;
 let numberOfNights = calculateNights();
+let leadSessionId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+// --- Lead Tracking Helper ---
+function trackLead(event, extraData = {}) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const payload = {
+        event: event,
+        session_id: leadSessionId,
+        category: urlParams.get('category') || extraData.category || null,
+        package_type: selectedPackageType || urlParams.get('package_type') || null,
+        adults: currentAdults,
+        children: currentChildren,
+        check_in: urlParams.get('check_in') || null,
+        check_out: urlParams.get('check_out') || null,
+        ...extraData
+    };
+
+    fetch("{{ route('leads.track') }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(payload)
+    }).catch(err => console.log('Lead tracking error:', err));
+}
 
 // Calculate number of nights from URL parameters
 function calculateNights() {
@@ -472,6 +498,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('step0').classList.add('hidden');
         document.getElementById('step1').classList.remove('hidden');
     }
+
+    // Track lead: visitor started the package builder
+    trackLead('started');
     
     // Handle date selection form submission
     const dateForm = document.getElementById('dateSelectionForm');
@@ -560,6 +589,7 @@ function updateGuestCount() {
 
 function proceedToRooms() {
     updateGuestCount();
+    trackLead('browsing');
     
     if (currentAdults < 1) {
         alert('Please enter at least 1 adult.');
@@ -916,6 +946,7 @@ function createPackageCard(package, adults, children) {
 }
 
 function selectPackage(packageId) {
+    trackLead('package_selected', { package_id: packageId });
     // Show loading
     const button = event.target;
     button.textContent = 'Loading...';
@@ -1040,6 +1071,13 @@ function proceedToBooking() {
         alert("An error occurred. Please select a package again.");
         return;
     }
+
+    // Track lead: user proceeding to booking
+    trackLead('reviewed', {
+        package_id: selectedPackage.package.id,
+        package_name: selectedPackage.package.name || '',
+        estimated_value: selectedPackage.calculatedTotal || selectedPackage.total
+    });
 
     // 2. Prepare the data
     const payload = {
