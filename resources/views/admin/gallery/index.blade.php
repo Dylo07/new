@@ -1,12 +1,12 @@
 <!-- resources/views/admin/gallery/index.blade.php -->
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', 'Manage Galleries')
+@section('title', 'Galleries')
+@section('page_title', 'Gallery Manager')
+@section('page_subtitle', 'Manage gallery images across all categories')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-        <h1 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Manage Gallery Images</h1>
+    <div class="bg-gray-900 rounded-xl border border-gray-800 p-6">
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <!-- General Room Gallery Card -->
@@ -130,5 +130,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

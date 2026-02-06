@@ -1,34 +1,23 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'Edit ' . $menuCategory->name)
+@section('page_title', 'Edit Menu Category')
+@section('page_subtitle', $menuCategory->name)
+
+@section('page_actions')
+    <a href="{{ route('admin.menu-categories.index') }}" class="text-gray-400 hover:text-white transition text-sm">
+        <i class="fas fa-arrow-left mr-1"></i> Back to Categories
+    </a>
+@endsection
 
 @section('content')
-<div class="min-h-screen bg-black py-12">
-    <div class="container mx-auto px-4">
-        
-        <div class="flex items-center gap-4 mb-8">
-            <a href="{{ route('admin.menu-categories.index') }}" class="text-gray-400 hover:text-white transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-            </a>
-            <div>
-                <h1 class="text-3xl font-light text-white">Edit Menu Category</h1>
-                <p class="text-gray-400 mt-1">{{ $menuCategory->name }}</p>
-            </div>
-        </div>
-
         @if($errors->any())
-            <div class="bg-red-500/10 border border-red-500 text-red-500 px-4 py-3 rounded mb-6">
-                <ul class="list-disc list-inside">
+            <div class="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg mb-6">
+                <ul class="list-disc list-inside text-sm">
                     @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
-            </div>
-        @endif
-
-        @if(session('success'))
-            <div class="bg-emerald-500/10 border border-emerald-500 text-emerald-500 px-4 py-3 rounded mb-6">
-                {{ session('success') }}
             </div>
         @endif
 
@@ -292,9 +281,8 @@
             </div>
         </div>
     </div>
-</div>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+@push('scripts')
 <script>
 function addFeature() {
     const container = document.getElementById('features-container');
@@ -352,4 +340,5 @@ function deleteMenuImage(imageId) {
     });
 }
 </script>
+@endpush
 @endsection

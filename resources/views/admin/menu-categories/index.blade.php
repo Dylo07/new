@@ -1,30 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'Menu Manager')
+@section('page_title', 'Menu Categories')
+@section('page_subtitle', 'Manage food & beverage menu categories')
+
+@section('page_actions')
+    <a href="{{ route('admin.menu-categories.create') }}" 
+       class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition">
+        <i class="fas fa-plus"></i> Add Category
+    </a>
+@endsection
 
 @section('content')
-<div class="min-h-screen bg-black py-12">
-    <div class="container mx-auto px-4">
-        
-        <div class="flex justify-between items-center mb-8">
-            <div>
-                <h1 class="text-3xl font-light text-white">Menu Categories</h1>
-                <p class="text-gray-400 mt-1">Manage food & beverage menu categories</p>
-            </div>
-            <a href="{{ route('admin.menu-categories.create') }}" 
-               class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                </svg>
-                Add Category
-            </a>
-        </div>
-
-        @if(session('success'))
-            <div class="bg-emerald-500/10 border border-emerald-500 text-emerald-500 px-4 py-3 rounded mb-6">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        <div class="bg-gray-900 rounded-lg border border-gray-800 overflow-hidden">
+        <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
             @if($categories->count() > 0)
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
@@ -136,29 +124,30 @@
             <i class="fas fa-info-circle mr-1"></i>
             Drag and drop rows to reorder categories. Changes are saved automatically.
         </div>
-    </div>
-</div>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+@push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const sortable = new Sortable(document.getElementById('sortable-categories'), {
-        animation: 150,
-        handle: 'td:first-child',
-        onEnd: function() {
-            const ids = Array.from(document.querySelectorAll('#sortable-categories tr')).map(row => row.dataset.id);
-            
-            fetch('{{ route("admin.menu-categories.sort") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ categories: ids })
-            });
-        }
-    });
+    const el = document.getElementById('sortable-categories');
+    if (el) {
+        new Sortable(el, {
+            animation: 150,
+            handle: 'td:first-child',
+            onEnd: function() {
+                const ids = Array.from(document.querySelectorAll('#sortable-categories tr')).map(row => row.dataset.id);
+                fetch('{{ route("admin.menu-categories.sort") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ categories: ids })
+                });
+            }
+        });
+    }
 });
 </script>
+@endpush
 @endsection

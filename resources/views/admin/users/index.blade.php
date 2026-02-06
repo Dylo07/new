@@ -1,43 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'User Management')
+@section('title', 'Users')
+@section('page_title', 'User Management')
+@section('page_subtitle', 'Total: ' . $users->total() . ' registered users')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-8">
-        <div>
-            <h1 class="text-3xl font-bold text-white mb-2">User Management</h1>
-            <p class="text-gray-400">Manage all registered users</p>
-        </div>
-        <div class="text-white">
-            <span class="text-2xl font-bold">{{ $users->total() }}</span>
-            <span class="text-gray-400 ml-2">Total Users</span>
-        </div>
-    </div>
-
-    <!-- Success/Error Messages -->
-    @if(session('success'))
-        <div class="bg-emerald-500 text-white px-6 py-4 rounded-lg mb-6 flex items-center justify-between">
-            <span>{{ session('success') }}</span>
-            <button onclick="this.parentElement.remove()" class="text-white hover:text-gray-200">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                </svg>
-            </button>
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="bg-red-500 text-white px-6 py-4 rounded-lg mb-6 flex items-center justify-between">
-            <span>{{ session('error') }}</span>
-            <button onclick="this.parentElement.remove()" class="text-white hover:text-gray-200">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                </svg>
-            </button>
-        </div>
-    @endif
 
     <!-- Users Table -->
     <div class="bg-gray-900 rounded-lg shadow-xl overflow-hidden">
@@ -172,19 +139,4 @@
             </div>
         </div>
     </div>
-</div>
-
-@push('scripts')
-<script>
-    // Auto-hide success/error messages after 5 seconds
-    setTimeout(function() {
-        const alerts = document.querySelectorAll('.bg-emerald-500, .bg-red-500');
-        alerts.forEach(alert => {
-            alert.style.transition = 'opacity 0.5s';
-            alert.style.opacity = '0';
-            setTimeout(() => alert.remove(), 500);
-        });
-    }, 5000);
-</script>
-@endpush
 @endsection

@@ -1,23 +1,22 @@
 {{-- resources/views/admin/packages/index.blade.php --}}
 @extends('layouts.admin')
 
-@section('title', 'Manage Packages')
+@section('title', 'Packages')
+@section('page_title', 'Manage Packages')
+@section('page_subtitle', 'Create, edit, and organize your hotel packages')
+
+@section('page_actions')
+    <button id="sortModeBtn" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition text-sm font-medium">
+        <i class="fas fa-sort mr-1"></i>Sort Mode
+    </button>
+    <a href="{{ route('admin.packages.create') }}" 
+       class="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition text-sm font-medium">
+        <i class="fas fa-plus mr-1"></i>Add Package
+    </a>
+@endsection
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-800">Manage Packages</h1>
-        <div class="flex gap-4">
-            <button id="sortModeBtn" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300">
-                <i class="fas fa-sort mr-2"></i>Sort Mode
-            </button>
-            <a href="{{ route('admin.packages.create') }}" 
-               class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300">
-                <i class="fas fa-plus mr-2"></i>Add New Package
-            </a>
-        </div>
-    </div>
-
     @if(session('success'))
         <div class="bg-emerald-100 border border-emerald-400 text-emerald-700 px-4 py-3 rounded mb-6" role="alert">
             <span class="block sm:inline">{{ session('success') }}</span>

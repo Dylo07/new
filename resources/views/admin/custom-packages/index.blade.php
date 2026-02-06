@@ -1,23 +1,17 @@
 @extends('layouts.admin')
 
-@section('title', 'Custom Packages Management')
+@section('title', 'Custom Packages')
+@section('page_title', 'Custom Packages')
+@section('page_subtitle', 'Manage package builder packages')
+
+@section('page_actions')
+    <a href="{{ route('admin.custom-packages.create') }}" 
+       class="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition text-sm font-medium">
+        <i class="fas fa-plus mr-1"></i>Add Package
+    </a>
+@endsection
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-gray-900">Custom Packages</h1>
-        <a href="{{ route('admin.custom-packages.create') }}" 
-           class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition-colors duration-300">
-            <i class="fas fa-plus mr-2"></i>Add New Package
-        </a>
-    </div>
-
-    @if(session('success'))
-        <div class="bg-emerald-100 border border-emerald-400 text-emerald-700 px-4 py-3 rounded mb-4">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <div class="bg-white shadow-sm rounded-lg overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
@@ -122,5 +116,4 @@
             </div>
         @endif
     </div>
-</div>
 @endsection

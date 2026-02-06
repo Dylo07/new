@@ -1,23 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'Bookings')
+@section('page_title', 'Booking Management')
+@section('page_subtitle', 'Total: ' . $bookings->total() . ' bookings')
 
 @section('content')
-<div class="min-h-screen bg-black py-12">
-    <div class="container mx-auto px-4">
-        
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-light text-white">Booking Management</h1>
-            <div class="text-gray-400">
-                Total Bookings: <span class="text-white font-bold">{{ $bookings->total() }}</span>
-            </div>
-        </div>
-
-        @if(session('success'))
-            <div class="bg-emerald-500/10 border border-emerald-500 text-emerald-500 px-4 py-3 rounded mb-6">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        <div class="bg-gray-900 rounded-lg border border-gray-800 overflow-hidden">
+        <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead>
@@ -161,6 +149,4 @@
                 {{ $bookings->links() }}
             </div>
         </div>
-    </div>
-</div>
 @endsection

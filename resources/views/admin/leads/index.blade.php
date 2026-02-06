@@ -1,46 +1,30 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', 'Leads & CRM Dashboard')
+@section('title', 'Leads CRM')
+@section('page_title', 'Leads & CRM')
+@section('page_subtitle', 'Track visitor interest, abandoned bookings, and follow-up actions')
+
+@section('page_actions')
+    <form method="GET" class="flex items-center gap-2">
+        <select name="period" onchange="this.form.submit()" class="bg-gray-800 text-white border border-gray-700 rounded px-3 py-2 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+            <option value="7" {{ $period == 7 ? 'selected' : '' }}>Last 7 days</option>
+            <option value="30" {{ $period == 30 ? 'selected' : '' }}>Last 30 days</option>
+            <option value="90" {{ $period == 90 ? 'selected' : '' }}>Last 90 days</option>
+            <option value="365" {{ $period == 365 ? 'selected' : '' }}>Last year</option>
+        </select>
+    </form>
+    <button onclick="document.getElementById('addLeadModal').classList.remove('hidden')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded text-sm font-medium transition">
+        + Add Lead
+    </button>
+    <form action="{{ route('admin.leads.mark-stale') }}" method="POST">
+        @csrf
+        <button type="submit" class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded text-sm border border-gray-700 transition" onclick="return confirm('Mark all leads inactive for 2+ hours as abandoned?')">
+            Clean Stale
+        </button>
+    </form>
+@endsection
 
 @section('content')
-<div class="min-h-screen bg-black py-12">
-    <div class="container mx-auto px-4">
-
-        {{-- Header --}}
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-            <div>
-                <h1 class="text-3xl font-light text-white">Leads & CRM</h1>
-                <p class="text-gray-400 mt-1">Track visitor interest, abandoned bookings, and follow-up actions</p>
-            </div>
-            <div class="flex items-center gap-3">
-                {{-- Period selector --}}
-                <form method="GET" class="flex items-center gap-2">
-                    <select name="period" onchange="this.form.submit()" class="bg-gray-800 text-white border border-gray-700 rounded px-3 py-2 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
-                        <option value="7" {{ $period == 7 ? 'selected' : '' }}>Last 7 days</option>
-                        <option value="30" {{ $period == 30 ? 'selected' : '' }}>Last 30 days</option>
-                        <option value="90" {{ $period == 90 ? 'selected' : '' }}>Last 90 days</option>
-                        <option value="365" {{ $period == 365 ? 'selected' : '' }}>Last year</option>
-                    </select>
-                </form>
-                {{-- Add Manual Lead --}}
-                <button onclick="document.getElementById('addLeadModal').classList.remove('hidden')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded text-sm font-medium transition">
-                    + Add Lead
-                </button>
-                {{-- Mark Stale --}}
-                <form action="{{ route('admin.leads.mark-stale') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded text-sm border border-gray-700 transition" onclick="return confirm('Mark all leads inactive for 2+ hours as abandoned?')">
-                        Clean Stale
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        @if(session('success'))
-            <div class="bg-emerald-500/10 border border-emerald-500 text-emerald-500 px-4 py-3 rounded mb-6">
-                {{ session('success') }}
-            </div>
-        @endif
 
         {{-- ============================================= --}}
         {{-- CONVERSION FUNNEL STATS                       --}}
@@ -361,8 +345,6 @@
                 {{ $leads->links() }}
             </div>
         </div>
-    </div>
-</div>
 
 {{-- ============================================= --}}
 {{-- EDIT LEAD MODAL                               --}}
