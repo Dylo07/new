@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Availability;
 use App\Models\Booking;
 use App\Models\Lead;
 use App\Models\User;
@@ -33,12 +34,14 @@ class AdminController extends Controller
         $pendingLeads = Lead::whereIn('status', ['started', 'browsing', 'reviewed'])
             ->count();
 
-        // Occupancy: rooms booked today (check_in <= today AND check_out > today)
-        $occupiedRooms = Booking::where('check_in', '<=', $today)
-            ->where('check_out', '>', $today)
-            ->where('status', 'confirmed')
+        // Occupancy: based on synced availability data (next 30 days)
+        $next30Days = Carbon::today()->addDays(30);
+        $bookedDaysNext30 = Availability::where('status', 'booked')
+            ->whereBetween('date', [$today, $next30Days])
             ->count();
-        $occupancyRate = $totalRooms > 0 ? round(($occupiedRooms / $totalRooms) * 100) : 0;
+        $occupancyRate = round(($bookedDaysNext30 / 30) * 100);
+        $occupiedRooms = $bookedDaysNext30;
+        $totalRooms = 30;
 
         // Monthly revenue (confirmed bookings this month)
         $monthlyRevenue = Booking::where('status', 'confirmed')

@@ -103,12 +103,12 @@
             <div class="text-white text-sm font-medium">Add Lead</div>
             <div class="text-gray-500 text-xs mt-0.5">{{ $totalLeads }} tracked</div>
         </a>
-        <a href="{{ route('admin.calendar.edit') }}" class="bg-gray-900 border border-gray-800 hover:border-purple-500/50 rounded-xl p-4 text-center transition group">
+        <a href="{{ route('admin.calendar') }}" class="bg-gray-900 border border-gray-800 hover:border-purple-500/50 rounded-xl p-4 text-center transition group">
             <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mx-auto mb-2 group-hover:bg-purple-500/20 transition">
-                <i class="fas fa-ban text-purple-400 text-lg"></i>
+                <i class="fas fa-calendar-check text-purple-400 text-lg"></i>
             </div>
-            <div class="text-white text-sm font-medium">Block Dates</div>
-            <div class="text-gray-500 text-xs mt-0.5">Manage availability</div>
+            <div class="text-white text-sm font-medium">Availability</div>
+            <div class="text-gray-500 text-xs mt-0.5">View sync status</div>
         </a>
         <a href="{{ route('admin.custom-packages.create') }}" class="bg-gray-900 border border-gray-800 hover:border-amber-500/50 rounded-xl p-4 text-center transition group">
             <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mx-auto mb-2 group-hover:bg-amber-500/20 transition">
@@ -134,12 +134,14 @@
         <div class="flex items-end gap-2 h-32">
             @foreach($weeklyTrend as $day)
                 @php
-                    $maxVal = max(1, max(array_column($weeklyTrend, 'bookings') + array_column($weeklyTrend, 'leads')));
-                    $bookingHeight = $maxVal > 0 ? max(4, ($day['bookings'] / $maxVal) * 100) : 4;
-                    $leadHeight = $maxVal > 0 ? max(4, ($day['leads'] / $maxVal) * 100) : 4;
+                    $maxBooking = max(1, max(array_column($weeklyTrend, 'bookings')));
+                    $maxLead = max(1, max(array_column($weeklyTrend, 'leads')));
+                    $maxVal = max($maxBooking, $maxLead);
+                    $bookingHeight = $day['bookings'] > 0 ? max(6, min(100, ($day['bookings'] / $maxVal) * 100)) : 4;
+                    $leadHeight = $day['leads'] > 0 ? max(6, min(100, ($day['leads'] / $maxVal) * 100)) : 4;
                 @endphp
                 <div class="flex-1 flex flex-col items-center gap-1">
-                    <div class="w-full flex gap-0.5 items-end justify-center" style="height: 100px;">
+                    <div class="w-full flex gap-0.5 items-end justify-center overflow-hidden" style="height: 100px;">
                         <div class="w-3 bg-emerald-500/60 rounded-t transition-all hover:bg-emerald-400" style="height: {{ $bookingHeight }}%" title="{{ $day['bookings'] }} bookings"></div>
                         <div class="w-3 bg-blue-500/60 rounded-t transition-all hover:bg-blue-400" style="height: {{ $leadHeight }}%" title="{{ $day['leads'] }} leads"></div>
                     </div>
