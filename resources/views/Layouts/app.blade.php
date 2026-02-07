@@ -734,7 +734,6 @@
                         <li><a href="{{ route('rates') }}" class="text-gray-400 hover:text-emerald-400 transition-colors text-sm">Rates & Packages</a></li>
                         <li><a href="{{ route('gallery') }}" class="text-gray-400 hover:text-emerald-400 transition-colors text-sm">Gallery</a></li>
                         <li><a href="{{ route('calendar.index') }}" class="text-gray-400 hover:text-emerald-400 transition-colors text-sm">Availability Calendar</a></li>
-                        <li><a href="{{ route('menu.index') }}" class="text-gray-400 hover:text-emerald-400 transition-colors text-sm">Restaurant Menu</a></li>
                         <li><a href="{{ route('contact') }}" class="text-gray-400 hover:text-emerald-400 transition-colors text-sm">Contact Us</a></li>
                     </ul>
                 </div>
