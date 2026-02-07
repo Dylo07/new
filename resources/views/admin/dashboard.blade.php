@@ -190,6 +190,148 @@
     </div>
 </div>
 
+{{-- Daily Visitors Summary --}}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    {{-- Visitors by Country --}}
+    <div class="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-cyan-500/15 flex items-center justify-center">
+                    <i class="fas fa-globe-asia text-cyan-400 text-sm"></i>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold text-sm">Today's Visitors by Country</h3>
+                    <p class="text-gray-500 text-xs">{{ $todayVisitors }} page views · {{ $todayUniqueVisitors }} unique visitors</p>
+                </div>
+            </div>
+        </div>
+        @if($visitorsByCountry->count() > 0)
+        <table class="w-full admin-table">
+            <thead class="bg-gray-800/50">
+                <tr>
+                    <th>Country</th>
+                    <th class="text-center">Page Views</th>
+                    <th class="text-center">Unique Visitors</th>
+                    <th class="text-right">Share</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($visitorsByCountry as $cv)
+                <tr>
+                    <td>
+                        <div class="flex items-center gap-2">
+                            @if($cv->country_code)
+                                <img src="https://flagcdn.com/20x15/{{ strtolower($cv->country_code) }}.png" 
+                                     alt="{{ $cv->country_code }}" class="w-5 h-4 rounded-sm object-cover">
+                            @else
+                                <span class="w-5 h-4 bg-gray-700 rounded-sm flex items-center justify-center text-[8px] text-gray-400">?</span>
+                            @endif
+                            <span class="text-white text-xs font-medium">{{ $cv->country }}</span>
+                        </div>
+                    </td>
+                    <td class="text-center text-gray-300 text-xs font-medium">{{ $cv->visits }}</td>
+                    <td class="text-center text-gray-300 text-xs font-medium">{{ $cv->unique_visitors }}</td>
+                    <td class="text-right">
+                        @php $share = $todayVisitors > 0 ? round(($cv->visits / $todayVisitors) * 100, 1) : 0; @endphp
+                        <div class="flex items-center justify-end gap-2">
+                            <div class="w-16 bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-cyan-500 h-1.5 rounded-full" style="width: {{ min($share, 100) }}%"></div>
+                            </div>
+                            <span class="text-gray-400 text-xs w-10 text-right">{{ $share }}%</span>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @else
+        <div class="p-8 text-center">
+            <div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-globe text-gray-600 text-lg"></i>
+            </div>
+            <div class="text-gray-500 text-sm">No visitor data yet today</div>
+            <div class="text-gray-600 text-xs mt-1">Visitors will appear here as they browse your site</div>
+        </div>
+        @endif
+    </div>
+
+    {{-- Right Column: Top Pages + Device + Visitor Trend --}}
+    <div class="space-y-4">
+        {{-- Visitor Trend (7 days) --}}
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+            <h4 class="text-white font-semibold text-xs mb-3">7-Day Visitor Trend</h4>
+            <div class="flex items-end gap-1.5 h-20">
+                @foreach($visitorTrend as $vt)
+                    @php
+                        $maxVt = max(1, max(array_column($visitorTrend, 'total')));
+                        $vtHeight = $maxVt > 0 ? max(8, ($vt['total'] / $maxVt) * 100) : 8;
+                    @endphp
+                    <div class="flex-1 flex flex-col items-center gap-1">
+                        <div class="text-gray-500 text-[9px]">{{ $vt['total'] }}</div>
+                        <div class="w-full bg-cyan-500/50 rounded-t hover:bg-cyan-400/70 transition" style="height: {{ $vtHeight }}%" title="{{ $vt['date'] }}: {{ $vt['total'] }} views, {{ $vt['unique'] }} unique"></div>
+                        <div class="text-gray-600 text-[9px]">{{ $vt['day'] }}</div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- Top Pages --}}
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+            <h4 class="text-white font-semibold text-xs mb-3">Top Pages Today</h4>
+            @if($topPages->count() > 0)
+                <div class="space-y-2">
+                    @foreach($topPages as $page)
+                        @php $pageShare = $todayVisitors > 0 ? round(($page->views / $todayVisitors) * 100) : 0; @endphp
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-300 text-xs truncate flex-1 mr-2">{{ $page->page_name }}</span>
+                            <div class="flex items-center gap-2">
+                                <div class="w-12 bg-gray-800 rounded-full h-1">
+                                    <div class="bg-emerald-500 h-1 rounded-full" style="width: {{ min($pageShare, 100) }}%"></div>
+                                </div>
+                                <span class="text-gray-500 text-xs w-6 text-right">{{ $page->views }}</span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="text-gray-600 text-xs text-center py-2">No page data yet</div>
+            @endif
+        </div>
+
+        {{-- Device Breakdown --}}
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+            <h4 class="text-white font-semibold text-xs mb-3">Devices Today</h4>
+            @if($deviceBreakdown->count() > 0)
+                <div class="space-y-2">
+                    @foreach($deviceBreakdown as $device)
+                        @php
+                            $deviceIcon = match($device->device_type) {
+                                'mobile' => 'fa-mobile-alt',
+                                'tablet' => 'fa-tablet-alt',
+                                default => 'fa-desktop',
+                            };
+                            $deviceColor = match($device->device_type) {
+                                'mobile' => 'text-blue-400',
+                                'tablet' => 'text-purple-400',
+                                default => 'text-emerald-400',
+                            };
+                            $devicePct = $todayVisitors > 0 ? round(($device->total / $todayVisitors) * 100) : 0;
+                        @endphp
+                        <div class="flex items-center gap-2">
+                            <i class="fas {{ $deviceIcon }} {{ $deviceColor }} w-4 text-center text-xs"></i>
+                            <span class="text-gray-300 text-xs flex-1">{{ ucfirst($device->device_type) }}</span>
+                            <span class="text-gray-500 text-xs">{{ $device->total }}</span>
+                            <span class="text-gray-600 text-xs w-8 text-right">{{ $devicePct }}%</span>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="text-gray-600 text-xs text-center py-2">No device data yet</div>
+            @endif
+        </div>
+    </div>
+</div>
+
 {{-- Recent Activity Tables --}}
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     {{-- Recent Bookings --}}

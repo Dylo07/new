@@ -8,7 +8,9 @@ use App\Models\User;
 use App\Models\Room;
 use App\Models\CustomPackage;
 use App\Models\MenuCategory;
+use App\Models\Visitor;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -79,12 +81,56 @@ class AdminController extends Controller
             ];
         }
 
+        // --- Daily Visitors Summary ---
+        $todayVisitors = Visitor::whereDate('created_at', $today)->count();
+        $todayUniqueVisitors = Visitor::whereDate('created_at', $today)->distinct('ip_address')->count('ip_address');
+
+        // Visitors by country (today)
+        $visitorsByCountry = Visitor::whereDate('created_at', $today)
+            ->select('country', 'country_code', DB::raw('COUNT(*) as visits'), DB::raw('COUNT(DISTINCT ip_address) as unique_visitors'))
+            ->whereNotNull('country')
+            ->groupBy('country', 'country_code')
+            ->orderByDesc('visits')
+            ->limit(15)
+            ->get();
+
+        // Top pages today
+        $topPages = Visitor::whereDate('created_at', $today)
+            ->select('page_name', DB::raw('COUNT(*) as views'))
+            ->whereNotNull('page_name')
+            ->groupBy('page_name')
+            ->orderByDesc('views')
+            ->limit(8)
+            ->get();
+
+        // Device breakdown today
+        $deviceBreakdown = Visitor::whereDate('created_at', $today)
+            ->select('device_type', DB::raw('COUNT(*) as total'))
+            ->whereNotNull('device_type')
+            ->groupBy('device_type')
+            ->orderByDesc('total')
+            ->get();
+
+        // Visitor trend (last 7 days)
+        $visitorTrend = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = Carbon::today()->subDays($i);
+            $visitorTrend[] = [
+                'day' => $date->format('D'),
+                'date' => $date->format('M d'),
+                'total' => Visitor::whereDate('created_at', $date)->count(),
+                'unique' => Visitor::whereDate('created_at', $date)->distinct('ip_address')->count('ip_address'),
+            ];
+        }
+
         return view('admin.dashboard', compact(
             'todaysArrivals', 'todaysDepartures', 'pendingLeads', 'occupancyRate',
             'occupiedRooms', 'totalRooms', 'monthlyRevenue', 'pendingApprovals',
             'recentBookings', 'recentLeads',
             'totalBookings', 'confirmedBookings', 'totalUsers', 'totalLeads',
-            'convertedLeads', 'conversionRate', 'totalRevenue', 'weeklyTrend'
+            'convertedLeads', 'conversionRate', 'totalRevenue', 'weeklyTrend',
+            'todayVisitors', 'todayUniqueVisitors', 'visitorsByCountry',
+            'topPages', 'deviceBreakdown', 'visitorTrend'
         ));
     }
 }
