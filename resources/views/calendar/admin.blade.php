@@ -35,16 +35,17 @@
         @endif
     </div>
 
-    {{-- API Status --}}
+    {{-- Next Sync --}}
     <div class="stat-card">
         <div class="flex items-center justify-between mb-3">
-            <div class="w-10 h-10 rounded-lg {{ $apiConfigured ? 'bg-blue-500/15' : 'bg-red-500/15' }} flex items-center justify-center">
-                <i class="fas {{ $apiConfigured ? 'fa-plug text-blue-400' : 'fa-unlink text-red-400' }}"></i>
+            <div class="w-10 h-10 rounded-lg bg-blue-500/15 flex items-center justify-center">
+                <i class="fas fa-clock text-blue-400"></i>
             </div>
+            <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-2 py-0.5 rounded-full">Hourly</span>
         </div>
-        <div class="text-lg font-bold text-white">{{ $apiConfigured ? 'Connected' : 'Not Set' }}</div>
-        <div class="text-gray-500 text-xs mt-1">Ops API</div>
-        <div class="text-gray-600 text-xs mt-0.5">Syncs every hour</div>
+        <div class="text-lg font-bold text-white">{{ $nextSyncTime->format('g:i A') }}</div>
+        <div class="text-gray-500 text-xs mt-1">Next Sync</div>
+        <div class="text-gray-600 text-xs mt-0.5">{{ $nextSyncTime->diffForHumans() }} &middot; {{ $totalSyncedRecords }} records</div>
     </div>
 
     {{-- Booked Days --}}
@@ -301,7 +302,7 @@
         {{-- Sync Info --}}
         <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
             <h4 class="text-white font-semibold text-xs mb-3">Sync Configuration</h4>
-            <div class="space-y-2 text-xs">
+            <div class="space-y-2.5 text-xs">
                 <div class="flex items-center justify-between">
                     <span class="text-gray-500">Source</span>
                     <span class="text-gray-300">Ops System API</span>
@@ -313,6 +314,22 @@
                 <div class="flex items-center justify-between">
                     <span class="text-gray-500">API Status</span>
                     <span class="{{ $apiConfigured ? 'text-emerald-400' : 'text-red-400' }}">{{ $apiConfigured ? 'Configured' : 'Not configured' }}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-gray-500">Last Synced</span>
+                    <span class="text-gray-300">{{ $lastSyncTime ? $lastSyncTime->format('M d, g:i A') : 'Never' }}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-gray-500">Next Sync</span>
+                    <span class="text-blue-400">{{ $nextSyncTime->format('g:i A') }} ({{ $nextSyncTime->diffForHumans() }})</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-gray-500">Total Records</span>
+                    <span class="text-gray-300">{{ $totalSyncedRecords }}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-gray-500">Auto Sync</span>
+                    <span class="text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Active</span>
                 </div>
                 <div class="flex items-center justify-between">
                     <span class="text-gray-500">Command</span>

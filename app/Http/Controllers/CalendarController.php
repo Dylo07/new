@@ -65,6 +65,18 @@ class CalendarController extends Controller
             }
         }
 
+        // Next sync time (hourly schedule — next full hour)
+        $nextSyncTime = $lastSyncTime
+            ? $lastSyncTime->copy()->addHour()->startOfHour()
+            : Carbon::now()->addHour()->startOfHour();
+        // If next sync is in the past (e.g. cron missed), show next upcoming hour
+        if ($nextSyncTime->lt(Carbon::now())) {
+            $nextSyncTime = Carbon::now()->addHour()->startOfHour();
+        }
+
+        // Total synced records count
+        $totalSyncedRecords = Availability::count();
+
         // --- API config status ---
         $opsApi = app(OpsApiService::class);
         $apiConfigured = $opsApi->isConfigured();
@@ -119,6 +131,7 @@ class CalendarController extends Controller
 
         return view('calendar.admin', compact(
             'months', 'lastSyncTime', 'lastSyncStatus', 'lastSyncLines',
+            'nextSyncTime', 'totalSyncedRecords',
             'apiConfigured', 'totalBookedDates', 'totalAvailableDates',
             'totalLimitedDates', 'upcomingBookings', 'functionTypes',
             'occupancyNext30', 'bookedNext30'
