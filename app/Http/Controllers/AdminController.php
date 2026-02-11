@@ -11,6 +11,7 @@ use App\Models\CustomPackage;
 use App\Models\MenuCategory;
 use App\Models\Visitor;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -135,5 +136,36 @@ class AdminController extends Controller
             'todayVisitors', 'todayUniqueVisitors', 'visitorsByCountry',
             'topPages', 'deviceBreakdown', 'visitorTrend'
         ));
+    }
+
+    public function visitorsByDate(Request $request)
+    {
+        $date = Carbon::parse($request->input('date', Carbon::today()->toDateString()));
+
+        $totalVisitors = Visitor::whereDate('created_at', $date)->count();
+        $uniqueVisitors = Visitor::whereDate('created_at', $date)->distinct('ip_address')->count('ip_address');
+
+        $visitorsByCountry = Visitor::whereDate('created_at', $date)
+            ->select('country', 'country_code', DB::raw('COUNT(*) as visits'), DB::raw('COUNT(DISTINCT ip_address) as unique_visitors'))
+            ->whereNotNull('country')
+            ->groupBy('country', 'country_code')
+            ->orderByDesc('visits')
+            ->limit(15)
+            ->get()
+            ->map(function ($cv) use ($totalVisitors) {
+                return [
+                    'country' => $cv->country,
+                    'country_code' => $cv->country_code ? strtolower($cv->country_code) : null,
+                    'visits' => $cv->visits,
+                    'unique_visitors' => $cv->unique_visitors,
+                    'share' => $totalVisitors > 0 ? round(($cv->visits / $totalVisitors) * 100, 1) : 0,
+                ];
+            });
+
+        return response()->json([
+            'total_visitors' => $totalVisitors,
+            'unique_visitors' => $uniqueVisitors,
+            'countries' => $visitorsByCountry,
+        ]);
     }
 }

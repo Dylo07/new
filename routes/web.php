@@ -116,6 +116,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Dashboard
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/visitors-by-date', [AdminController::class, 'visitorsByDate'])->name('admin.visitors-by-date');
 });
 
 // User Profile Routes

@@ -202,59 +202,65 @@
                     <i class="fas fa-globe-asia text-cyan-400 text-sm"></i>
                 </div>
                 <div>
-                    <h3 class="text-white font-semibold text-sm">Today's Visitors by Country</h3>
-                    <p class="text-gray-500 text-xs">{{ $todayVisitors }} page views · {{ $todayUniqueVisitors }} unique visitors</p>
+                    <h3 class="text-white font-semibold text-sm" id="visitorsTitle">Today's Visitors by Country</h3>
+                    <p class="text-gray-500 text-xs" id="visitorsSummary">{{ $todayVisitors }} page views · {{ $todayUniqueVisitors }} unique visitors</p>
                 </div>
             </div>
-        </div>
-        @if($visitorsByCountry->count() > 0)
-        <table class="w-full admin-table">
-            <thead class="bg-gray-800/50">
-                <tr>
-                    <th>Country</th>
-                    <th class="text-center">Page Views</th>
-                    <th class="text-center">Unique Visitors</th>
-                    <th class="text-right">Share</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($visitorsByCountry as $cv)
-                <tr>
-                    <td>
-                        <div class="flex items-center gap-2">
-                            @if($cv->country_code)
-                                <img src="https://flagcdn.com/20x15/{{ strtolower($cv->country_code) }}.png" 
-                                     alt="{{ $cv->country_code }}" class="w-5 h-4 rounded-sm object-cover">
-                            @else
-                                <span class="w-5 h-4 bg-gray-700 rounded-sm flex items-center justify-center text-[8px] text-gray-400">?</span>
-                            @endif
-                            <span class="text-white text-xs font-medium">{{ $cv->country }}</span>
-                        </div>
-                    </td>
-                    <td class="text-center text-gray-300 text-xs font-medium">{{ $cv->visits }}</td>
-                    <td class="text-center text-gray-300 text-xs font-medium">{{ $cv->unique_visitors }}</td>
-                    <td class="text-right">
-                        @php $share = $todayVisitors > 0 ? round(($cv->visits / $todayVisitors) * 100, 1) : 0; @endphp
-                        <div class="flex items-center justify-end gap-2">
-                            <div class="w-16 bg-gray-800 rounded-full h-1.5">
-                                <div class="bg-cyan-500 h-1.5 rounded-full" style="width: {{ min($share, 100) }}%"></div>
-                            </div>
-                            <span class="text-gray-400 text-xs w-10 text-right">{{ $share }}%</span>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        @else
-        <div class="p-8 text-center">
-            <div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-3">
-                <i class="fas fa-globe text-gray-600 text-lg"></i>
+            <div class="flex items-center gap-2">
+                <input type="date" id="visitorDatePicker" value="{{ now()->format('Y-m-d') }}" max="{{ now()->format('Y-m-d') }}"
+                       class="bg-gray-800 border border-gray-700 text-white text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:border-cyan-500 cursor-pointer">
             </div>
-            <div class="text-gray-500 text-sm">No visitor data yet today</div>
-            <div class="text-gray-600 text-xs mt-1">Visitors will appear here as they browse your site</div>
         </div>
-        @endif
+        <div id="visitorsTableContainer">
+            @if($visitorsByCountry->count() > 0)
+            <table class="w-full admin-table">
+                <thead class="bg-gray-800/50">
+                    <tr>
+                        <th>Country</th>
+                        <th class="text-center">Page Views</th>
+                        <th class="text-center">Unique Visitors</th>
+                        <th class="text-right">Share</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($visitorsByCountry as $cv)
+                    <tr>
+                        <td>
+                            <div class="flex items-center gap-2">
+                                @if($cv->country_code)
+                                    <img src="https://flagcdn.com/20x15/{{ strtolower($cv->country_code) }}.png" 
+                                         alt="{{ $cv->country_code }}" class="w-5 h-4 rounded-sm object-cover">
+                                @else
+                                    <span class="w-5 h-4 bg-gray-700 rounded-sm flex items-center justify-center text-[8px] text-gray-400">?</span>
+                                @endif
+                                <span class="text-white text-xs font-medium">{{ $cv->country }}</span>
+                            </div>
+                        </td>
+                        <td class="text-center text-gray-300 text-xs font-medium">{{ $cv->visits }}</td>
+                        <td class="text-center text-gray-300 text-xs font-medium">{{ $cv->unique_visitors }}</td>
+                        <td class="text-right">
+                            @php $share = $todayVisitors > 0 ? round(($cv->visits / $todayVisitors) * 100, 1) : 0; @endphp
+                            <div class="flex items-center justify-end gap-2">
+                                <div class="w-16 bg-gray-800 rounded-full h-1.5">
+                                    <div class="bg-cyan-500 h-1.5 rounded-full" style="width: {{ min($share, 100) }}%"></div>
+                                </div>
+                                <span class="text-gray-400 text-xs w-10 text-right">{{ $share }}%</span>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @else
+            <div class="p-8 text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-globe text-gray-600 text-lg"></i>
+                </div>
+                <div class="text-gray-500 text-sm">No visitor data yet today</div>
+                <div class="text-gray-600 text-xs mt-1">Visitors will appear here as they browse your site</div>
+            </div>
+            @endif
+        </div>
     </div>
 
     {{-- Right Column: Top Pages + Device + Visitor Trend --}}
@@ -438,5 +444,84 @@
         </table>
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.getElementById('visitorDatePicker').addEventListener('change', function() {
+    const date = this.value;
+    const today = new Date().toISOString().split('T')[0];
+    const container = document.getElementById('visitorsTableContainer');
+    const title = document.getElementById('visitorsTitle');
+    const summary = document.getElementById('visitorsSummary');
+
+    // Show loading
+    container.innerHTML = '<div class="p-8 text-center"><div class="text-cyan-400 text-sm"><i class="fas fa-spinner fa-spin mr-2"></i>Loading...</div></div>';
+
+    // Update title
+    if (date === today) {
+        title.textContent = "Today's Visitors by Country";
+    } else {
+        const d = new Date(date + 'T00:00:00');
+        title.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' — Visitors by Country';
+    }
+
+    fetch(`/admin/visitors-by-date?date=${date}`, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(r => r.json())
+    .then(data => {
+        summary.textContent = data.total_visitors + ' page views · ' + data.unique_visitors + ' unique visitors';
+
+        if (data.countries.length === 0) {
+            container.innerHTML = `
+                <div class="p-8 text-center">
+                    <div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-globe text-gray-600 text-lg"></i>
+                    </div>
+                    <div class="text-gray-500 text-sm">No visitor data for this date</div>
+                </div>`;
+            return;
+        }
+
+        let rows = '';
+        data.countries.forEach(cv => {
+            const flag = cv.country_code
+                ? `<img src="https://flagcdn.com/20x15/${cv.country_code}.png" alt="${cv.country_code}" class="w-5 h-4 rounded-sm object-cover">`
+                : `<span class="w-5 h-4 bg-gray-700 rounded-sm flex items-center justify-center text-[8px] text-gray-400">?</span>`;
+
+            rows += `<tr>
+                <td><div class="flex items-center gap-2">${flag}<span class="text-white text-xs font-medium">${cv.country}</span></div></td>
+                <td class="text-center text-gray-300 text-xs font-medium">${cv.visits}</td>
+                <td class="text-center text-gray-300 text-xs font-medium">${cv.unique_visitors}</td>
+                <td class="text-right">
+                    <div class="flex items-center justify-end gap-2">
+                        <div class="w-16 bg-gray-800 rounded-full h-1.5">
+                            <div class="bg-cyan-500 h-1.5 rounded-full" style="width: ${Math.min(cv.share, 100)}%"></div>
+                        </div>
+                        <span class="text-gray-400 text-xs w-10 text-right">${cv.share}%</span>
+                    </div>
+                </td>
+            </tr>`;
+        });
+
+        container.innerHTML = `
+            <table class="w-full admin-table">
+                <thead class="bg-gray-800/50">
+                    <tr>
+                        <th>Country</th>
+                        <th class="text-center">Page Views</th>
+                        <th class="text-center">Unique Visitors</th>
+                        <th class="text-right">Share</th>
+                    </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+            </table>`;
+    })
+    .catch(() => {
+        container.innerHTML = '<div class="p-8 text-center text-red-400 text-sm">Failed to load data</div>';
+    });
+});
+</script>
+@endpush
 
 @endsection
