@@ -17,6 +17,7 @@ class CustomPackage extends Model
         'description',
         'menu',
         'adult_price',
+        'single_price',
         'child_price',
         'min_adults',
         'is_active',
@@ -26,6 +27,7 @@ class CustomPackage extends Model
     protected $casts = [
         'images' => 'array',
         'adult_price' => 'decimal:2',
+        'single_price' => 'decimal:2',
         'child_price' => 'decimal:2',
         'is_active' => 'boolean'
     ];
@@ -59,9 +61,19 @@ class CustomPackage extends Model
         return 'Rs ' . number_format($this->child_price, 0);
     }
 
+    // Get formatted single price
+    public function getFormattedSinglePriceAttribute()
+    {
+        return 'Rs ' . number_format($this->single_price ?? $this->adult_price, 0);
+    }
+
     // Calculate total price
     public function calculateTotal($adults, $children = 0)
     {
+        // If only 1 adult and a single_price is set, use it
+        if ($adults === 1 && $this->single_price) {
+            return $this->single_price + ($this->child_price * $children);
+        }
         return ($this->adult_price * $adults) + ($this->child_price * $children);
     }
 

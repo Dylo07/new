@@ -102,13 +102,21 @@ class PackageBuilderController extends Controller
         $packageTotal = $package->calculateTotal($adults, $children);
         $finalTotal = $packageTotal + $additionalRoomCharge;
 
+        // Determine the effective adult price (single_price for 1 adult if set)
+        $isSingleRate = ($adults === 1 && $package->single_price);
+        $effectiveAdultPrice = $isSingleRate ? $package->single_price : $package->adult_price;
+        $subtotalAdults = $isSingleRate ? $package->single_price : ($package->adult_price * $adults);
+
         return response()->json([
             'package' => $package,
             'adults' => $adults,
             'children' => $children,
             'adult_price' => $package->adult_price,
+            'single_price' => $package->single_price,
+            'effective_adult_price' => $effectiveAdultPrice,
+            'is_single_rate' => $isSingleRate,
             'child_price' => $package->child_price,
-            'subtotal_adults' => $package->adult_price * $adults,
+            'subtotal_adults' => $subtotalAdults,
             'subtotal_children' => $package->child_price * $children,
             'package_total' => $packageTotal,
             'additional_room_charge' => $additionalRoomCharge,

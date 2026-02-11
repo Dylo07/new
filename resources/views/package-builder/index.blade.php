@@ -891,37 +891,51 @@ function displayPackages(data) {
     }
 }
 
-function createPackageCard(package, adults, children) {
-    const perNightTotal = (package.adult_price * adults) + (package.child_price * children);
+function createPackageCard(pkg, adults, children) {
+    // Determine if single rate applies (1 adult with single_price set)
+    const isSingleRate = (adults === 1 && pkg.single_price && parseFloat(pkg.single_price) > 0);
+    const effectiveAdultPrice = isSingleRate ? parseFloat(pkg.single_price) : parseFloat(pkg.adult_price);
+    const adultSubtotal = isSingleRate ? parseFloat(pkg.single_price) : (parseFloat(pkg.adult_price) * adults);
+    const childSubtotal = parseFloat(pkg.child_price) * children;
+    const perNightTotal = adultSubtotal + childSubtotal;
+
     // For night stay packages (half_board, full_board), multiply by number of nights
     const isNightStay = selectedPackageType === 'half_board' || selectedPackageType === 'full_board';
     const nightsMultiplier = isNightStay ? numberOfNights : 1;
     const packageTotal = perNightTotal * nightsMultiplier;
     const totalWithRooms = packageTotal + additionalRoomCharge;
-    const isAvailable = package.available;
+    const isAvailable = pkg.available;
     
+    // Build adult price display
+    let adultPriceText = '';
+    if (isSingleRate) {
+        adultPriceText = `Adult (single): Rs ${effectiveAdultPrice.toLocaleString()}`;
+    } else {
+        adultPriceText = `Adults: Rs ${parseFloat(pkg.adult_price).toLocaleString()} × ${adults} = Rs ${adultSubtotal.toLocaleString()}`;
+    }
+
     const card = document.createElement('div');
     card.className = `bg-gray-800 rounded-lg p-6 ${isAvailable ? 'hover:bg-gray-700 cursor-pointer' : 'opacity-50'} transition-all duration-300`;
     
     card.innerHTML = `
         <div class="mb-4">
-            ${package.images && package.images.length > 0 ? 
+            ${pkg.images && pkg.images.length > 0 ? 
                 `<div class="relative w-full aspect-[940/788] mb-4 overflow-hidden rounded-lg bg-gray-700">
-                    <img src="/storage/${package.images[0]}" alt="${package.name}" class="w-full h-full object-cover">
+                    <img src="/storage/${pkg.images[0]}" alt="${pkg.name}" class="w-full h-full object-cover">
                 </div>` : 
                 `<div class="w-full aspect-[940/788] bg-gray-700 rounded-lg mb-4 flex items-center justify-center">
                     <span class="text-gray-500">No Image</span>
                 </div>`
             }
-            <h4 class="text-xl text-white font-bold mb-2">${package.name}</h4>
-            ${package.description ? `<p class="text-gray-300 text-sm mb-3">${package.description.substring(0, 100)}...</p>` : ''}
+            <h4 class="text-xl text-white font-bold mb-2">${pkg.name}</h4>
+            ${pkg.description ? `<p class="text-gray-300 text-sm mb-3">${pkg.description.substring(0, 100)}...</p>` : ''}
         </div>
         
         <div class="mb-4">
             <div class="text-emerald-400 text-2xl font-bold">Rs ${totalWithRooms.toLocaleString()}</div>
             <div class="text-gray-400 text-sm">
-                Adults: Rs ${package.adult_price} × ${adults} = Rs ${(package.adult_price * adults).toLocaleString()}<br>
-                ${children > 0 ? `Children: Rs ${package.child_price} × ${children} = Rs ${(package.child_price * children).toLocaleString()}<br>` : ''}
+                ${adultPriceText}<br>
+                ${children > 0 ? `Children: Rs ${parseFloat(pkg.child_price).toLocaleString()} × ${children} = Rs ${childSubtotal.toLocaleString()}<br>` : ''}
                 ${isNightStay && numberOfNights > 1 ? `<span class="text-yellow-400">× ${numberOfNights} night${numberOfNights > 1 ? 's' : ''} = Rs ${packageTotal.toLocaleString()}</span><br>` : ''}
                 ${additionalRoomCharge > 0 ? `Additional Rooms: Rs ${additionalRoomCharge.toLocaleString()}<br>` : ''}
                 <strong>Package Total: Rs ${packageTotal.toLocaleString()}</strong>
@@ -930,13 +944,13 @@ function createPackageCard(package, adults, children) {
         </div>
         
         ${!isAvailable ? 
-            '<div class="text-red-400 text-sm mb-2">Requires minimum ' + package.min_adults + ' adults</div>' : 
+            '<div class="text-red-400 text-sm mb-2">Requires minimum ' + pkg.min_adults + ' adults</div>' : 
             ''
         }
         
         <button 
             class="w-full ${isAvailable ? 'btn-primary' : 'bg-gray-600'} text-white py-3 rounded-xl font-semibold transition-all duration-300"
-            ${isAvailable ? `onclick="selectPackage(${package.id})"` : 'disabled'}
+            ${isAvailable ? `onclick="selectPackage(${pkg.id})"` : 'disabled'}
         >
             ${isAvailable ? 'Select This Package' : 'Not Available'}
         </button>
@@ -1017,9 +1031,15 @@ function displayPackageDetails(data) {
     const nightsMultiplier = isNightStay ? numberOfNights : 1;
     
     // Update price breakdown
-    document.getElementById('adultCount').textContent = data.adults;
-    document.getElementById('adultPrice').textContent = `Rs ${data.adult_price.toLocaleString()}`;
-    document.getElementById('adultSubtotal').textContent = `Rs ${data.subtotal_adults.toLocaleString()}`;
+    if (data.is_single_rate) {
+        document.getElementById('adultPriceRow').querySelector('span:first-child').innerHTML = 
+            `Adult (single rate)`;
+        document.getElementById('adultSubtotal').textContent = `Rs ${parseFloat(data.effective_adult_price).toLocaleString()}`;
+    } else {
+        document.getElementById('adultCount').textContent = data.adults;
+        document.getElementById('adultPrice').textContent = `Rs ${parseFloat(data.adult_price).toLocaleString()}`;
+        document.getElementById('adultSubtotal').textContent = `Rs ${parseFloat(data.subtotal_adults).toLocaleString()}`;
+    }
     
     document.getElementById('childCount').textContent = data.children;
     document.getElementById('childPrice').textContent = `Rs ${data.child_price.toLocaleString()}`;

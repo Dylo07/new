@@ -72,12 +72,23 @@
             </div>
 
             <!-- Pricing -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Adult Price (Rs) *</label>
                     <input type="number" name="adult_price" value="{{ old('adult_price', $customPackage->adult_price ?? '') }}" 
                            step="0.01" min="0" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500" required>
+                    <p class="text-gray-500 text-sm mt-1">Per person rate (2+ adults)</p>
                     @error('adult_price')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Single Person Price (Rs)</label>
+                    <input type="number" name="single_price" value="{{ old('single_price', $customPackage->single_price ?? '') }}" 
+                           step="0.01" min="0" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500">
+                    <p class="text-gray-500 text-sm mt-1">Rate for 1 adult (leave empty to use adult price)</p>
+                    @error('single_price')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>

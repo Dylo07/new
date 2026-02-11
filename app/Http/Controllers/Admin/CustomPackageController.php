@@ -33,6 +33,7 @@ class CustomPackageController extends Controller
             'description' => 'nullable|string',
             'menu' => 'nullable|string',
             'adult_price' => 'required|numeric|min:0',
+            'single_price' => 'nullable|numeric|min:0',
             'child_price' => 'required|numeric|min:0',
             'min_adults' => 'required|integer|min:1',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120'
@@ -67,6 +68,7 @@ class CustomPackageController extends Controller
             'description' => $request->description,
             'menu' => $request->menu,
             'adult_price' => $request->adult_price,
+            'single_price' => $request->single_price,
             'child_price' => $request->child_price,
             'min_adults' => $request->min_adults,
             'is_active' => $request->has('is_active'),
@@ -97,6 +99,7 @@ class CustomPackageController extends Controller
             'description' => 'nullable|string',
             'menu' => 'nullable|string',
             'adult_price' => 'required|numeric|min:0',
+            'single_price' => 'nullable|numeric|min:0',
             'child_price' => 'required|numeric|min:0',
             'min_adults' => 'required|integer|min:1',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120'
@@ -132,6 +135,7 @@ class CustomPackageController extends Controller
             'description' => $request->description,
             'menu' => $request->menu,
             'adult_price' => $request->adult_price,
+            'single_price' => $request->single_price,
             'child_price' => $request->child_price,
             'min_adults' => $request->min_adults,
             'is_active' => $request->has('is_active'),
