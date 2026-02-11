@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingConfirmation;
 use App\Mail\AdminBookingNotification;
 use App\Mail\ReceiptUploadedNotification;
+use App\Mail\BookingConfirmedMail;
 use App\Models\Lead;
 
 class BookingController extends Controller
@@ -271,6 +272,11 @@ class BookingController extends Controller
 
         $booking->update(['status' => $validated['status']]);
 
+        // Send confirmation email to customer when status changes to confirmed
+        if ($validated['status'] === 'confirmed') {
+            $this->sendBookingConfirmedEmail($booking);
+        }
+
         return redirect()->back()->with('success', 'Booking status updated successfully.');
     }
 
@@ -282,7 +288,23 @@ class BookingController extends Controller
             'payment_status' => 'verified'
         ]);
 
+        // Send confirmation email to customer
+        $this->sendBookingConfirmedEmail($booking);
+
         return redirect()->back()->with('success', 'Booking #' . $booking->id . ' approved and payment verified!');
+    }
+
+    // --- Send Booking Confirmed Email to Customer ---
+    private function sendBookingConfirmedEmail(Booking $booking)
+    {
+        try {
+            $booking->load(['user', 'customPackage']);
+            if ($booking->user && $booking->user->email) {
+                Mail::to($booking->user->email)->send(new BookingConfirmedMail($booking));
+            }
+        } catch (\Exception $e) {
+            \Log::error('Booking confirmed email failed: ' . $e->getMessage());
+        }
     }
     
     // --- Admin: Delete Booking ---

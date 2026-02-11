@@ -12,8 +12,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
-                <h1 class="text-3xl text-white font-light mb-2">Booking Confirmed!</h1>
-                <p class="text-gray-400">Your booking has been successfully placed</p>
+                <h1 class="text-3xl text-white font-light mb-2">Booking Received!</h1>
+                <p class="text-gray-400">Please complete the advance payment to confirm your booking</p>
             </div>
 
             <div class="bg-gray-900 rounded-lg p-8 border border-gray-800">
@@ -124,17 +124,15 @@
                     <ul class="space-y-3 text-gray-300 text-sm">
                         <li class="flex items-start">
                             <span class="w-6 h-6 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center text-xs mr-3 mt-0.5">1</span>
-                            <span>A confirmation email has been sent to your registered email address.</span>
+                            <span>A booking details email has been sent to your registered email address.</span>
                         </li>
-                        @if(!$booking->payment_receipt && $booking->payment_method === 'bank_transfer')
                         <li class="flex items-start">
-                            <span class="w-6 h-6 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center text-xs mr-3 mt-0.5">2</span>
-                            <span>Upload your payment receipt from your profile page to speed up confirmation.</span>
+                            <span class="w-6 h-6 bg-yellow-500/20 text-yellow-500 rounded-full flex items-center justify-center text-xs mr-3 mt-0.5">2</span>
+                            <span><strong class="text-yellow-400">Pay the advance payment</strong> using the bank details above and upload the receipt from your profile page.</span>
                         </li>
-                        @endif
                         <li class="flex items-start">
-                            <span class="w-6 h-6 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center text-xs mr-3 mt-0.5">{{ !$booking->payment_receipt && $booking->payment_method === 'bank_transfer' ? '3' : '2' }}</span>
-                            <span>Our team will verify your payment and confirm your booking within 24 hours.</span>
+                            <span class="w-6 h-6 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center text-xs mr-3 mt-0.5">3</span>
+                            <span>Once we verify your payment, you will receive a <strong class="text-emerald-400">Booking Confirmed</strong> email.</span>
                         </li>
                     </ul>
                 </div>

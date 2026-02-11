@@ -3,35 +3,28 @@
 namespace App\Mail;
 
 use App\Models\Booking;
-use App\Models\CustomPackage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class BookingConfirmation extends Mailable
+class BookingConfirmedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $booking;
-    public $package;
-    public $user;
     public $checkInTime;
     public $checkOutTime;
 
-    public function __construct(Booking $booking, CustomPackage $package, $user)
+    public function __construct(Booking $booking)
     {
         $this->booking = $booking;
-        $this->package = $package;
-        $this->user = $user;
-        
-        // Set check-in/check-out times based on package type
         $this->setTimes();
     }
 
     private function setTimes()
     {
-        $packageType = $this->package->type ?? 'full_board';
-        
+        $packageType = $this->booking->customPackage->type ?? 'full_board';
+
         switch ($packageType) {
             case 'day_out':
                 $this->checkInTime = '9:00 AM';
@@ -51,7 +44,7 @@ class BookingConfirmation extends Mailable
 
     public function build()
     {
-        return $this->subject('Booking Received - Advance Payment Required - Soba Lanka Hotel')
-                    ->view('emails.booking-confirmation');
+        return $this->subject('Booking Confirmed! - Soba Lanka Hotel')
+                    ->view('emails.booking-confirmed');
     }
 }
