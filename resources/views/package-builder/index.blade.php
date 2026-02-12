@@ -746,17 +746,15 @@ function updateRoomSummary() {
     const totalGuests = currentAdults + currentChildren;
     const totalRoomsRequested = doubleRooms + tripleRooms + familyCottages;
     
-    // Calculate additional room charges for group packages (>=10 guests)
+    // Calculate additional room charges: adults / 3 = max allocatable rooms, extra rooms Rs 4000 each
     additionalRoomCharge = 0;
     let additionalChargeText = '';
     
-    if (totalGuests >= 10) {
-        const maxFreeRooms = Math.ceil(totalGuests / 3);
-        if (totalRoomsRequested > maxFreeRooms) {
-            const additionalRooms = totalRoomsRequested - maxFreeRooms;
-            additionalRoomCharge = additionalRooms * 4000;
-            additionalChargeText = `Additional ${additionalRooms} room(s): Rs ${additionalRoomCharge.toLocaleString()}`;
-        }
+    const maxAllocatableRooms = Math.ceil(currentAdults / 3);
+    if (maxAllocatableRooms > 0 && totalRoomsRequested > maxAllocatableRooms) {
+        const additionalRooms = totalRoomsRequested - maxAllocatableRooms;
+        additionalRoomCharge = additionalRooms * 4000;
+        additionalChargeText = `Allocated rooms: ${maxAllocatableRooms} (based on ${currentAdults} adults). Additional ${additionalRooms} room(s): Rs ${additionalRoomCharge.toLocaleString()}`;
     }
     
     // Update room summary
@@ -767,7 +765,11 @@ function updateRoomSummary() {
     
     summaryHTML += `<div class="mt-2 pt-2 border-t border-gray-600">`;
     summaryHTML += `Total Room Capacity: ${totalRoomCapacity} guests<br>`;
-    summaryHTML += `Your Guest Count: ${totalGuests} guests`;
+    summaryHTML += `Your Guest Count: ${totalGuests} guests<br>`;
+    summaryHTML += `Rooms included in package: ${maxAllocatableRooms} (${currentAdults} adults ÷ 3)`;
+    if (additionalRoomCharge > 0) {
+        summaryHTML += `<br><span class="text-yellow-400">Extra rooms: ${totalRoomsRequested - maxAllocatableRooms} × Rs 4,000 = Rs ${additionalRoomCharge.toLocaleString()}</span>`;
+    }
     summaryHTML += `</div>`;
     
     document.getElementById('roomSummaryContent').innerHTML = summaryHTML;
