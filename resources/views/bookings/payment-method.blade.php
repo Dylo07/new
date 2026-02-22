@@ -46,8 +46,8 @@
                     
                     <!-- Credit/Debit Card Option -->
                     <div class="payment-option relative">
-                        <input type="radio" name="payment_method" value="card" id="card" class="hidden peer" disabled>
-                        <label for="card" class="block p-6 bg-gray-800/30 border border-gray-700 rounded-lg cursor-not-allowed opacity-50">
+                        <input type="radio" name="payment_method" value="card" id="card" class="hidden peer">
+                        <label for="card" class="block p-6 bg-gray-800/30 border border-gray-700 rounded-lg cursor-pointer hover:bg-gray-800/50 transition peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <div class="w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center mr-4">
@@ -56,11 +56,10 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <h3 class="text-white font-semibold">Credit / Debit Card</h3>
-                                        <p class="text-gray-500 text-sm">Pay securely with your card</p>
+                                        <h3 class="text-white font-semibold">Pay Online (PayHere)</h3>
+                                        <p class="text-gray-400 text-sm">Securely pay via Credit/Debit card or local wallets.</p>
                                     </div>
                                 </div>
-                                <span class="bg-yellow-500/20 text-yellow-500 text-xs px-3 py-1 rounded-full">Coming Soon</span>
                             </div>
                         </label>
                     </div>
@@ -128,12 +127,12 @@
                     </div>
                 </div>
 
-                <!-- Receipt Upload Section -->
-                <form action="{{ route('bookings.package.store') }}" method="POST" enctype="multipart/form-data" class="mt-6">
+                <!-- Receipt Upload Section (Only for Bank Transfer) -->
+                <form action="{{ route('bookings.package.store') }}" method="POST" enctype="multipart/form-data" class="mt-6" id="booking-form">
                     @csrf
-                    <input type="hidden" name="payment_method" value="bank_transfer">
+                    <input type="hidden" name="payment_method" id="payment_method_input" value="bank_transfer">
                     
-                    <div class="bg-gray-800/50 border border-gray-700 rounded-lg p-6">
+                    <div class="bg-gray-800/50 border border-gray-700 rounded-lg p-6 transition-all duration-300" id="receipt-section">
                         <h3 class="text-white font-semibold mb-4">Upload Payment Receipt (Optional)</h3>
                         <p class="text-gray-400 text-sm mb-4">
                             You can upload your payment receipt now or later from your profile page.
@@ -179,14 +178,40 @@
 </div>
 
 <script>
-function updateFileName(input) {
-    const fileName = input.files[0] ? input.files[0].name : 'Click to upload receipt (JPG, PNG, PDF)';
-    document.getElementById('file-name').textContent = fileName;
-    
-    if (input.files[0]) {
-        document.getElementById('file-name').classList.add('text-emerald-400');
-        document.getElementById('file-name').classList.remove('text-gray-400');
+    function updateFileName(input) {
+        const fileName = input.files[0] ? input.files[0].name : 'Click to upload receipt (JPG, PNG, PDF)';
+        document.getElementById('file-name').textContent = fileName;
+        
+        if (input.files[0]) {
+            document.getElementById('file-name').classList.add('text-emerald-400');
+            document.getElementById('file-name').classList.remove('text-gray-400');
+        }
     }
-}
+
+    // Handle payment method switching
+    document.addEventListener('DOMContentLoaded', function() {
+        const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+        const paymentMethodInput = document.getElementById('payment_method_input');
+        const receiptSection = document.getElementById('receipt-section');
+        const submitBtnText = document.getElementById('submit-btn-text');
+
+        paymentRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Update hidden input for form
+                paymentMethodInput.value = this.value;
+                
+                // Show/hide receipt section
+                if (this.value === 'card') {
+                    receiptSection.style.opacity = '0';
+                    setTimeout(() => receiptSection.style.display = 'none', 300);
+                    submitBtnText.textContent = 'Continue to PayHere';
+                } else {
+                    receiptSection.style.display = 'block';
+                    setTimeout(() => receiptSection.style.opacity = '1', 50);
+                    submitBtnText.textContent = 'Complete Booking';
+                }
+            });
+        });
+    });
 </script>
 @endsection

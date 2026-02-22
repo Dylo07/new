@@ -44,4 +44,10 @@ return [
         'key' => env('OPS_API_KEY'),
     ],
 
+    'payhere' => [
+        'merchant_id' => env('PAYHERE_MERCHANT_ID'),
+        'secret' => env('PAYHERE_SECRET'),
+        'env' => env('PAYHERE_ENV', 'sandbox'), // sandbox or production
+    ],
+
 ];

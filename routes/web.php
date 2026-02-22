@@ -13,6 +13,8 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PolicyController;
 // Added these two missing controllers
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController; 
@@ -30,6 +32,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
+// --- PayHere Webhook ---
+// Note: Ensure this route is excluded from CSRF verification in App\Http\Middleware\VerifyCsrfToken
+Route::post('/webhook/payhere', [PaymentController::class, 'webhook'])->name('payment.webhook');
+
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/search', [HomeController::class, 'search'])->name('search');
@@ -41,6 +47,11 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/location', function () {
     return view('location');
 })->name('location');
+
+// Policy Pages
+Route::get('/policies/return-policy', [PolicyController::class, 'returnPolicy'])->name('policies.return-policy');
+Route::get('/policies/privacy-policy', [PolicyController::class, 'privacyPolicy'])->name('policies.privacy-policy');
+Route::get('/policies/terms-and-conditions', [PolicyController::class, 'termsAndConditions'])->name('policies.terms-and-conditions');
 
 // Menu Routes
 Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
@@ -136,6 +147,11 @@ Route::post('/api/leads/track', [App\Http\Controllers\LeadTrackingController::cl
 
 // --- Booking Confirmation (Protected - Requires Login) ---
 Route::middleware(['auth'])->group(function () {
+    // Stripe Payment Routes
+    Route::post('/payment/checkout/{booking}', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
+    Route::get('/payment/success/{booking}', [App\Http\Controllers\PaymentController::class, 'success'])->name('payment.success');
+    Route::get('/payment/cancel/{booking}', [App\Http\Controllers\PaymentController::class, 'cancel'])->name('payment.cancel');
+
     // 1. Review the package booking (The page they land on after login)
     Route::get('/bookings/package/review', [BookingController::class, 'reviewPackage'])
         ->name('bookings.package.review');

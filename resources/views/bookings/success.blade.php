@@ -138,12 +138,17 @@
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="grid grid-cols-2 gap-4">
-                    <a href="{{ route('profile') }}" class="block text-center bg-gray-700 text-white py-4 rounded-lg hover:bg-gray-600 transition font-semibold">
+                <div class="mt-8 flex justify-center space-x-4">
+                    @if($booking->payment_status === 'pending')
+                        <form action="{{ route('payment.checkout', $booking->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                                Pay Now (PayHere)
+                            </button>
+                        </form>
+                    @endif
+                    <a href="{{ route('bookings.my-bookings') }}" class="bg-gray-700 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition">
                         View My Bookings
-                    </a>
-                    <a href="{{ route('home') }}" class="block text-center bg-emerald-600 text-white py-4 rounded-lg hover:bg-emerald-700 transition font-bold">
-                        Back to Home
                     </a>
                 </div>
             </div>

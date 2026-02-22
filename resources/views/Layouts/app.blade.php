@@ -803,8 +803,12 @@
 
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-gray-500 text-sm">&copy; {{ date('Y') }} Soba Lanka Holiday Resort (Pvt) Ltd. All rights reserved.</p>
-                <div class="flex items-center gap-4 text-gray-500 text-sm">
-                    <span>Melsiripura, Kurunegala, Sri Lanka</span>
+                <div class="flex flex-wrap items-center justify-center gap-4 text-gray-500 text-sm">
+                    <a href="{{ route('policies.privacy-policy') }}" class="hover:text-emerald-400 transition-colors">Privacy Policy</a>
+                    <span class="text-gray-700">|</span>
+                    <a href="{{ route('policies.terms-and-conditions') }}" class="hover:text-emerald-400 transition-colors">Terms & Conditions</a>
+                    <span class="text-gray-700">|</span>
+                    <a href="{{ route('policies.return-policy') }}" class="hover:text-emerald-400 transition-colors">Return Policy</a>
                 </div>
             </div>
         </div>
